@@ -1,0 +1,17 @@
+- alias: Daily Songs Calculation
+  trigger:
+    - platform: time
+      at: "23:59:59"
+  condition: []
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.lastfm_played_yesterday
+        value: "{{ states('sensor.lastfm_played_today') }}"
+    - delay:
+        seconds: 2
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.lastfm_midnight_total
+        value: "{{ states('sensor.lastfm_playcount') }}"
+   

@@ -1,0 +1,13 @@
+- platform: lastfm
+  api_key: !secret lastfm_api
+  users:
+    - !secret lastfm_user
+
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+
+- platform: worldclock
+  time_zone: America/Los_Angeles
+  name: Seattle Time

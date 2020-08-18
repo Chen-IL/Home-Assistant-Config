@@ -1,0 +1,5 @@
+- platform: nmap_tracker
+  home_interval: 10
+  consider_home: 240
+  hosts:
+    - !secret nmap_range

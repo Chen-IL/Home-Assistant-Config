@@ -1,0 +1,131 @@
+- platform: template
+  sensors:
+    my_battery:
+      friendly_name: Me Battery via OwnTracks
+      unit_of_measurement: "%"
+      value_template: "{{ state_attr('device_tracker.my_owntracks', 'battery_level')|int }}"
+      device_class: battery
+      unique_id: 'owntracks_battery_my'
+    lastfm_top:
+      friendly_name: Top Played Song
+      value_template: "{{  state_attr('sensor.lastfm', 'top_played')  }}"
+      unique_id: 'lastfm_top'
+    lastfm_playcount:
+      friendly_name: Total Played Songs
+      unit_of_measurement: "Songs"
+      value_template: "{{  state_attr('sensor.lastfm', 'play_count')|int  }}"
+      availability_template: "{{ state_attr('sensor.lastfm', 'play_count') > 0 }}"
+      unique_id: 'lastfm_playcount'
+    lastfm_yearlyplaycount:
+      friendly_name: Yearly Played Songs
+      unit_of_measurement: "Songs"
+      value_template: '{{  (states("sensor.lastfm_playcount") |int) - 9671  }}'
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 9671 }}"
+      unique_id: 'lastfm_yearlyplaycount'
+    lastfm_yearlydayavg:
+      friendly_name: "Daily Avarage Songs: 2020"
+      unit_of_measurement: "Songs"
+      value_template: '{{((states("sensor.lastfm_yearlyplaycount") | int) / ((as_timestamp(now()) - as_timestamp("2020-01-01 00:00:00") ) | timestamp_custom("%j")| int )) | round(2)}}'
+      entity_id:
+        - sensor.date
+        - sensor.lastfm_yearlyplaycount
+      availability_template: "{{ states('sensor.lastfm_yearlyplaycount')|int > 0 }}"
+      unique_id: lastfm_yearlydayavg
+    lastfm_dayavg:
+      friendly_name: "Daily Avarage Songs"
+      unit_of_measurement: "Songs"
+      value_template: '{{((states("sensor.lastfm_playcount") | int) / (((as_timestamp(now()) - as_timestamp("2020-03-04 00:00:00") ) | timestamp_custom("%j")| int ) + 365*2 + 366)) | round(2)}}'
+      entity_id:
+        - sensor.date
+        - sensor.lastfm_playcount
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      unique_id: 'lastfm_dayavg'
+    lastfm_played_today:
+      friendly_name: "Songs Played Today"
+      unit_of_measurement: "Songs"
+      value_template: '{{(states("sensor.lastfm_playcount") | int) - (states("input_number.lastfm_midnight_total") | int)}}'
+      entity_id:
+        - sensor.lastfm_playcount
+        - input_number.lastfm_midnight_total
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      unique_id: 'lastfm_played_today'
+    spotify_device:
+      friendly_name: Spotify Playing on Device
+      value_template: "{{ state_attr('media_player.spotify', 'source') }}"
+      unique_id: 'spotify_on_device'
+    sunlight_pct:
+      entity_id:
+        - sun.sun
+        - sensor.dark_sky_cloud_coverage
+      value_template: >-
+        {%- set elevation = state_attr('sun.sun','elevation') | float %}
+        {%- set cloud_coverage = states('sensor.dark_sky_cloud_coverage') | float %}
+        {%- set cloud_factor = (1 - (0.75 * ( cloud_coverage / 100) ** 3 )) %}
+        {%- set min_elevation = -6 %}
+        {%- set max_elevation = 90 %}
+        {%- set adjusted_elevation = elevation - min_elevation %}
+        {%- set adjusted_elevation = [adjusted_elevation,0] | max %}
+        {%- set adjusted_elevation = [adjusted_elevation,max_elevation - min_elevation] | min %}
+        {%- set adjusted_elevation = adjusted_elevation / (max_elevation - min_elevation) %}
+        {%- set adjusted_elevation = adjusted_elevation %}
+        {%- set adjusted_elevation = adjusted_elevation * 100 %}
+        {%- set brightness = adjusted_elevation * cloud_factor %}
+        {{ brightness | round }}
+      unit_of_measurement: '%'
+      device_class: 'illuminance'
+      unique_id: 'sunlight_calculation'
+    mibox_livingroom_app:
+      friendly_name: MiBox Livingroom App
+      value_template: "{{ state_attr('media_player.mibox3_2', 'app_name') }}"
+      unique_id: 'mibox_livingroom_app'
+    mibox_bedroom_app:
+      friendly_name: MiBox Bedroom App
+      value_template: "{{ state_attr('media_player.mibox3', 'app_name') }}"
+      unique_id: 'mibox_bedroom_app'
+    phone_wifi_bssid:
+      friendly_name: Phone WiFi BSSID
+      value_template: "{{ state_attr('sensor.phone_wifi', 'bssid') }}"
+      unique_id: 'phone_wifi_bssid'
+    phone_wifi_link_speed:
+      friendly_name: Phone WiFi Link Speed
+      value_template: "{{ state_attr('sensor.phone_wifi', 'link_speed') }}"
+      unit_of_measurement: 'KiB/s'
+      unique_id: 'phone_wifi_link_speed'
+    phone_wifi_frequency:
+      friendly_name: Phone WiFi Frequency
+      value_template: "{{ state_attr('sensor.phone_wifi', 'frequency') }}"
+      unit_of_measurement: 'GHz'
+      unique_id: 'phone_wifi_frequency'
+    phone_wifi_signal_level:
+      friendly_name: Phone WiFi Signal Level
+      value_template: "{{ state_attr('sensor.phone_wifi', 'signal_level') }}"
+      unit_of_measurement: 'dBm'
+      device_class: 'signal_strength'
+      unique_id: 'phone_wifi_signal_level'
+    phone_home_wifi_connected:
+      friendly_name: Phone Home WiFi Connected
+      unique_id: 'phone_home_wifi_connected'
+      entity_id:
+        - sensor.phone_wifi_bssid
+        - input_text.upssid
+        - input_text.downssid
+      value_template: >-
+        {%- if states('sensor.phone_wifi_bssid') in states('input_text.upssid') -%}
+          Up
+        {%- elif states('sensor.phone_wifi_bssid') in states('input_text.downssid') -%}
+          Down
+        {%- elif states('sensor.phone_wifi_bssid')|length == 17 -%}
+          {{ states('sensor.phone_wifi_bssid') }}
+        {%- else -%}
+          off
+        {%- endif %}
+      icon_template: >-
+        {%- if states('sensor.phone_wifi_bssid') in states('input_text.upssid') -%}
+          mdi:transfer-up
+        {%- elif states('sensor.phone_wifi_bssid') in states('input_text.downssid') -%}
+          mdi:transfer-down
+        {%- elif states('sensor.phone_wifi_bssid')|length == 17 -%}
+          mdi: cellphone-nfc
+        {%- else -%}
+          mdi: cellphone-nfc-off
+        {%- endif %}

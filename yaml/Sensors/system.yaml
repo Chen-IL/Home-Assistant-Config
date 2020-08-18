@@ -1,0 +1,28 @@
+# CPU Temperature
+- platform: command_line
+  name: CPU Temperature
+  command: 'cat /sys/class/thermal/thermal_zone0/temp'
+  unit_of_measurement: '°C'
+  value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+#  Statistics of RaspPi
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: disk_free
+      arg: /
+    - type: memory_use_percent
+    - type: processor_use
+    - type: last_boot
+
+# Versions for Update Notifications
+- platform: version
+  name: Version Installed
+  source: local  
+  
+- platform: version
+  name: Version Latest
+  beta: false
+  image: raspberrypi3
+  source: hassio

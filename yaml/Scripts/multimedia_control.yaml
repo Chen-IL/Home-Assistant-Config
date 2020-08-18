@@ -1,0 +1,128 @@
+play_spotify_on_mi_box:
+  alias: Play Spotify on Mi Box
+  sequence:
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'on'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_mi_box
+      operation: 'on'
+  - delay: 00:00:10
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.bedroom_receiver
+      source: Mi Box
+  - data:
+      entity_id: media_player.spotify
+      source: My Minix
+    service: media_player.select_source
+  - delay: 00:00:05
+  - data:
+      entity_id: media_player.spotify
+    service: media_player.media_play
+  - data:
+      entity_id: media_player.spotify
+      source: Stereo5
+    service: media_player.select_source
+
+
+
+watch_mi_box:
+  alias: Watch Mi Box
+  sequence:
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.toshiba_tv
+      operation: 'on'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'on'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_mi_box
+      operation: 'on'
+  - delay: 00:00:10
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.bedroom_receiver
+      source: Mi Box
+
+
+
+watch_minix:
+  alias: Watch Minix
+  sequence:
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.minix_up
+      operation: 'on'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.toshiba_tv
+      operation: 'on'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'on'
+  - delay: 00:00:10
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.bedroom_receiver
+      source: Minix
+  - delay: 00:00:05
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.bedroom_receiver
+      source: Surround
+
+
+
+turn_tv_station_off:
+  alias: Turn TV and Appliances off
+  sequence:
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.minix_up
+      operation: 'off'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.toshiba_tv
+      operation: 'off'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'off'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_mi_box
+      operation: 'off'
+
+play_mp3_on_google_home:
+  alias: Play MP3 on Google Home
+  sequence:
+  - service: media_player.play_media
+    data_template:
+      entity_id: media_player.googlehome1164
+      media_content_type: music
+      media_content_id: '{{states("input_text.mp3_url")}}'
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.mp3_url
+      value: ' '
+
+receiver_stereo:
+  alias: Receiver Stereo
+  sequence:
+  - service: media_player.media_previous_track
+    data:
+      entity_id: media_player.bedroom_receiver
+
+receiver_surround:
+  alias: Receiver Surround
+  sequence:
+  - service: media_player.media_next_track
+    data:
+      entity_id: media_player.bedroom_receiver

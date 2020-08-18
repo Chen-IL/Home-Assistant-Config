@@ -1,0 +1,56 @@
+- alias: When Window Opens Mark Accordigly
+  trigger:
+  - platform: state
+    entity_id: cover.bedroom_window1
+    from: 'closed'
+    to: 'open'
+  condition:
+  - condition: state
+    entity_id: input_boolean.window_improperly_closed
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.window_improperly_closed
+
+- alias: Properly Close Window
+  trigger:
+  - platform: state
+    entity_id: cover.bedroom_window1
+    from: 'open'
+    to: 'closed'
+  condition:
+  - condition: state
+    entity_id: input_boolean.window_improperly_closed
+    state: 'on'
+  action:
+  - delay:
+      milliseconds: 500
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.bedroom_window1
+      position: 4
+  - wait_template: "{{ is_state_attr('cover.bedroom_window1', 'current_position', 4) }}"
+  - delay:
+      milliseconds: 500
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.window_improperly_closed
+  - service: cover.close_cover
+    data:
+      entity_id: cover.bedroom_window1
+
+- alias: When Window Opens Sleep is Off
+  trigger:
+  - platform: state
+    entity_id: cover.bedroom_window1
+    from: 'closed'
+    to: 'open'
+  condition:
+  - condition: state
+    entity_id: input_boolean.asleep
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.asleep

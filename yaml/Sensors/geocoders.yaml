@@ -1,0 +1,19 @@
+- platform: places
+  name: My Place
+  devicetracker_id: device_tracker.my_phone
+  map_provider: google
+  map_zoom: 17
+  language: he,en
+  home_zone: zone.home
+  options: zone, place_name, street, street_number, city
+  api_key: !secret geocode_mail1
+
+- platform: places
+  name: My Place English
+  devicetracker_id: device_tracker.my_phone
+  map_provider: google
+  map_zoom: 17
+  language: en
+  home_zone: zone.home
+  options: zone, place_name, street, street_number, city
+  api_key: !secret geocode_mail2

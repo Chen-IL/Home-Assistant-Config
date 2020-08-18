@@ -1,0 +1,1950 @@
+{
+    "data": {
+        "config": {
+            "background": "var(--background-image)",
+            "title": "",
+            "views": [
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "device_tracker.me_nmap",
+                                            "name": "NMAP"
+                                        },
+                                        {
+                                            "entity": "device_tracker.my_phone_app",
+                                            "name": "Phone App Tracker"
+                                        },
+                                        {
+                                            "entity": "device_tracker.me_owntracks",
+                                            "name": "OwnTracks"
+                                        },
+                                        {
+                                            "entity": "sensor.my_place",
+                                            "name": "Place"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_geocoded_location",
+                                            "name": "Geocoded Location"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_wifi",
+                                            "name": "Phone WiFi"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_wifi_frequency",
+                                            "name": "Phone WiFi Frequency"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_wifi_signal_level",
+                                            "name": "Phone WiFi Signal"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_wifi_link_speed",
+                                            "name": "Phone WiFi Link Speed"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_wifi_bssid",
+                                            "name": "Phone WiFi BSSID"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_battery",
+                                            "name": "Phone Battery (App)"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_battery_state",
+                                            "name": "Phone Battery State"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_bluetooth_connection",
+                                            "name": "Phone Bluetooth Connection"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_storage_sensor",
+                                            "name": "Phone Storage"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_light_sensor",
+                                            "name": "Phone Light"
+                                        }
+                                    ],
+                                    "group_config": {
+                                        "secondary_info": "last-changed"
+                                    },
+                                    "head": {
+                                        "entity": "person.me",
+                                        "name": "Person Entity",
+                                        "secondary_info": "last-changed"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entity": "sensor.phone_home_wifi_connected",
+                                    "name": "WiFi Connected",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.my_phone_battery",
+                                    "name": "Phone Battery (Tasker)",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.miband_status",
+                                    "icon": "mdi:watch",
+                                    "name": "MiBand Status",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.miband_battery",
+                                    "name": "MiBand Battery",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "input_boolean.asleep",
+                                    "name": "Asleep?",
+                                    "secondary_info": "last-changed"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true,
+                            "title": "Me",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.bedroom_light",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "light.turn_on",
+                                        "service_data": {
+                                            "brightness": 204,
+                                            "color_temp": 312,
+                                            "entity_id": "light.bedroom_light"
+                                        }
+                                    },
+                                    "name": "Light",
+                                    "secondary_info": "last-changed",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "cover.bedroom_window1",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "confirmation": {
+                                            "text": "Shake Window?"
+                                        },
+                                        "service": "script.shake_window"
+                                    },
+                                    "name": "Window",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "card": {
+                                        "entity": "cover.bedroom_window1",
+                                        "full_row": true,
+                                        "name": "Window",
+                                        "step": 1,
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "restrictions": {
+                                        "confirm": {
+                                            "condition": {
+                                                "entity": "cover.bedroom_window1",
+                                                "value": "closed"
+                                            },
+                                            "text": "Do you want to open the window?"
+                                        }
+                                    },
+                                    "row": true,
+                                    "type": "custom:restriction-card"
+                                },
+                                {
+                                    "card": {
+                                        "entity": "fan.bedroom_fan",
+                                        "name": "Fan",
+                                        "secondary_info": "last-changed",
+                                        "state_color": true
+                                    },
+                                    "condition": {
+                                        "entity": "switch.bedroom_ac_switch",
+                                        "value": "on"
+                                    },
+                                    "restrictions": {
+                                        "confirm": {
+                                            "text": "This will turn the AC off."
+                                        }
+                                    },
+                                    "row": true,
+                                    "type": "custom:restriction-card"
+                                },
+                                {
+                                    "card": {
+                                        "entity": "switch.bedroom_ac_switch",
+                                        "name": "AC",
+                                        "secondary_info": "last-changed",
+                                        "state_color": true
+                                    },
+                                    "row": true,
+                                    "type": "custom:restriction-card"
+                                },
+                                {
+                                    "entity": "climate.bedroom_aircondition",
+                                    "name": "Air Condition",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "entity": "switch.bedroom_ac_switch",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "row": {
+                                        "entity": "climate.bedroom_aircondition",
+                                        "full_row": true,
+                                        "name": "Temperature",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "type": "conditional"
+                                },
+                                {
+                                    "label": "Multimedia",
+                                    "type": "section"
+                                },
+                                {
+                                    "entity": "switch.bedroom_tv",
+                                    "icon": "mdi:television-guide",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "media_player.bedroom_receiver",
+                                    "group": true,
+                                    "hide": {
+                                        "icon_state": false,
+                                        "power_state": false
+                                    },
+                                    "icon": "mdi:audio-video",
+                                    "name": "Receiver",
+                                    "source": "icon",
+                                    "type": "custom:mini-media-player",
+                                    "volume_stateless": true
+                                },
+                                {
+                                    "artwork": "material",
+                                    "entity": "media_player.spotify",
+                                    "group": true,
+                                    "hide": {
+                                        "power": true,
+                                        "runtime": false,
+                                        "shuffle": false
+                                    },
+                                    "info": "scroll",
+                                    "source": "full",
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "artwork": "material",
+                                    "entity": "media_player.googlehome1164",
+                                    "group": true,
+                                    "hide": {
+                                        "runtime": false
+                                    },
+                                    "info": "scroll",
+                                    "type": "custom:mini-media-player"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true,
+                            "title": "Bedroom Controls",
+                            "type": "custom:hui-entities-card"
+                        },
+                        {
+                            "card": {
+                                "artwork": "full-cover",
+                                "entity": "media_player.googlehome1164",
+                                "hide": {
+                                    "power": true,
+                                    "runtime": false
+                                },
+                                "type": "custom:mini-media-player"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "media_player.googlehome1164",
+                                    "state": "playing"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "artwork": "full-cover",
+                                "entity": "media_player.spotify",
+                                "hide": {
+                                    "power": true,
+                                    "runtime": false,
+                                    "shuffle": false
+                                },
+                                "source": "full",
+                                "type": "custom:mini-media-player"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "media_player.googlehome1164",
+                                    "state_not": "playing"
+                                },
+                                {
+                                    "entity": "media_player.spotify",
+                                    "state": "playing"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "calEventTime": true,
+                            "enableModeChange": true,
+                            "entities": [
+                                {
+                                    "color": "blue",
+                                    "entity": "calendar.main",
+                                    "eventCalName": "Main",
+                                    "icon": "mdi:star"
+                                },
+                                {
+                                    "color": "red",
+                                    "entity": "calendar.holidays_israel",
+                                    "eventCalName": "Holidays Israel",
+                                    "icon": "mdi:flag"
+                                },
+                                {
+                                    "color": "darkgreen",
+                                    "entity": "calendar.holidays_usa",
+                                    "eventCalName": "Holidays USA",
+                                    "icon": "mdi:football"
+                                },
+                                {
+                                    "color": "purple",
+                                    "entity": "calendar.kayak_trips",
+                                    "icon": "mdi:star-four-points"
+                                }
+                            ],
+                            "firstDayOfWeek": 7,
+                            "maxDaysToShow": 32,
+                            "name": "Calendar",
+                            "showColors": true,
+                            "showDate": true,
+                            "showDescription": false,
+                            "showLoader": true,
+                            "showLocation": true,
+                            "showMonth": true,
+                            "showNoEventsForToday": false,
+                            "showWeekDay": true,
+                            "sortByStartTime": false,
+                            "type": "custom:atomic-calendar-revive"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.dht_sensor_temperature_filtered"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_temperature"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 15,
+                            "type": "history-graph"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.lastfm_yearlyplaycount",
+                                    "icon": "mdi:music-clef-treble",
+                                    "name": "Played 2020"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_yearlydayavg",
+                                    "icon": "mdi:music-clef-bass",
+                                    "name": "Avarage 2020"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_played_today",
+                                    "icon": "mdi:music-note",
+                                    "name": "Today"
+                                },
+                                {
+                                    "entity": "input_number.lastfm_played_yesterday",
+                                    "icon": "mdi:music-note-sixteenth",
+                                    "name": "Yesterday"
+                                }
+                            ],
+                            "show_icon": true,
+                            "show_name": true,
+                            "show_state": true,
+                            "type": "glance"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.guest_mode",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "input_select.houseclean_day"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "columns": 4,
+                            "entities": [
+                                {
+                                    "entity": "sensor.israel_coronavirus_confirmed",
+                                    "icon": "mdi:emoticon-neutral-outline",
+                                    "name": "IL: Confirmed"
+                                },
+                                {
+                                    "entity": "sensor.israel_coronavirus_current",
+                                    "icon": "mdi:emoticon-frown-outline",
+                                    "name": "IL: Current"
+                                },
+                                {
+                                    "entity": "sensor.israel_coronavirus_deaths",
+                                    "icon": "mdi:emoticon-dead-outline",
+                                    "name": "IL: Deaths"
+                                },
+                                {
+                                    "entity": "sensor.israel_coronavirus_recovered",
+                                    "icon": "mdi:emoticon-happy-outline",
+                                    "name": "IL: Recovered"
+                                },
+                                {
+                                    "entity": "sensor.worldwide_coronavirus_confirmed",
+                                    "icon": "mdi:emoticon-neutral-outline",
+                                    "name": "Total: Confirmed"
+                                },
+                                {
+                                    "entity": "sensor.worldwide_coronavirus_current",
+                                    "icon": "mdi:emoticon-frown-outline",
+                                    "name": "Total: Current"
+                                },
+                                {
+                                    "entity": "sensor.worldwide_coronavirus_deaths",
+                                    "icon": "mdi:emoticon-dead-outline",
+                                    "name": "Total: Deaths"
+                                },
+                                {
+                                    "entity": "sensor.worldwide_coronavirus_recovered",
+                                    "icon": "mdi:emoticon-happy-outline",
+                                    "name": "Total: Recovered"
+                                }
+                            ],
+                            "show_icon": true,
+                            "show_name": true,
+                            "title": "COVID-19",
+                            "type": "glance"
+                        },
+                        {
+                            "detail": 0,
+                            "entity": "sensor.dark_sky_temperature",
+                            "type": "sensor"
+                        }
+                    ],
+                    "icon": "mdi:home",
+                    "path": "home",
+                    "title": "Default View"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.bedroom_light",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "light.turn_on",
+                                        "service_data": {
+                                            "brightness": 204,
+                                            "color_temp": 312,
+                                            "entity_id": "light.bedroom_light"
+                                        }
+                                    },
+                                    "name": "Light",
+                                    "secondary_info": "last-changed",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "cover.bedroom_window1",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "confirmation": {
+                                            "text": "Shake Window?"
+                                        },
+                                        "service": "script.shake_window"
+                                    },
+                                    "name": "Window",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "cover.bedroom_window1",
+                                    "full_row": true,
+                                    "name": "Window",
+                                    "step": 1,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "fan.bedroom_fan",
+                                    "name": "Fan",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "switch.bedroom_ac_switch",
+                                    "name": "AC",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "climate.bedroom_aircondition",
+                                    "name": "Air Condition",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "entity": "switch.bedroom_ac_switch",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "row": {
+                                        "entity": "climate.bedroom_aircondition",
+                                        "full_row": true,
+                                        "name": "Temperature",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "type": "conditional"
+                                },
+                                {
+                                    "entity": "switch.my_computer",
+                                    "name": "Computer",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "entity": "switch.my_computer",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "row": {
+                                        "entity": "lock.my_computer_lock",
+                                        "name": "Computer Lock",
+                                        "secondary_info": "last-changed"
+                                    },
+                                    "type": "conditional"
+                                },
+                                {
+                                    "label": "Multimedia",
+                                    "type": "section"
+                                },
+                                {
+                                    "entity": "switch.bedroom_tv",
+                                    "icon": "mdi:television-guide",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "switch.toshiba_tv",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "broadlink.send",
+                                        "service_data": {
+                                            "host": "",
+                                            "packet": ""
+                                        }
+                                    },
+                                    "name": "Screen",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "media_player.bedroom_receiver",
+                                    "group": true,
+                                    "hide": {
+                                        "icon_state": false,
+                                        "power_state": false
+                                    },
+                                    "icon": "mdi:audio-video",
+                                    "name": "Receiver",
+                                    "source": "icon",
+                                    "type": "custom:mini-media-player",
+                                    "volume_stateless": true
+                                },
+                                {
+                                    "entity": "media_player.bedroom_mi_box",
+                                    "group": true,
+                                    "hide": {
+                                        "icon_state": false,
+                                        "power_state": false
+                                    },
+                                    "icon": "mdi:android",
+                                    "name": "Mi Box",
+                                    "type": "custom:mini-media-player",
+                                    "volume_stateless": true
+                                },
+                                {
+                                    "entity": "media_player.mibox3",
+                                    "group": true,
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "entity": "sensor.mibox_bedroom_app",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "switch.minix_up",
+                                    "name": "Minix",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "media_player.spotify",
+                                    "group": true,
+                                    "hide": {
+                                        "power": true,
+                                        "runtime": false,
+                                        "shuffle": false
+                                    },
+                                    "info": "scroll",
+                                    "source": "full",
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "type": "divider"
+                                },
+                                {
+                                    "entity": "media_player.googlehome1164",
+                                    "group": true,
+                                    "hide": {
+                                        "runtime": false
+                                    },
+                                    "info": "scroll",
+                                    "tts": {
+                                        "entity": "notify.ga_broadcast",
+                                        "platform": "ga"
+                                    },
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "entity": "input_text.mp3_url"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "entity": "input_text.mp3_url",
+                                            "state_not": " "
+                                        }
+                                    ],
+                                    "row": {
+                                        "entity": "script.play_mp3_on_google_home",
+                                        "icon": "mdi:file-music"
+                                    },
+                                    "type": "conditional"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true,
+                            "title": "Controls",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "script.watch_mi_box",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "script.watch_minix",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "script.play_spotify_on_mi_box",
+                                    "icon": "mdi:spotify",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "script.turn_tv_station_off"
+                                },
+                                {
+                                    "entity": "script.leaving_bedroom"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Bedroom Scripts",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.dht_sensor_temperature",
+                                            "name": "Temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.dht_sensor_humidity",
+                                            "name": "Humidity"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Bedroom Temperature",
+                                    "type": "entities"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.dht_sensor_temperature_filtered"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_temperature"
+                                        }
+                                    ],
+                                    "hours_to_show": 12,
+                                    "refresh_interval": 15,
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "automation.turn_everything_off_in_bedroom",
+                                    "secondary_info": "last-triggered"
+                                },
+                                {
+                                    "entity": "automation.turn_light_on_in_bedroom",
+                                    "secondary_info": "last-triggered"
+                                }
+                            ],
+                            "title": "Bedroom Automations",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.guest_mode",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "input_select.houseclean_day"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "back": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "channeldown": {
+                                "service": "media_player.volume_down",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_receiver"
+                                }
+                            },
+                            "channelup": {
+                                "service": "media_player.volume_up",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_receiver"
+                                }
+                            },
+                            "down": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "entity": "media_player.bedroom_mi_box",
+                            "forward": {
+                                "service": "media_player.media_next_track",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_mi_box"
+                                }
+                            },
+                            "home": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "left": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "name": "Mi Box",
+                            "power": {
+                                "service": "media_player.turn_on",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_mi_box"
+                                }
+                            },
+                            "reverse": {
+                                "service": "media_player.media_previous_track",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_mi_box"
+                                }
+                            },
+                            "right": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "select": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "tv": true,
+                            "type": "custom:tv-card",
+                            "up": {
+                                "service": "broadlink.send",
+                                "service_data": {
+                                    "host": "",
+                                    "packet": ""
+                                }
+                            },
+                            "volume_down": {
+                                "service": "media_player.volume_down",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_mi_box"
+                                }
+                            },
+                            "volume_up": {
+                                "service": "media_player.volume_up",
+                                "service_data": {
+                                    "entity_id": "media_player.bedroom_mi_box"
+                                }
+                            }
+                        }
+                    ],
+                    "icon": "mdi:bed",
+                    "path": "bedroom",
+                    "title": "Bedroom"
+                },
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.lastfm",
+                                    "name": "LastFM",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_top",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_playcount",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_dayavg",
+                                    "icon": "mdi:music",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_yearlyplaycount",
+                                    "icon": "mdi:music-clef-treble"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_yearlydayavg",
+                                    "icon": "mdi:music-clef-bass",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.lastfm_played_today",
+                                    "icon": "mdi:music-note",
+                                    "name": "Played Today"
+                                },
+                                {
+                                    "entity": "input_number.lastfm_played_yesterday",
+                                    "icon": "mdi:music-note-sixteenth",
+                                    "name": "Played Yesterday"
+                                },
+                                {
+                                    "entity": "sensor.spotify_device",
+                                    "icon": "mdi:cast-audio",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "script.play_spotify_on_mi_box",
+                                    "icon": "mdi:spotify",
+                                    "secondary_info": "last-changed"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "artwork": "full-cover",
+                            "entity": "media_player.spotify",
+                            "hide": {
+                                "power": true,
+                                "runtime": false,
+                                "shuffle": false
+                            },
+                            "source": "full",
+                            "type": "custom:mini-media-player"
+                        },
+                        {
+                            "artwork": "full-cover",
+                            "entity": "media_player.googlehome1164",
+                            "hide": {
+                                "power": true,
+                                "runtime": false
+                            },
+                            "tts": {
+                                "entity": "notify.ga_broadcast",
+                                "platform": "ga"
+                            },
+                            "type": "custom:mini-media-player"
+                        }
+                    ],
+                    "icon": "mdi:music",
+                    "path": "music",
+                    "title": "Music"
+                },
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.minix_down",
+                                    "secondary_info": "last-changed",
+                                    "state_color": true
+                                },
+                                {
+                                    "entity": "media_player.livingroom_tv",
+                                    "group": true,
+                                    "type": "custom:mini-media-player",
+                                    "volume_stateless": true
+                                },
+                                {
+                                    "entity": "media_player.mibox3_2",
+                                    "group": true,
+                                    "hide": {
+                                        "runtime": false
+                                    },
+                                    "info": "scroll",
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "entity": "sensor.mibox_livingroom_app",
+                                    "secondary_info": "last-changed"
+                                }
+                            ],
+                            "state_color": true,
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "media_player.sting_9491",
+                            "type": "custom:mini-media-player"
+                        }
+                    ],
+                    "icon": "mdi:sofa",
+                    "path": "livingroom",
+                    "title": "Livingroom"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sun.sun",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_summary",
+                                            "name": "Summary"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_alerts",
+                                            "name": "Alerts"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_temperature",
+                                            "name": "Current Temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_apparent_temperature",
+                                            "name": "Apparent Temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_cloud_coverage",
+                                            "name": "Cloud Coverage"
+                                        },
+                                        {
+                                            "entity": "sensor.sunlight_pct",
+                                            "name": "Sunlight Simulated"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_uv_index",
+                                            "name": "UV Index"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_visibility",
+                                            "name": "Visibility"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_speed",
+                                            "name": "Wind Speed"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_bearing",
+                                            "name": "Wind Bearing"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_gust",
+                                            "name": "Wind Gust"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_humidity",
+                                            "name": "Humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability",
+                                            "name": "Precipitation Probability"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Weather Now",
+                                    "type": "entities"
+                                },
+                                {
+                                    "card": {
+                                        "entities": [
+                                            {
+                                                "entity": "sensor.dark_sky_precip",
+                                                "name": "Precipitation"
+                                            },
+                                            {
+                                                "entity": "sensor.dark_sky_precip_intensity",
+                                                "name": "Precipitation Intensity"
+                                            }
+                                        ],
+                                        "type": "entities"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability",
+                                            "state_not": "0"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.dark_sky_hourly_summary",
+                                            "name": "Hourly Summary"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_summary_0d",
+                                            "name": "Today Summary"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_daytime_high_temperature_0d",
+                                            "name": "Daytime High"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_daytime_high_apparent_temperature_0d",
+                                            "name": "Daytime High Apparent"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_overnight_low_temperature_0d",
+                                            "name": "Overnight Low"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_overnight_low_apparent_temperature_0d",
+                                            "name": "Overnight Low Apparent"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_cloud_coverage_0d",
+                                            "name": "Cloud Coverage"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_uv_index_0d",
+                                            "name": "UV Index"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_visibility_0d",
+                                            "name": "Visibility"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_speed_0d",
+                                            "name": "Wind Speed"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_bearing_0d",
+                                            "name": "Wind Bearing"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_gust_0d",
+                                            "name": "Wind Gust"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_humidity_0d",
+                                            "name": "Humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability_0d",
+                                            "name": "Precipitation Probability"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Weather Today",
+                                    "type": "entities"
+                                },
+                                {
+                                    "card": {
+                                        "entities": [
+                                            {
+                                                "entity": "sensor.dark_sky_precip_0d",
+                                                "name": "Precipitation"
+                                            },
+                                            {
+                                                "entity": "sensor.dark_sky_precip_intensity_0d",
+                                                "name": "Precipitation Intensity"
+                                            },
+                                            {
+                                                "entity": "sensor.dark_sky_daily_max_precip_intensity_0d",
+                                                "name": "Max Precipitation Intensity"
+                                            }
+                                        ],
+                                        "type": "entities"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability_0d",
+                                            "state_not": "0"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.dark_sky_summary_1d",
+                                            "name": "Tomorrow Summary"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_daily_summary",
+                                            "name": "Daily Summary"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_daytime_high_temperature_1d",
+                                            "name": "Daytime High"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_daytime_high_apparent_temperature_1d",
+                                            "name": "Daytime High Apparent"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_overnight_low_temperature_1d",
+                                            "name": "Overnight Low"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_overnight_low_apparent_temperature_1d",
+                                            "name": "Overnight Low Apparent"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_cloud_coverage_1d",
+                                            "name": "Cloud Coverage"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_uv_index_1d",
+                                            "name": "UV Index"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_visibility_1d",
+                                            "name": "Visibility"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_speed_1d",
+                                            "name": "Wind Speed"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_bearing_1d",
+                                            "name": "Wind Bearing"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_wind_gust_1d",
+                                            "name": "Wind Gust"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_humidity_1d",
+                                            "name": "Humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability_1d",
+                                            "name": "Precipitation Probability"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Weather Tomorrow",
+                                    "type": "entities"
+                                },
+                                {
+                                    "card": {
+                                        "entities": [
+                                            {
+                                                "entity": "sensor.dark_sky_precip_1d",
+                                                "name": "Precipitation"
+                                            },
+                                            {
+                                                "entity": "sensor.dark_sky_precip_intensity_1d",
+                                                "name": "Precipitation Intensity"
+                                            },
+                                            {
+                                                "entity": "sensor.dark_sky_daily_max_precip_intensity_1d",
+                                                "name": "Max Precipitation Intensity"
+                                            }
+                                        ],
+                                        "type": "entities"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.dark_sky_precip_probability_1d",
+                                            "state_not": "0"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "entity": "camera.weather_graph",
+                            "image": "https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.svg",
+                            "show_info": false,
+                            "type": "picture-entity"
+                        },
+                        {
+                            "entity": "camera.sun_and_clouds_israel",
+                            "image": "https://api.sat24.com/animated/IS/visual/3/Jerusalem%20Standard%20Time/8975788",
+                            "show_info": false,
+                            "type": "picture-entity"
+                        },
+                        {
+                            "aspect_ratio": "80%",
+                            "type": "iframe",
+                            "url": "https://embed.windy.com/embed2.html?wind,"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.blitzortung_lightning_counter",
+                                    "name": "Counter",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.blitzortung_lightning_azimuth",
+                                    "name": "Azimuth",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.blitzortung_lightning_distance",
+                                    "name": "Distance",
+                                    "secondary_info": "last-changed"
+                                }
+                            ],
+                            "title": "Lightnings",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:weather-partly-cloudy",
+                    "path": "weather",
+                    "title": "Weather"
+                },
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "automation.turn_everything_off_in_bedroom"
+                                },
+                                {
+                                    "entity": "automation.turn_light_on_in_bedroom"
+                                },
+                                {
+                                    "entity": "automation.warning_processor"
+                                },
+                                {
+                                    "entity": "automation.warning_temperature"
+                                },
+                                {
+                                    "entity": "automation.new_device_warning"
+                                },
+                                {
+                                    "entity": "automation.update_available_notifications"
+                                },
+                                {
+                                    "entity": "automation.skype_turn_on"
+                                },
+                                {
+                                    "entity": "automation.skype_turn_off"
+                                },
+                                {
+                                    "entity": "automation.ac_shutdown_20_minutes_timer"
+                                },
+                                {
+                                    "entity": "input_boolean.fan_on_after_falling_asleep_with_ac"
+                                },
+                                {
+                                    "entity": "automation.properly_close_window"
+                                },
+                                {
+                                    "entity": "automation.when_window_opens_sleep_is_off"
+                                },
+                                {
+                                    "entity": "automation.when_ac_on_announce_temperature"
+                                },
+                                {
+                                    "entity": "automation.when_fan_on_announce_temperature"
+                                },
+                                {
+                                    "entity": "automation.when_ac_on_fan_off"
+                                },
+                                {
+                                    "entity": "automation.when_fan_on_ac_off"
+                                },
+                                {
+                                    "entity": "automation.when_ac_on_sweep_on"
+                                },
+                                {
+                                    "entity": "automation.shutdown_pi_on_power_outage"
+                                },
+                                {
+                                    "entity": "automation.open_the_window_on_power_outage_sunday"
+                                },
+                                {
+                                    "entity": "automation.turn_ac_on_on_power_outage_sunday"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.guest_mode",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "input_select.houseclean_day"
+                                },
+                                {
+                                    "entity": "input_datetime.house_cleaning_start"
+                                },
+                                {
+                                    "entity": "input_datetime.house_cleaning_end"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "calendar.main"
+                                },
+                                {
+                                    "entity": "calendar.holidays_israel"
+                                },
+                                {
+                                    "entity": "calendar.holidays_usa"
+                                },
+                                {
+                                    "entity": "calendar.kayak_trips"
+                                },
+                                {
+                                    "entity": "calendar.contacts"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Calendars",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:home-automation",
+                    "path": "automations",
+                    "title": "Automations"
+                },
+                {
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.processor_use",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "CPU",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": 30,
+                                                "yellow": 20
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.memory_use_percent",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "RAM",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": 85,
+                                                "yellow": 60
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.disk_use_percent",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Storage",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": 90,
+                                                "yellow": 70
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.cpu_temperature",
+                                            "max": 90,
+                                            "min": 40,
+                                            "name": "Temp.",
+                                            "severity": {
+                                                "green": 0,
+                                                "red": 70,
+                                                "yellow": 65
+                                            },
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.disk_free"
+                                        },
+                                        {
+                                            "entity": "sensor.last_boot"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.rpi_power_status"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.version_installed",
+                                    "icon": "mdi:package"
+                                },
+                                {
+                                    "entity": "sensor.version_latest",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.hacs",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "sensor.snapshot_backup",
+                                    "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "binary_sensor.snapshots_stale",
+                                    "secondary_info": "last-changed"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true,
+                            "title": "Hass",
+                            "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "entities": [
+                                    {
+                                        "entity": "binary_sensor.my_computer_connected",
+                                        "icon": "mdi:laptop-windows",
+                                        "secondary_info": "last-changed"
+                                    },
+                                    {
+                                        "action_name": "Refresh",
+                                        "entity": "script.laptop_refresh",
+                                        "icon": "mdi:refresh"
+                                    }
+                                ],
+                                "show_header_toggle": false,
+                                "state_color": true,
+                                "title": "Laptop",
+                                "type": "entities"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "binary_sensor.my_computer_connected",
+                                    "state_not": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "cards": [
+                                    {
+                                        "entities": [
+                                            {
+                                                "entity": "binary_sensor.my_computer_connected",
+                                                "icon": "mdi:laptop-chromebook",
+                                                "secondary_info": "last-changed"
+                                            },
+                                            {
+                                                "conditions": [
+                                                    {
+                                                        "entity": "binary_sensor.laptop_power_status",
+                                                        "state_not": "on"
+                                                    }
+                                                ],
+                                                "row": {
+                                                    "entity": "sensor.laptop_battery_remaining_time"
+                                                },
+                                                "type": "conditional"
+                                            }
+                                        ],
+                                        "show_header_toggle": false,
+                                        "state_color": true,
+                                        "title": "Laptop",
+                                        "type": "entities"
+                                    },
+                                    {
+                                        "columns": 4,
+                                        "entities": [
+                                            {
+                                                "entity": "binary_sensor.laptop_power_status",
+                                                "name": "AC Power"
+                                            },
+                                            {
+                                                "entity": "sensor.laptop_battery_remaining",
+                                                "name": "Batt %"
+                                            },
+                                            {
+                                                "entity": "sensor.laptop_battery_full_lifetime",
+                                                "name": "Batt Lifetime"
+                                            },
+                                            {
+                                                "entity": "binary_sensor.laptop_battery_status",
+                                                "name": "Batt Status"
+                                            }
+                                        ],
+                                        "type": "glance"
+                                    },
+                                    {
+                                        "cards": [
+                                            {
+                                                "entity": "script.laptop_vol_mute",
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                },
+                                                "icon": "mdi:volume-off",
+                                                "name": "(Un)Mute",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "show_state": false,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "button"
+                                            },
+                                            {
+                                                "entity": "script.laptop_lock",
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                },
+                                                "icon": "mdi:lock",
+                                                "name": "Lock",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "show_state": false,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "button"
+                                            },
+                                            {
+                                                "card": {
+                                                    "entity": "script.laptop_suspend",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:power-settings",
+                                                    "name": "Suspend",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "show_state": false,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                "type": "custom:restriction-card"
+                                            },
+                                            {
+                                                "card": {
+                                                    "entity": "script.laptop_hibernate",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:power-sleep",
+                                                    "name": "Hibernate",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "show_state": false,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                "type": "custom:restriction-card"
+                                            }
+                                        ],
+                                        "type": "horizontal-stack"
+                                    },
+                                    {
+                                        "cards": [
+                                            {
+                                                "card": {
+                                                    "entity": "script.laptop_shutdown",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:power",
+                                                    "name": "Shutdown",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "show_state": false,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                "type": "custom:restriction-card"
+                                            },
+                                            {
+                                                "entity": "script.laptop_displays_on",
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                },
+                                                "icon": "mdi:monitor",
+                                                "name": "Disp. ON",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "show_state": false,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "button"
+                                            },
+                                            {
+                                                "card": {
+                                                    "entity": "script.laptop_displays_off",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:monitor-off",
+                                                    "name": "Disp. OFF",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "show_state": false,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                "type": "custom:restriction-card"
+                                            },
+                                            {
+                                                "entity": "script.laptop_refresh",
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                },
+                                                "icon": "mdi:refresh",
+                                                "name": "Refresh",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "show_state": false,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "button"
+                                            }
+                                        ],
+                                        "type": "horizontal-stack"
+                                    }
+                                ],
+                                "type": "vertical-stack"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "binary_sensor.my_computer_connected",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.shelly_2_5_power",
+                                    "name": "Power"
+                                },
+                                {
+                                    "entity": "sensor.shelly_2_5_energy",
+                                    "name": "Energy"
+                                },
+                                {
+                                    "entity": "sensor.shelly_2_5_temperature",
+                                    "name": "Temp"
+                                },
+                                {
+                                    "entity": "binary_sensor.shelly_2_5_overtemperature",
+                                    "name": "Overtemp?"
+                                },
+                                {
+                                    "entity": "binary_sensor.shelly_2_5_firmware_update",
+                                    "name": "FW Update"
+                                }
+                            ],
+                            "title": "Shelly",
+                            "type": "glance"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "icon": "mdi:router-wireless",
+                                    "name": "Router",
+                                    "type": "weblink",
+                                    "url": ""
+                                },
+                                {
+                                    "icon": "mdi:router-wireless",
+                                    "name": "Switch",
+                                    "type": "weblink",
+                                    "url": ""
+                                },
+                                {
+                                    "icon": "mdi:home-assistant",
+                                    "name": "Home Assistant Integrations",
+                                    "type": "weblink",
+                                    "url": "https://www.home-assistant.io/integrations/"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.printer_status"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_uptime"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.printer_black_ink_remaining",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Black",
+                                            "severity": {
+                                                "green": 15,
+                                                "red": 0,
+                                                "yellow": 3
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_cyan_ink_remaining",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Cyan",
+                                            "severity": {
+                                                "green": 15,
+                                                "red": 0,
+                                                "yellow": 3
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_magenta_ink_remaining",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Magenta",
+                                            "severity": {
+                                                "green": 15,
+                                                "red": 0,
+                                                "yellow": 3
+                                            },
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_yellow_ink_remaining",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Yellow",
+                                            "severity": {
+                                                "green": 15,
+                                                "red": 0,
+                                                "yellow": 3
+                                            },
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "detail": 2,
+                                            "entity": "sensor.printer_page_counter",
+                                            "graph": "line",
+                                            "name": "Total",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "detail": 2,
+                                            "entity": "sensor.printer_b_w_counter",
+                                            "graph": "line",
+                                            "name": "B/W",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "detail": 0,
+                                            "entity": "sensor.printer_color_counter",
+                                            "graph": "line",
+                                            "name": "Color",
+                                            "type": "sensor"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "title": "Printer",
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "cards": [
+                                        {
+                                            "detail": 2,
+                                            "entity": "sensor.router_kib_s_received",
+                                            "hours_to_show": 12,
+                                            "icon": "mdi:download-network",
+                                            "name": "Down",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "detail": 2,
+                                            "entity": "sensor.router_kib_s_sent",
+                                            "hours_to_show": 12,
+                                            "icon": "mdi:upload-network",
+                                            "name": "Up",
+                                            "type": "sensor"
+                                        }
+                                    ],
+                                    "title": "Internet Speed",
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.router_kib_s_received",
+                                            "name": "Received"
+                                        }
+                                    ],
+                                    "hours_to_show": 2,
+                                    "refresh_interval": 2,
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.router_kib_s_sent",
+                                            "name": "Sent"
+                                        }
+                                    ],
+                                    "hours_to_show": 2,
+                                    "refresh_interval": 2,
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "aspect_ratio": "120%",
+                            "type": "iframe",
+                            "url": ""
+                        }
+                    ],
+                    "icon": "mdi:gauge",
+                    "path": "system",
+                    "title": "System"
+                }
+            ]
+        }
+    },
+    "key": "lovelace",
+    "version": 1
+}

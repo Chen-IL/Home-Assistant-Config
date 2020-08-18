@@ -1,0 +1,60 @@
+leaving_bedroom:
+  alias: Leaving Bedroom
+  sequence:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.bedroom_ac_switch
+  - service: fan.turn_off
+    data:
+      entity_id: fan.bedroom_fan
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'off'
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.toshiba_tv
+      operation: 'off'
+  - service: lock.lock
+    data:
+      entity_id: lock.my_computer_lock
+  - service: script.laptop_lock
+  - service: light.turn_off
+    data:
+      entity_id: light.bedroom_light
+  - service: notify.telegram_main
+    data:
+      message: "Turned OFF everything for you. #to4mi"
+
+
+
+offer_run_leaving_bedroom:
+  alias: Offer to run Leaving Bedroom
+  sequence:
+  - delay:
+      minutes: 1
+      seconds: 30
+  - condition: state
+    entity_id: automation.turn_everything_off_in_bedroom
+    state: 'on'
+  - service: notify.ga_broadcast
+    data:
+      message: "Perparing for shutdown. If you're here - invoke the google assistant and say: I'm Here!"
+  - delay:
+      minutes: 1
+  - condition: state
+    entity_id: automation.turn_everything_off_in_bedroom
+    state: 'on'
+  - service: script.leaving_bedroom
+
+
+cancel_leaving_bedroom:
+  alias: Cancel Leaving Bedroom
+  sequence:
+  - service: script.turn_off
+    data:
+      entity_id:
+      - script.offer_run_leaving_bedroom
+  - service: notify.ga_broadcast
+    data:
+      message: "Canceled the leaving script."

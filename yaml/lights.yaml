@@ -1,0 +1,11 @@
+- platform: mqtt
+  name: "Bedroom Ceiling Fan Light"
+  command_topic: "cmnd/iFan03-2/power1"
+  state_topic: "stat/iFan03-2/POWER1"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  availability_topic: tele/iFan03-2/LWT
+  payload_available: Online
+  payload_not_available: Offline
+  retain: false

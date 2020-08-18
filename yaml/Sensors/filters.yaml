@@ -1,0 +1,7 @@
+- platform: filter
+  name: DHT Sensor Temperature - Filtered
+  entity_id: sensor.dht_sensor_temperature
+  filters:
+    - filter: outlier
+      radius: 1.0
+      window_size: 4

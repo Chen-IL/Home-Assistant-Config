@@ -1,0 +1,72 @@
+- alias: Turn everything off in Bedroom
+  mode: single
+  trigger:
+  - platform: state
+    entity_id: sensor.phone_home_wifi_connected
+    to: Down
+    for:
+      minutes: 1
+      seconds: 30
+  - platform: state
+    entity_id: sensor.phone_home_wifi_connected
+    to: 'off'
+    for:
+      minutes: 3
+  condition:
+  - condition: state
+    entity_id: script.offer_run_leaving_bedroom
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.asleep
+    state: 'off'
+  action:
+  - service: notify.telegram_main
+    data_template:
+      title: "<b>You Have Left Your Bedroom</b>"
+      message: >
+        About to run leaving script.
+        
+        {% if trigger is defined -%} Triggered by: {{ trigger.to_state.attributes.friendly_name }} changed from {{ trigger.from_state.state }} to {{ trigger.to_state.state }}
+        {%- else -%}
+        Triggered manually.
+        {%- endif %} #to4mi
+      data:
+        inline_keyboard:
+          - 'CANCEL:/cancel_leaving_bedroom'
+  - service: script.offer_run_leaving_bedroom
+  - delay:
+      minutes: 15
+
+
+
+- alias: Leaving Bedroom Cancel
+  trigger:
+    - platform: event
+      event_type: html5_notification.clicked
+      event_data:
+        action: cancel_leaving_bedroom
+  action:
+  - service: script.turn_off
+    data:
+      entity_id:
+      - script.offer_run_leaving_bedroom
+  - service: notify.telegram_main
+    data:
+      title: "<b>I get it, you're in your room.</b>"
+      message: "Canceled the leaving script. #to4mi"
+
+
+
+- alias: Skip Bedroom Turn-off if Entering room
+  trigger:
+  - entity_id: sensor.phone_home_wifi_connected
+    platform: state
+    to: Up
+  condition:
+  - condition: state
+    entity_id: script.offer_run_leaving_bedroom
+    state: 'on'
+  action:
+  - data:
+      entity_id: automation.leaving_bedroom_cancel
+    service: automation.trigger

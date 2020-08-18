@@ -1,0 +1,36 @@
+- id: shellies_announce
+  alias: 'Shellies Announce'
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    service: mqtt.publish
+    data:
+      topic: shellies/command
+      payload: announce
+
+- id: 'shellies_discovery'
+  alias: 'Shellies Discovery'
+  trigger:
+    - platform: mqtt
+      topic: shellies/announce
+  action:
+    service: python_script.shellies_discovery
+    data_template:
+      id: '{{ trigger.payload_json.id }}'
+      mac: '{{ trigger.payload_json.mac }}'
+      fw_ver: '{{ trigger.payload_json.fw_ver }}'
+      qos: 0
+      shellyswitch25:
+        mode: "roller"
+        roller-0-name: "Bedroom Window"
+        roller-0-class: "shutter"
+
+
+- id: iotlink_announce
+  alias: 'IoTLink Announce'
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    service: script.laptop_refresh

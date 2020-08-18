@@ -1,0 +1,5 @@
+bedroom_automations:
+  name: Bedroom Automations
+  entities:
+    - automation.turn_everything_off_in_bedroom
+    - automation.turn_light_on_in_bedroom

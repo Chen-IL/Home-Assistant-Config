@@ -1,0 +1,181 @@
+- alias: Warning Processor
+  mode: single
+  trigger:
+  - above: '25'
+    entity_id: sensor.processor_use
+    platform: numeric_state
+    for:
+      minutes: 5
+  condition: []
+  action:
+  - service: notify.telegram_warnings
+    data:
+      title: "<b>Warning</b>"
+      message: "High CPU Usage"
+  - delay:
+      minutes: 7
+
+
+
+- alias: Warning Temperature
+  mode: single
+  trigger:
+  - above: '72'
+    entity_id: sensor.cpu_temperature
+    platform: numeric_state
+    for:
+      minutes: 2
+  condition: []
+  action:
+  - service: notify.telegram_warnings
+    data:
+      title: "<b>Warning</b>"
+      message: "High CPU Temperature HASS #to4mi"
+  - delay:
+      minutes: 5
+
+# Not in WARNINGS channel
+- alias: New Device Warning
+  trigger:
+    platform: event
+    event_type: device_tracker_new_device
+  action:
+  - service: notify.telegram_main
+    data_template:
+      title: "<b>New Device</b>"
+      message: >
+          New device:
+          {{trigger.event.data.host_name}}
+          ({{trigger.event.data.entity_id}})
+
+# Not in WARNINGS channel
+- alias: 'Update Available Notifications'
+  trigger:
+    - platform: state
+      entity_id: sensor.version_latest
+  condition:
+    - condition: template
+      value_template: "{{ states('sensor.version_latest') != 'unknown'}}"
+    - condition: template
+      value_template: "{{ states('sensor.version_latest') != states('sensor.version_installed') }}"
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: !secret telegram_chatid1
+      message: >
+        Update [available](https://www.home-assistant.io/latest-release-notes/) for Hassio: {{states.sensor.version_latest.state}}
+        {%- if states("sensor.version_latest")[-1]!="0" %}
+        
+        [GitHub Releases](https://github.com/home-assistant/core/releases){% endif %}
+      disable_web_page_preview: true
+      parse_mode: markdown
+
+
+- alias: Send notification upon failed login attempt
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: persistent_notification.http_login
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state != off }}"
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'None' }}"
+  action:
+    - service: notify.telegram_warnings
+      data_template:
+        title: "Failed Hass Login Attempt #to4mi"
+        message: "IP: {{ state_attr('persistent_notification.http_login', 'message').split('from')[1] }}"
+
+# Not in WARNINGS channel
+- alias: Top Played Song Changed
+  trigger:
+    - platform: state
+      entity_id: sensor.lastfm_top
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'unknown' }}"
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'None' }}"
+  action:
+  - service: notify.telegram_main
+    data_template:
+      message: >
+          Top Played Song Changed:
+          {{trigger.to_state.state}}
+
+- alias: Snapshot Failure Warning
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.snapshots_stale
+      to: 'True'
+  condition: []
+  action:
+    - service: notify.telegram_warnings
+      data:
+        message: "Hassio Snapshots Stale #to4mi"
+
+- alias: HACS Update Available
+  mode: restart
+  trigger:
+    - platform: state
+      entity_id: sensor.hacs
+  condition:
+    - condition: template
+      value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
+  action:
+    - choose:
+        - conditions:
+          - condition: template
+            value_template: "{{ (states(trigger.entity_id) | float) == 0}}"
+          sequence:
+            - service: persistent_notification.dismiss
+              data:
+                notification_id: hacsupdates
+      default:
+        - delay:
+            minutes: 4
+        - condition: template
+          value_template: "{{ (states(trigger.entity_id) | float) != 0}}"
+        - condition: template
+          value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
+        - service: persistent_notification.create
+          data_template:
+            title: Updates pending in HACS
+            message: >-
+              {% for repo in state_attr(trigger.entity_id, 'repositories') %}
+                **{{ repo.display_name }}** _{{ repo["installed_version"] }}_ -> _{{ repo["available_version"] }}_
+              {% endfor %}
+            notification_id: hacsupdates
+
+- alias: Shelly Firmware Update Available
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.shelly_firmware_update
+      to: 'On'
+  condition: []
+  action:
+    - service: persistent_notification.create
+      data:
+        message: Shelly Firmware Update Available
+        notification_id: shellyfw
+
+- alias: Ink Replace Needed
+  trigger:
+    - platform: numeric_state
+      entity_id:
+        - sensor.printer_black_ink_remaining
+        - sensor.printer_cyan_ink_remaining
+        - sensor.printer_magenta_ink_remaining
+        - sensor.printer_yellow_ink_remaining
+      below: 1
+  condition: []
+  action:
+    - service: persistent_notification.create
+      data:
+        message: Ink needs to be replaced
+        notification_id: inkbrother
+    - service: notify.telegram_warnings
+      data:
+        message: "Ink needs to be replaced. #to4mi"

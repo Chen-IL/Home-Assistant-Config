@@ -1,0 +1,26 @@
+{
+    "data": {
+        "items": [
+            {
+                "id": "midnight_songs_total",
+                "max": 40000.0,
+                "min": 0.0,
+                "mode": "box",
+                "name": "Midnight Songs Total",
+                "step": 1.0,
+                "unit_of_measurement": "Songs"
+            },
+            {
+                "id": "songs_played_yesterday",
+                "max": 400.0,
+                "min": 0.0,
+                "mode": "box",
+                "name": "Songs Played Yesterday",
+                "step": 1.0,
+                "unit_of_measurement": "Songs"
+            }
+        ]
+    },
+    "key": "input_number",
+    "version": 1
+}

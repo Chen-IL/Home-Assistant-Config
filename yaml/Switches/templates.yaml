@@ -1,0 +1,21 @@
+# Climate On/Off Switch
+- platform: template
+  switches:
+    bedroom_ac_switch:
+      friendly_name: "Bedroom AC"
+      value_template: "{{not is_state('climate.bedroom_aircondition', 'off') }}"
+      turn_off:
+        service: climate.turn_off
+        data:
+          entity_id: climate.bedroom_aircondition
+      turn_on:
+        service: climate.turn_on
+        data:
+          entity_id: climate.bedroom_aircondition
+    bedroom_tv:
+      friendly_name: "Bedroom TV"
+      value_template: "{{is_state('switch.toshiba_tv', 'on') }}"
+      turn_off:
+        service: script.turn_tv_station_off
+      turn_on:
+        service: script.watch_mi_box

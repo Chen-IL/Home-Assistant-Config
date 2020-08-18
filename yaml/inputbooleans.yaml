@@ -1,0 +1,8 @@
+asleep:
+  name: I'm Asleep
+guest_mode:
+  name: Guest Mode
+  icon: mdi:account-multiple
+window_improperly_closed:
+  name: Window Impropely Closed
+  icon: mdi:window-shutter-alert

@@ -1,0 +1,12 @@
+mp3_url:
+  name: MP3 URL
+  max: 300
+  initial: ' '
+upssid:
+  name: Up SSID
+  max: 90
+  initial: !secret upssid
+downssid:
+  name: Down SSID
+  max: 90
+  initial: !secret downssid

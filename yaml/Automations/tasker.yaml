@@ -1,0 +1,54 @@
+- alias: tasker sleep update
+  initial_state: True
+  trigger:
+    platform: webhook
+    webhook_id: !secret webhook_sleep
+  condition:
+    condition: template
+    value_template: "{{ trigger.json.category == 'sleep' and trigger.json.action in ('turn_on', 'turn_off') }}"
+  action:
+  - service_template: "input_boolean.{{trigger.json.action}}"
+    data:
+      entity_id: input_boolean.asleep
+
+- alias: tasker tv control
+  initial_state: True
+  trigger:
+    platform: webhook
+    webhook_id: !secret webhook_tv
+  condition:
+    condition: template
+    value_template: "{{ trigger.json.category == 'watchtv' }}"
+  action:
+  - service: script.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("switch.toshiba_tv", "on") %}
+          script.turn_tv_station_off
+        {% else %}
+          script.watch_mi_box
+        {% endif %}
+
+- alias: tasker receiver volume
+  initial_state: True
+  mode: queued
+  trigger:
+    platform: webhook
+    webhook_id: !secret webhook_volume
+  condition:
+  - condition: template
+    value_template: "{{ trigger.json.category == 'changevol' }}"
+  - condition: template
+    value_template: "{{ trigger.json.vol in ['up', 'down', 'mute'] }}"
+  - condition: state
+    entity_id: media_player.bedroom_receiver
+    state: 'on'
+  action:
+  - service_template: 'media_player.volume_{{trigger.json.vol}}'
+    data:
+      entity_id: media_player.bedroom_receiver
+  - delay:
+      milliseconds: 100
+  - service_template: 'media_player.volume_{{trigger.json.vol}}'
+    data:
+      entity_id: media_player.bedroom_receiver

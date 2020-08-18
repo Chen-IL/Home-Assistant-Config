@@ -1,0 +1,32 @@
+# Wake On Lan
+- platform: wake_on_lan
+  mac: !secret computer_mac
+  name: "My Computer"
+  host: !secret computer_ip
+  broadcast_address: !secret broadcast_ip
+  turn_off:
+    service: mqtt.publish
+    data:
+      topic: "bedroom/computer/shutdown"
+      qos: 0
+      retain: false
+
+- platform: wake_on_lan
+  mac: !secret minixup_mac
+  name: "Minix-Up"
+  host: !secret minixup_ip
+  broadcast_address: !secret broadcast_ip
+  turn_off:
+    service: shell_command.turn_off_minixup
+
+- platform: wake_on_lan
+  mac: !secret minixdown_mac
+  name: "Minix-Down"
+  host: !secret minixdown_ip
+  broadcast_address: !secret broadcast_ip
+  turn_off:
+    service: mqtt.publish
+    data:
+      topic: "livingroom/minix/shutdown"
+      qos: 0
+      retain: false

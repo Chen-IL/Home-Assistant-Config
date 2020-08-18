@@ -1,0 +1,15 @@
+- name: Telegram_Main
+  platform: telegram
+  chat_id: !secret telegram_chatid1
+- name: Telegram_Locations
+  platform: telegram
+  chat_id: !secret telegram_chatid1
+- name: Telegram_Warnings
+  platform: telegram
+  chat_id: !secret telegram_chatid1
+- name: GA_Broadcast
+  platform: rest
+  resource: http://127.0.0.1:5000/broadcast_message
+- name: GA_Command
+  platform: rest
+  resource: http://127.0.0.1:5000/command

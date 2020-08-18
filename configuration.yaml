@@ -1,0 +1,135 @@
+homeassistant:
+  customize: !include customize.yaml
+  customize_domain: !include customize_domain.yaml
+  customize_glob: !include customize_glob.yaml
+  auth_providers:
+  - type: homeassistant
+
+default_config:
+
+cloudflare:
+  email: !secret myemail
+  api_key: !secret cloudflare_apikey
+  zone: !secret cloudflare_zonename
+  records:
+    - !secret cloudflare_record
+
+discovery:
+  ignore:
+    - yeelight
+
+ffmpeg:
+
+# Calendar
+google:
+  client_id: !secret googlecal_client
+  client_secret: !secret goolecal_secret
+
+history:
+  exclude:
+    domains:
+      - script
+      - group
+      - calendar
+      - automation
+      - camera
+    entities:
+      - sensor.time
+      - sensor.seattle_time
+
+http:
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  ip_ban_enabled: True
+  login_attempts_threshold: !secret login_attempts
+  use_x_forwarded_for: True
+  trusted_proxies:
+    - !secret proxy1
+    - !secret proxy2
+
+ifttt:
+  key: !secret ift
+
+influxdb:
+  host: !secret influx_host
+  port: !secret influx_port
+  database: !secret influx_db
+  username: !secret influx_user
+  password: !secret influx_pass
+  max_retries: 3
+  default_measurement: state
+  include:
+    entity_globs:
+      - sensor.printer_*
+
+logbook:
+  exclude:
+    entities:
+      - media_player.mibox3
+      - media_player.mibox3_2
+
+logger:
+  default: warn
+  logs:
+    homeassistant.core: info
+
+python_script:
+
+recorder:
+  db_url: !secret db_url
+  # How many days to keep
+  purge_keep_days: 3
+  exclude:
+    domains:
+      - script
+      - camera
+    entities:
+      - sensor.time
+      - sensor.seattle_time
+
+smartir:
+
+spotify:
+  client_id: !secret spotify_client
+  client_secret: !secret spotify_secret
+
+telegram_bot:
+  - platform: polling
+    parse_mode: html
+    api_key: !secret telegram_api
+    allowed_chat_ids:
+      - !secret telegram_chatid1
+      - !secret telegram_chatid2
+      - !secret telegram_chatid3
+
+yeelight:
+    devices:
+      bedroomlamp_ip:
+        name: Bedroom Light
+        model: color1
+
+automation: !include automations.yaml
+automation old: !include_dir_merge_list yaml/Automations/
+binary_sensor: !include yaml/binarysensors.yaml
+camera: !include yaml/cameras.yaml
+climate: !include yaml/climates.yaml
+cover: !include yaml/covers.yaml
+device_tracker: !include yaml/devicetrackers.yaml
+fan: !include yaml/fans.yaml
+frontend:
+  themes: !include_dir_merge_named themes/
+google_assistant: !include yaml/google_assistant.yaml
+group: !include_dir_merge_named yaml/Groups/
+input_boolean: !include yaml/inputbooleans.yaml
+input_datetime: !include yaml/inputdatetimes.yaml
+input_select: !include yaml/inputselects.yaml
+input_text: !include yaml/inputtexts.yaml
+light: !include yaml/lights.yaml
+lock: !include yaml/locks.yaml
+media_player: !include yaml/mediaplayers.yaml
+notify: !include yaml/notifys.yaml
+scene: !include scenes.yaml
+script: !include_dir_merge_named yaml/Scripts/
+sensor: !include_dir_merge_list yaml/Sensors/
+shell_command: !include yaml/shellcommands.yaml
+switch: !include_dir_merge_list yaml/Switches/
+zone: !include yaml/zones.yaml

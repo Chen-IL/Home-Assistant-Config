@@ -1,0 +1,9 @@
+- platform: generic
+  name: Weather Graph
+  still_image_url: https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.svg
+  content_type: 'image/svg+xml'
+
+- platform: generic
+  name: Sun and Clouds Israel
+  still_image_url: https://api.sat24.com/animated/IS/visual/3/Jerusalem%20Standard%20Time/8975788
+  content_type: 'image/gif'

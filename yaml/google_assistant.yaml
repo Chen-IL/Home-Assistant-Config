@@ -1,0 +1,31 @@
+project_id: !secret googleassistant_projectid
+service_account:
+  private_key: !secret googleassistant_privatekey
+  client_email: !secret googleassistant_clientemail
+secure_devices_pin: !secret googleassistant_pin
+expose_by_default: true
+exposed_domains:
+  - input_boolean
+  - scene
+  - script
+  - switch
+  - fan
+  - light
+  - lock
+  - cover
+  - media_player
+  - climate
+  - vacuum
+entity_config:
+  light.bedroom_ceiling_fan_light:
+    expose: false
+  script.turn_onoff_if_needed:
+    expose: false
+  script.offer_run_leaving_bedroom:
+    expose: false
+  switch.computer_unlock:
+    expose: false
+  script.play_spotify_on_minix_continue:
+    expose: false
+  script.shake_window:
+    expose: false

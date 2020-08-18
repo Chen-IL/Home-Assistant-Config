@@ -1,0 +1,52 @@
+- id: '1589536665369'
+  alias: Open the window on power outage Sunday
+  description: ''
+  trigger:
+  - at: 08:12:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: sensor.date
+    state: '2020-06-08'
+  action:
+  - data: {}
+    entity_id: cover.bedroom_window1
+    service: cover.open_cover
+  - data: {}
+    entity_id: automation.shutdown_pi_on_power_outage
+    service: automation.turn_on
+- id: '1589664836212'
+  alias: turn ac on on power outage sunday
+  description: ''
+  trigger:
+  - at: 07:55:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.bedroom_ac_switch
+    service: switch.turn_on
+  - delay: 00:00:10
+  - data:
+      temperature: 21
+    entity_id: climate.bedroom_aircondition
+    service: climate.set_temperature
+- id: '1589666505243'
+  alias: Shutdown Pi on power outage
+  description: based on printer unavailable and upnp speed too
+  trigger:
+  - entity_id: sensor.router_kib_sec_received
+    for: 00:00:40
+    platform: state
+    to: unavailable
+  condition: []
+  action:
+  - delay: 00:02:20
+  - condition: state
+    entity_id: sensor.printer_status
+    state: unavailable
+  - condition: state
+    entity_id: sensor.dir_router_kib_sec_received
+    state: unavailable
+  - data: {}
+    service: hassio.host_shutdown

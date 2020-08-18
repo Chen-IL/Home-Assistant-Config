@@ -1,0 +1,4 @@
+familyathome:
+  entities:
+    - device_tracker.me_nmap
+    - device_tracker.me_bluetooth

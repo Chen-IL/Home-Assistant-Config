@@ -1,0 +1,13 @@
+{
+    "data": {
+        "items": [
+            {
+                "icon": "mdi:fan",
+                "id": "fan_on_after_falling_asleep_with_ac",
+                "name": "Fan ON after Falling Asleep with AC"
+            }
+        ]
+    },
+    "key": "input_boolean",
+    "version": 1
+}

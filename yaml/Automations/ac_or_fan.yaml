@@ -1,0 +1,121 @@
+- alias: When Fan ON AC OFF
+  trigger:
+  - entity_id: fan.bedroom_fan
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: switch.bedroom_ac_switch
+    state: 'on'
+  action:
+  - data:
+      entity_id: switch.bedroom_ac_switch
+    service: switch.turn_off
+
+
+
+- alias: When AC ON Fan OFF
+  trigger:
+  - entity_id: switch.bedroom_ac_switch
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: fan.bedroom_fan
+    state: 'on'
+  action:
+  - data:
+      entity_id: fan.bedroom_fan
+    service: fan.turn_off
+
+
+
+- alias: When AC ON Sweep ON
+  trigger:
+  - entity_id: climate.bedroom_aircondition
+    from: 'off'
+    platform: state
+    to: 'cool'
+  condition:
+  - condition: template
+    value_template: '{{ states.climate.bedroom_aircondition.attributes.swing_mode == "off" }}'
+  action:
+  - delay: 00:00:02
+  - data:
+      entity_id: climate.bedroom_aircondition
+      swing_mode: 'on'
+    service: climate.set_swing_mode
+  # - service: script.ac_sweep
+
+
+- alias: When AC ON Announce Temperature
+  trigger:
+  - entity_id: switch.bedroom_ac_switch
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.ga_broadcast
+    data_template:
+      message: 'AC is set to {{ states.climate.bedroom_aircondition.state }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
+
+- alias: When Fan ON Announce Temperature
+  trigger:
+  - entity_id: fan.bedroom_fan
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.ga_broadcast
+    data_template:
+      message: 'Fan speed is {{ states.fan.bedroom_fan.attributes.speed }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
+
+- alias: Refresh Fan Status on Boot
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: "cmnd/tasmotas/state"
+      payload: ""
+  - service: mqtt.publish
+    data:
+      topic: "cmnd/tasmotas/POWER"
+  - service: mqtt.publish
+    data:
+      topic: "cmnd/iFan03-2/POWER2"
+
+- alias: AC Shutdown 20-Minutes Timer
+  mode: restart
+  trigger:
+  - platform: state
+    entity_id: input_boolean.Im_asleep
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - delay:
+      minutes: 20
+  - condition: state
+    entity_id: switch.bedroom_ac_switch
+    state: 'on'
+  - service: switch.turn_off
+    data:
+      entity_id: switch.bedroom_ac_switch
+  - condition: state
+    entity_id: input_boolean.fan_on_after_falling_asleep_with_ac
+    state: 'on'
+  - delay:
+      minutes: 10
+  - condition: state
+    entity_id: input_boolean.fan_on_after_falling_asleep_with_ac
+    state: 'on'
+  - service: fan.turn_on
+    data:
+      entity_id: fan.bedroom_fan

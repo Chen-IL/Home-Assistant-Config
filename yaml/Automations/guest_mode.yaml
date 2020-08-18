@@ -1,0 +1,68 @@
+- alias: Guest Mode On
+  trigger:
+  - platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'on'
+  condition: []
+  action:
+  - service: automation.turn_off
+    data:
+      entity_id: group.bedroom_automations
+
+- alias: Guest Mode Off
+  trigger:
+  - platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'off'
+  condition: []
+  action:
+  - service: automation.turn_on
+    data:
+      entity_id: group.bedroom_automations
+
+- alias: Guest Mode Telegram
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: "/guestmode"
+  condition:
+    condition: template
+    value_template: '{{ trigger.event.data["args"][0] == "on" or trigger.event.data["args"][0] == "off" }}'
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: '{{ trigger.event.data["chat_id"] }}'
+      message: >
+        {%- if states.input_boolean.guest_mode.state == trigger.event.data["args"][0] -%}
+          Guest Mode was already {{ trigger.event.data["args"][0] }}
+        {%- else -%}
+          Guest Mode Turned {{ trigger.event.data["args"][0] | upper}}
+        {%- endif -%}
+  - service_template: 'input_boolean.turn_{{trigger.event.data["args"][0]}}'
+    data:
+      entity_id: input_boolean.guest_mode
+
+- alias: Cleaning Guest Start
+  trigger:
+  - platform: template
+    value_template: >
+      {{ (states('sensor.time') ==
+        states.input_datetime.house_cleaning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) and 
+        (['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state) }}
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.guest_mode
+
+- alias: Cleaning Guest End
+  trigger:
+  - platform: template
+    value_template: >
+      {{ (states('sensor.time') ==
+        states.input_datetime.house_cleaning_end.attributes.timestamp | int | timestamp_custom('%H:%M', False)) and 
+        (['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state) }}
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.guest_mode
