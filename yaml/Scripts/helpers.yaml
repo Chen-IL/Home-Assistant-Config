@@ -10,10 +10,10 @@ turn_onoff_if_needed:
 ac_sweep:
   alias: AC Sweep
   sequence:
-  - service: climate.set_swing_mode
+  - service: remote.send_command
     data:
-      entity_id: climate.bedroom_aircondition
-      swing_mode: 'on'
+      entity_id: remote.bedroom_remote
+      command: "b64:JgDKAI6REDcQFBA3EDcRExAUEDcRExETEDcRExAUEzQRNxATETcQFBA3EDcQFBA3ERMQNxE3EDcQFBAUEDcQFBA3ERMQFBA3EDcRNxAUEBMRExETEBQQFBATERMRNxA3EDcRNxA3EqqOkRA3EBQQNxA3ERMQFBA3ERMQFBA3EhIQFBA3ETcQExE3EBQQNxA3ERMQNxETEDgQNxA3ERMQFBA3EBQQNxETEBQQNxE3EDcQFBAUEBMRExAUEBQQFBATETcQNxA3ETcQNxAADQUAAAAAAAAAAAAAAAAAAA=="
 
 ac_power:
   alias: AC Power
@@ -34,7 +34,7 @@ battery_update:
   - service: notify.ga_broadcast
     data_template:
       message: >
-        Your phone's battery has {{states.sensor.my_phone_battery.state}}% as of {{relative_time(states.sensor.my_phone_battery.last_changed)}} ago.
+        Your phone's battery has {{states.sensor.me_phone_battery.state}}% as of {{relative_time(states.sensor.me_phone_battery.last_changed)}} ago.
         Your band is charged to {{states.sensor.miband_battery.state}}% as of {{relative_time(states.sensor.miband_battery.last_changed)}} ago.
         Your laptop's battery is on {{states.sensor.laptop_battery_remaining.state}}% as of {{relative_time(states.sensor.laptop_battery_remaining.last_changed)}} ago.
 

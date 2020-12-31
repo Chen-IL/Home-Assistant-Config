@@ -1,4 +1,5 @@
 - alias: Turn everything off in Bedroom
+  id: leaving_bedroom
   mode: single
   trigger:
   - platform: state
@@ -17,7 +18,7 @@
     entity_id: script.offer_run_leaving_bedroom
     state: 'off'
   - condition: state
-    entity_id: input_boolean.asleep
+    entity_id: input_boolean.me_asleep
     state: 'off'
   action:
   - service: notify.telegram_main
@@ -40,6 +41,7 @@
 
 
 - alias: Leaving Bedroom Cancel
+  id: leaving_bedroom_cancel
   trigger:
     - platform: event
       event_type: html5_notification.clicked
@@ -58,7 +60,11 @@
 
 
 - alias: Skip Bedroom Turn-off if Entering room
+  id: leaving_bedroom_skip
   trigger:
+  - entity_id: device_tracker.me_bluetooth
+    platform: state
+    to: home
   - entity_id: sensor.phone_home_wifi_connected
     platform: state
     to: Up
@@ -70,3 +76,4 @@
   - data:
       entity_id: automation.leaving_bedroom_cancel
     service: automation.trigger
+  - service: script.cancel_leaving_bedroom

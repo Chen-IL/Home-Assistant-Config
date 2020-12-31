@@ -1,4 +1,4 @@
-sonyc_shutdown:
+laptop_shutdown:
   alias: "Laptop - Shutdown"
   sequence:
     - service: mqtt.publish
@@ -6,7 +6,7 @@ sonyc_shutdown:
         topic: "iotlink/workgroup/laptop/commands/shutdown"
         payload: ""
 
-sonyc_suspend:
+laptop_suspend:
   alias: "Laptop - Suspend"
   sequence:
     - service: mqtt.publish
@@ -14,7 +14,7 @@ sonyc_suspend:
         topic: "iotlink/workgroup/laptop/commands/suspend"
         payload: ""
 
-sonyc_hibernate:
+laptop_hibernate:
   alias: "Laptop - Hibernate"
   sequence:
     - service: mqtt.publish
@@ -22,7 +22,7 @@ sonyc_hibernate:
         topic: "iotlink/workgroup/laptop/commands/hibernate"
         payload: ""
 
-sonyc_lock:
+laptop_lock:
   alias: "Laptop - Lock"
   sequence:
     - service: mqtt.publish
@@ -30,7 +30,7 @@ sonyc_lock:
         topic: "iotlink/workgroup/laptop/commands/lock"
         payload: ""
 
-sonyc_vol_mute:
+laptop_vol_mute:
   alias: "Laptop - Toggle Mute"
   sequence:
     - service: mqtt.publish
@@ -38,7 +38,7 @@ sonyc_vol_mute:
         topic: "iotlink/workgroup/laptop/commands/volume/mute"
         payload: ""
 
-sonyc_displays_on:
+laptop_displays_on:
   alias: "Laptop - Displays ON"
   sequence:
     - service: mqtt.publish
@@ -46,7 +46,7 @@ sonyc_displays_on:
         topic: "iotlink/workgroup/laptop/commands/displays/on"
         payload: ""
 
-sonyc_displays_off:
+laptop_displays_off:
   alias: "Laptop - Displays OFF"
   sequence:
     - service: mqtt.publish
@@ -54,7 +54,7 @@ sonyc_displays_off:
         topic: "iotlink/workgroup/laptop/commands/displays/off"
         payload: ""
 
-sonyc_refresh:
+laptop_refresh:
   alias: "Laptop - Refresh"
   sequence:
     - service: mqtt.publish

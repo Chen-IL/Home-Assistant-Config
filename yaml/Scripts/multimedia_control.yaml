@@ -5,6 +5,7 @@ play_spotify_on_mi_box:
     data:
       wanted_entity_id: media_player.bedroom_receiver
       operation: 'on'
+  - delay: 00:00:02
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: media_player.bedroom_mi_box
@@ -16,7 +17,7 @@ play_spotify_on_mi_box:
       source: Mi Box
   - data:
       entity_id: media_player.spotify
-      source: My Minix
+      source: My Mi Box
     service: media_player.select_source
   - delay: 00:00:05
   - data:
@@ -34,15 +35,17 @@ watch_mi_box:
   sequence:
   - service: script.turn_onoff_if_needed
     data:
-      wanted_entity_id: switch.toshiba_tv
+      wanted_entity_id: switch.bedroom_screen
       operation: 'on'
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_receiver
-      operation: 'on'
+  - delay: 00:00:01
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: media_player.bedroom_mi_box
+      operation: 'on'
+  - delay: 00:00:01
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
       operation: 'on'
   - delay: 00:00:10
   - service: media_player.select_source
@@ -61,8 +64,9 @@ watch_minix:
       operation: 'on'
   - service: script.turn_onoff_if_needed
     data:
-      wanted_entity_id: switch.toshiba_tv
+      wanted_entity_id: switch.bedroom_screen
       operation: 'on'
+  - delay: 00:00:02
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: media_player.bedroom_receiver
@@ -89,12 +93,14 @@ turn_tv_station_off:
       operation: 'off'
   - service: script.turn_onoff_if_needed
     data:
-      wanted_entity_id: switch.toshiba_tv
+      wanted_entity_id: switch.bedroom_screen
       operation: 'off'
+  - delay: 00:00:01
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: media_player.bedroom_receiver
       operation: 'off'
+  - delay: 00:00:01
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: media_player.bedroom_mi_box

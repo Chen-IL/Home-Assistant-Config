@@ -1,4 +1,5 @@
 - alias: Skype Turn On
+  id: skype_on
   trigger: #Triggered at their 7am or when someone returns home
   - platform: state
     entity_id: group.familyathome
@@ -35,6 +36,7 @@
       message: "Minix Down was automatically turned ON"
 
 - alias: Skype Turn Off
+  id: skype_off
   trigger:
   - platform: time
     at: '03:00:00'

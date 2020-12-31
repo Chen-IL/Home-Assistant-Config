@@ -1,10 +1,26 @@
 - platform: mqtt
   name: "My Computer - Connected"
-  state_topic: "iotlink/workgroup/pc/lwt"
+  state_topic: "iotlink/workgroup/laptop/lwt"
   value_template: "{{ value }}"
   payload_on: "ON"
   payload_off: "OFF"
   device_class: "connectivity"
   qos: 1
 
-- platform: rpi_power
+- platform: ping
+  host: 8.8.8.8
+  name: Ping Google DNS
+  scan_interval: 30
+  count: 3
+
+- platform: ping
+  host: !secret uplink112
+  name: Ping Uplink 112
+  scan_interval: 30
+  count: 3
+
+- platform: ping
+  host: !secret gateway
+  name: Ping Gateway
+  scan_interval: 30
+  count: 3

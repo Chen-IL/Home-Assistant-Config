@@ -1,4 +1,5 @@
 - alias: When Window Opens Mark Accordigly
+  id: window_mark_open
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
@@ -14,6 +15,7 @@
       entity_id: input_boolean.window_improperly_closed
 
 - alias: Properly Close Window
+  id: window_properly_close
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
@@ -41,6 +43,7 @@
       entity_id: cover.bedroom_window1
 
 - alias: When Window Opens Sleep is Off
+  id: window_open_sleep_off
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
@@ -48,9 +51,9 @@
     to: 'open'
   condition:
   - condition: state
-    entity_id: input_boolean.asleep
+    entity_id: input_boolean.me_asleep
     state: 'on'
   action:
   - service: input_boolean.turn_off
     data:
-      entity_id: input_boolean.asleep
+      entity_id: input_boolean.me_asleep
