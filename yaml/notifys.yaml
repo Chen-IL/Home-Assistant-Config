@@ -3,13 +3,15 @@
   chat_id: !secret telegram_chatid1
 - name: Telegram_Locations
   platform: telegram
-  chat_id: !secret telegram_chatid1
+  chat_id: !secret telegram_chatid2
 - name: Telegram_Warnings
   platform: telegram
-  chat_id: !secret telegram_chatid1
-- name: GA_Broadcast
+  chat_id: !secret telegram_chatid3
+- name: ga_broadcast
   platform: rest
-  resource: http://127.0.0.1:5000/broadcast_message
-- name: GA_Command
-  platform: rest
-  resource: http://127.0.0.1:5000/command
+  resource: http://127.0.0.1:3000/assistant
+  method: POST_JSON
+  message_param_name: command
+  data: 
+    user: !secret ga_user
+    broadcast: true

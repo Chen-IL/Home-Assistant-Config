@@ -1,9 +1,7 @@
 # Broadlink Switches
 - platform: broadlink
-  host: !secret broadlink_ip
   mac: !secret broadlink_mac
   switches:
-    toshiba_tv:
-      friendly_name: "Bedroom Screen"
+    - name: "Bedroom Screen"
       command_on: !secret toshiba_ir_toggle
       command_off: !secret toshiba_ir_toggle

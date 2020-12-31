@@ -1,4 +1,5 @@
 - alias: Guest Mode On
+  id: guest_on
   trigger:
   - platform: state
     entity_id: input_boolean.guest_mode
@@ -10,6 +11,7 @@
       entity_id: group.bedroom_automations
 
 - alias: Guest Mode Off
+  id: guest_off
   trigger:
   - platform: state
     entity_id: input_boolean.guest_mode
@@ -21,6 +23,7 @@
       entity_id: group.bedroom_automations
 
 - alias: Guest Mode Telegram
+  id: guest_telegram
   trigger:
   - platform: event
     event_type: telegram_command
@@ -44,24 +47,22 @@
       entity_id: input_boolean.guest_mode
 
 - alias: Cleaning Guest Start
+  id: cleaning_guest_on
   trigger:
-  - platform: template
-    value_template: >
-      {{ (states('sensor.time') ==
-        states.input_datetime.house_cleaning_start.attributes.timestamp | int | timestamp_custom('%H:%M', False)) and 
-        (['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state) }}
+  - platform: time
+    at: input_datetime.house_cleaning_start
+  condition: "{{(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state)}}"
   action:
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.guest_mode
 
 - alias: Cleaning Guest End
+  id: cleaning_guest_off
   trigger:
-  - platform: template
-    value_template: >
-      {{ (states('sensor.time') ==
-        states.input_datetime.house_cleaning_end.attributes.timestamp | int | timestamp_custom('%H:%M', False)) and 
-        (['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state) }}
+  - platform: time
+    at: input_datetime.house_cleaning_end
+  condition: "{{(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state)}}"
   action:
   - service: input_boolean.turn_off
     data:

@@ -7,14 +7,6 @@ leaving_bedroom:
   - service: fan.turn_off
     data:
       entity_id: fan.bedroom_fan
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_receiver
-      operation: 'off'
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: switch.toshiba_tv
-      operation: 'off'
   - service: lock.lock
     data:
       entity_id: lock.my_computer_lock
@@ -22,6 +14,16 @@ leaving_bedroom:
   - service: light.turn_off
     data:
       entity_id: light.bedroom_light
+  - delay: 00:00:02
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: media_player.bedroom_receiver
+      operation: 'off'
+  - delay: 00:00:02
+  - service: script.turn_onoff_if_needed
+    data:
+      wanted_entity_id: switch.bedroom_screen
+      operation: 'off'
   - service: notify.telegram_main
     data:
       message: "Turned OFF everything for you. #to4mi"
