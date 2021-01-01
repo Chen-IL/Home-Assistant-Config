@@ -2,6 +2,6 @@
   name: Bedroom AirCondition
   unique_id: bedroom_aircondition
   device_code: 9941
-  controller_data: !secret broadlink_ip
+  controller_data: remote.bedroom_remote
   temperature_sensor: sensor.dht_sensor_temperature_filtered
   humidity_sensor: sensor.dht_sensor_humidity

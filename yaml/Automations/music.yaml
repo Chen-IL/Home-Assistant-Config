@@ -1,0 +1,88 @@
+- alias: Daily Songs Calculation
+  id: daily_songs_calc
+  trigger:
+    - platform: time
+      at: "23:59:59"
+  condition: []
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.lastfm_played_yesterday
+        value: "{{ states('sensor.lastfm_played_today') | int }}"
+    - delay:
+        seconds: 2
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.lastfm_midnight_total
+        value: "{{ states('sensor.lastfm_playcount') | int }}"
+
+# Not in WARNINGS channel
+- alias: Top Played Song Changed
+  id: top_song_changed_notify
+  mode: single
+  # single - if changes back & forth within 70 seconds will not notify
+  trigger:
+    - platform: state
+      entity_id: sensor.lastfm_top
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'unknown' }}"
+    - condition: template
+      value_template: "{{ trigger.to_state.state != 'None' }}"
+  action:
+  - delay:
+      seconds: 70
+  - condition: template
+    value_template: "{{  trigger.to_state.state == states('sensor.lastfm_top') }}"
+  - service: notify.telegram_main
+    data:
+      message: >
+          Top Played Song Changed:
+          {{trigger.to_state.state}}
+
+- id: thousand_songs_notify
+  alias: Crossed Thousand Songs
+  mode: parallel
+  trigger:
+    - platform: template
+      value_template: "{{ states('sensor.lastfm_playcount')|int % 1000 == 0 }}"
+    - platform: template
+      value_template: "{{ states('sensor.lastfm_yearlyplaycount')|int % 1000 == 0 }}"
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.lastfm_yearlyplaycount
+      above: 0
+  action:
+  - delay:
+      seconds: 70
+  - condition: template
+    value_template: "{{ states('sensor.lastfm_playcount')|int % 1000 < 2 or states('sensor.lastfm_yearlyplaycount')|int % 1000 < 2 }}"
+  - service: notify.telegram_main
+    data_template:
+      message: >
+          🎵 {{trigger.to_state.name}} is now {{(trigger.to_state.state | int / 1000) | int}}k
+
+- alias: Music Light Color
+  id: music_light_color
+  initial_state: false
+  trigger:
+    - platform: state
+      entity_id: media_player.spotify
+  action:
+    - service: color_extractor.turn_on
+      data_template:
+        color_extract_url: 'http://127.0.0.1:8123 {{- states.media_player.spotify.attributes.entity_picture }}'
+        entity_id: light.bedroom_light
+        transition: 5
+
+- alias: Torrent Completed
+  id: torrent_completed
+  trigger:
+    platform: event
+    event_type: transmission_downloaded_torrent
+  action:
+    service: notify.telegram_main
+    data:
+      message: >
+          ✔ Torrent Completed:
+          {{trigger.event.data.name}}

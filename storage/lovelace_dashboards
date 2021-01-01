@@ -1,0 +1,17 @@
+{
+    "data": {
+        "items": [
+            {
+                "icon": "mdi:tools",
+                "id": "lovelace_system",
+                "mode": "storage",
+                "require_admin": true,
+                "show_in_sidebar": true,
+                "title": "System",
+                "url_path": "lovelace-system"
+            }
+        ]
+    },
+    "key": "lovelace_dashboards",
+    "version": 1
+}

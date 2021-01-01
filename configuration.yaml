@@ -2,17 +2,14 @@ homeassistant:
   customize: !include customize.yaml
   customize_domain: !include customize_domain.yaml
   customize_glob: !include customize_glob.yaml
+  allowlist_external_urls:
+    - "http://127.0.0.1:8123/api/media_player_proxy"
   auth_providers:
   - type: homeassistant
 
 default_config:
 
-cloudflare:
-  email: !secret myemail
-  api_key: !secret cloudflare_apikey
-  zone: !secret cloudflare_zonename
-  records:
-    - !secret cloudflare_record
+color_extractor:
 
 discovery:
   ignore:
@@ -23,7 +20,7 @@ ffmpeg:
 # Calendar
 google:
   client_id: !secret googlecal_client
-  client_secret: !secret goolecal_secret
+  client_secret: !secret googlecal_secret
 
 history:
   exclude:
@@ -58,8 +55,13 @@ influxdb:
   max_retries: 3
   default_measurement: state
   include:
+    entities:
+      - sensor.bedroom_window_position
+      - sensor.miband_battery
+      - sensor.disconnected_minutes_today
     entity_globs:
       - sensor.printer_*
+      - binary_sensor.ping_*
 
 logbook:
   exclude:
@@ -69,8 +71,8 @@ logbook:
 
 logger:
   default: warn
-  logs:
-    homeassistant.core: info
+  # logs:
+  #   homeassistant.core: info
 
 python_script:
 
@@ -80,13 +82,13 @@ recorder:
   purge_keep_days: 3
   exclude:
     domains:
-      - script
       - camera
     entities:
       - sensor.time
       - sensor.seattle_time
 
 smartir:
+  check_updates: false
 
 spotify:
   client_id: !secret spotify_client
@@ -101,18 +103,12 @@ telegram_bot:
       - !secret telegram_chatid2
       - !secret telegram_chatid3
 
-yeelight:
-    devices:
-      bedroomlamp_ip:
-        name: Bedroom Light
-        model: color1
 
 automation: !include automations.yaml
 automation old: !include_dir_merge_list yaml/Automations/
 binary_sensor: !include yaml/binarysensors.yaml
 camera: !include yaml/cameras.yaml
 climate: !include yaml/climates.yaml
-cover: !include yaml/covers.yaml
 device_tracker: !include yaml/devicetrackers.yaml
 fan: !include yaml/fans.yaml
 frontend:

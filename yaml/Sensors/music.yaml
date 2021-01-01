@@ -1,0 +1,40 @@
+- platform: template
+  sensors:
+    lastfm_top:
+      friendly_name: Top Played Song
+      value_template: "{{  state_attr('sensor.lastfm_me', 'top_played')  }}"
+      unique_id: 'lastfm_top'
+    lastfm_playcount:
+      friendly_name: Total Played Songs
+      unit_of_measurement: "Songs"
+      value_template: "{{  state_attr('sensor.lastfm_me', 'play_count')|int  }}"
+      availability_template: "{{ state_attr('sensor.lastfm_me', 'play_count') > 0 }}"
+      unique_id: 'lastfm_playcount'
+    lastfm_yearlyplaycount:
+      friendly_name: Yearly Played Songs
+      unit_of_measurement: "Songs"
+      value_template: '{{  (states("sensor.lastfm_playcount") |int) - 10000  }}'
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 10000 }}"
+      unique_id: 'lastfm_yearlyplaycount'
+    lastfm_yearlydayavg:
+      friendly_name: "Daily Avarage Songs: 2021"
+      unit_of_measurement: "Songs"
+      value_template: '{%set dummy = states("sensor.date")%}{{((states("sensor.lastfm_yearlyplaycount") | int) / ((as_timestamp(now()) - as_timestamp("2021-01-01 00:00:00+0000") ) | timestamp_custom("%j")| int )) | round(2)}}'
+      availability_template: "{{ states('sensor.lastfm_yearlyplaycount')|int > 0 }}"
+      unique_id: lastfm_yearlydayavg
+    lastfm_dayavg:
+      friendly_name: "Daily Avarage Songs"
+      unit_of_measurement: "Songs"
+      value_template: '{%set dummy = states("sensor.date")%}{{((states("sensor.lastfm_playcount") | int) / (((as_timestamp(now()) - as_timestamp("2021-01-01 00:00:00+0000") ) | timestamp_custom("%j")| int ) + 365*3 + 366)) | round(2)}}'
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      unique_id: 'lastfm_dayavg'
+    lastfm_played_today:
+      friendly_name: "Songs Played Today"
+      unit_of_measurement: "Songs"
+      value_template: '{{(states("sensor.lastfm_playcount") | int) - (states("input_number.lastfm_midnight_total") | int)}}'
+      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      unique_id: 'lastfm_played_today'
+    spotify_device:
+      friendly_name: Spotify Playing on Device
+      value_template: "{{ state_attr('media_player.spotify', 'source') }}"
+      unique_id: 'spotify_on_device'

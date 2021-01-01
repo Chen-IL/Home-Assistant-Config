@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "key": "input_number",
     "data": {
         "items": [
             {
@@ -17,10 +19,9 @@
                 "mode": "box",
                 "name": "Songs Played Yesterday",
                 "step": 1.0,
-                "unit_of_measurement": "Songs"
+                "unit_of_measurement": "Songs",
+                "icon": "mdi:music"
             }
         ]
-    },
-    "key": "input_number",
-    "version": 1
+    }
 }

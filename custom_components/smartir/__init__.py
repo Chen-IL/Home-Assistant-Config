@@ -19,7 +19,7 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.12.0'
+VERSION = '1.13.2'
 MANIFEST_URL = (
     "https://raw.githubusercontent.com/"
     "smartHomeHub/SmartIR/{}/"
@@ -71,7 +71,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
         async with aiohttp.ClientSession() as session:
             async with session.get(MANIFEST_URL.format(branch)) as response:
                 if response.status == 200:
-
+                    
                     data = await response.json(content_type='text/plain')
                     min_ha_version = data['homeassistant']
                     last_version = data['updater']['version']
@@ -121,7 +121,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                             "Successfully updated to {}. Please restart Home Assistant."
                             .format(last_version), title='SmartIR')
     except Exception:
-        _LOGGER.error("An error occurred while checking for updates.")
+       _LOGGER.error("An error occurred while checking for updates.")
 
 class Helper():
     @staticmethod
