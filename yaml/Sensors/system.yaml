@@ -27,9 +27,6 @@
   image: raspberrypi3
   source: hassio
 
-- platform: dnsip
-  scan_interval: 30
-
 - platform: template
   sensors:
     ping_google_min:

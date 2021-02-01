@@ -126,6 +126,5 @@ notify: !include yaml/notifys.yaml
 scene: !include scenes.yaml
 script: !include_dir_merge_named yaml/Scripts/
 sensor: !include_dir_merge_list yaml/Sensors/
-shell_command: !include yaml/shellcommands.yaml
 switch: !include_dir_merge_list yaml/Switches/
 zone: !include yaml/zones.yaml

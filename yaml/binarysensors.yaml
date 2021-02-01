@@ -7,20 +7,17 @@
   device_class: "connectivity"
   qos: 1
 
+- platform: mqtt
+  name: "Minix-UP - Connected"
+  state_topic: "iotlink/workgroup/minixup/lwt"
+  value_template: "{{ value }}"
+  payload_on: "ON"
+  payload_off: "OFF"
+  device_class: "connectivity"
+  qos: 1
+
 - platform: ping
   host: 8.8.8.8
   name: Ping Google DNS
-  scan_interval: 30
-  count: 3
-
-- platform: ping
-  host: !secret uplink112
-  name: Ping Uplink 112
-  scan_interval: 30
-  count: 3
-
-- platform: ping
-  host: !secret gateway
-  name: Ping Gateway
-  scan_interval: 30
+  scan_interval: 20
   count: 3

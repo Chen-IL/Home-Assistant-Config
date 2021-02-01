@@ -57,3 +57,34 @@
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.me_asleep
+
+- alias: Bedroom Window Position Getter
+  id: bedroom_window_position_getter
+  mode: restart
+  trigger:
+    - platform: state
+      entity_id: cover.bedroom_window1
+      attribute: roller_state
+      to: "stop"
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.bedroom_window_position
+        value: '{{ trigger.to_state.attributes.current_position }}'
+
+- alias: Bedroom Window Position Setter
+  id: bedroom_window_position_setter
+  mode: restart
+  trigger:
+    - platform: state
+      entity_id: input_number.bedroom_window_position
+  condition:
+    - condition: numeric_state
+      entity_id: input_number.bedroom_window_position
+      below: 101
+      above: -1
+  action:
+    - service: cover.set_cover_position
+      data_template:
+        entity_id: cover.bedroom_window1
+        position: '{{ trigger.to_state.state | int }}'

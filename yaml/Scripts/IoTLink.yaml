@@ -22,6 +22,14 @@ laptop_hibernate:
         topic: "iotlink/workgroup/laptop/commands/hibernate"
         payload: ""
 
+laptop_reboot:
+  alias: "Laptop - Reboot"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/laptop/commands/reboot"
+        payload: ""
+
 laptop_lock:
   alias: "Laptop - Lock"
   sequence:
@@ -60,4 +68,52 @@ laptop_refresh:
     - service: mqtt.publish
       data:
         topic: "iotlink/workgroup/laptop/refresh"
+        payload: ""
+
+minixup_shutdown:
+  alias: "Minix-UP - Shutdown"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/commands/shutdown"
+        payload: ""
+
+minixup_suspend:
+  alias: "Minix-UP - Suspend"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/commands/suspend"
+        payload: ""
+
+minixup_hibernate:
+  alias: "Minix-UP - Hibernate"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/commands/hibernate"
+        payload: ""
+
+minixup_reboot:
+  alias: "Minix-UP - Reboot"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/commands/reboot"
+        payload: ""
+
+minixup_lock:
+  alias: "Minix-UP - Lock"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/commands/lock"
+        payload: ""
+
+minixup_refresh:
+  alias: "Minix-UP - Refresh"
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "iotlink/workgroup/minixup/refresh"
         payload: ""

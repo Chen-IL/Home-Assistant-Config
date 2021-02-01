@@ -18,12 +18,12 @@ My Lovelace UI configuration can be seen in the storage folder.
 
 ## My Hardware
 * Raspberry Pi 4
-* SSD Drive
-* NGFF USB-3 Enclosure
+* SSD Drive (WD)
+* M.2 SATA USB-3 Enclosure (by Ugreen)
 * Sonoff iFan03 (flashed with Tasmota)
 * Shelly 2.5 (to control rolling shutters)
 * Yeelight Color
-* IOTLink for Windows
+* [IOTLink](https://iotlink.gitlab.io/) for Windows
 * Google Home Mini
 
 ## Plugins
@@ -53,6 +53,7 @@ I use the following cards to extend the lovelace UI. All of the following are in
 [Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation) - allows swiping between views on mobile.  
 [Mini Graph Card](https://github.com/kalkih/mini-graph-card) - a highly customizable history graph card.  
 [Mini Media Player](https://github.com/kalkih/mini-media-player) - a highly customizable media player card.  
+[Multiple Entity Row](https://github.com/benct/lovelace-multiple-entity-row) - combines multiple entities and attributes in a single row.  
 [Restriction Card](https://github.com/iantrich/restriction-card) - protects me from accidental touches by adding a "lock" that can be dismissed either by an additional tap or after confirming an alert that I set up.  
 [slider-entity-row](https://github.com/thomasloven/lovelace-slider-entity-row) - an easy to use slider for my cover and AC temperature setting.  
 [Swipe Card](https://github.com/bramkragten/swipe-card) - I use it for my weather entities cards (now, today, tomorrow) - each has many rows. Only the first card is displayed and the rest are accessible by swiping it.  
@@ -72,15 +73,12 @@ Home Assistant Supervised environment (formerly called Hassio) allows running Do
 [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) - managing local and cloud snapshots of Home Assistant.  
 [InfluxDB](https://github.com/hassio-addons/addon-influxdb) - used for long term data storage.  
 [Jackett](https://github.com/haberda/hassio_addons/tree/master/jackett) - proxy service for torrent trackers queries.  
-[jellyfin](https://github.com/petersendev/hassio-addons/tree/master/jellyfin) - (local) streaming server.  
 [MariaDB](https://github.com/home-assistant/hassio-addons/tree/master/mariadb) - hosting Home Assistant main database.  
 [Mosquitto broker](https://home-assistant.io/addons/mosquitto/) - MQTT broker used to connect IOT devices with Home Assistant.  
-[NGINX Home Assistant SSL proxy](https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy) - SSL proxy server for Home Assistant. It allows me to serve remote connections via HTTPS (only!) while keeping local connectivity via HTTP.  
+[NGINX Proxy Manager](https://github.com/hassio-addons/addon-nginx-proxy-manager) - Proxy server for Home Assistant. It allows me to serve remote connections via HTTPS while keeping local connectivity via HTTP. *Previously used [NGINX Home Assistant SSL proxy](https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy) addon which has a more straightforward approach.*  
 [Portainer](https://github.com/hassio-addons/addon-portainer) - web based Docker management.  
-[Radarr](https://github.com/petersendev/hassio-addons/tree/master/radarr) - movie collection manager.  
 [roombapw Docker Image](https://github.com/jeremywillans/hass-addons/tree/master/roombapw) - used to find local Roomba API login details.  
 [Samba share](https://github.com/home-assistant/hassio-addons/tree/master/samba) - exposing folders locally via SMB.  
-[Sonarr](https://github.com/petersendev/hassio-addons/tree/master/sonarr) - TV shows collection manager.  
 [Terminal & SSH](https://github.com/home-assistant/hassio-addons/tree/master/ssh) - web terminal and SSH server.  
 [Transmission](https://github.com/pierrickrouxel/hassio-addon-transmission) - lightweight torrent client.  
 [WireGuard](https://github.com/hassio-addons/addon-wireguard) - VPN server hosted locally.  

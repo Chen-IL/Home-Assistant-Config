@@ -3,7 +3,7 @@ Place Support for OpenStreetMap Geocode sensors.
 
 Original Author:  Jim Thompson
 
-Current Version:  1.2  20180510 - Jim Thompson
+Current Version:  1.8  20210125 - iantrich
 
 20180330 - Initial Release
          - Event driven and timed updates
@@ -589,6 +589,7 @@ class Places(Entity):
             country = '-'
             postal_code = ''
             formatted_address = ''
+            target_option = ''
             
             if "place" in self._options:
                 place_type = osm_decoded["type"]
@@ -615,6 +616,10 @@ class Places(Entity):
                 street = osm_decoded["address"]["road"]
             if "city" in osm_decoded["address"]:
                 city = osm_decoded["address"]["city"]
+            if "town" in osm_decoded["address"]:
+                city = osm_decoded["address"]["town"]
+            if "village" in osm_decoded["address"]:
+                city = osm_decoded["address"]["village"]
             if "city_district" in osm_decoded["address"]:
                 postal_town = osm_decoded["address"]["city_district"]
             if "suburb" in osm_decoded["address"]:
@@ -650,9 +655,9 @@ class Places(Entity):
                 new_state = osm_decoded['error_message']
                 _LOGGER.info( "(" + self._name + ") An error occurred contacting the web service")
             elif self._devicetracker_zone == "not_home":
-                if city == '':
+                if city == '-':
                     city = postal_town
-                    if city == '':
+                    if city == '-':
                         city = county
 
                 # Options:  "zone, place, street_number, street, city, county, state, postal_code, country, formatted_address"
@@ -666,7 +671,7 @@ class Places(Entity):
                     
                 user_display = []
 
-                if "zone" in display_options:
+                if "zone" in display_options and ("do_not_show_not_home" not in display_options and self._devicetracker_zone != "not_home"):
                     zone = self._devicetracker_zone
                     user_display.append(zone)
                 if "place_name" in display_options:

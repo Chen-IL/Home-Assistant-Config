@@ -4,12 +4,16 @@
   trigger:
   - platform: state
     entity_id: sensor.phone_home_wifi_connected
-    to: Down
+    from: "Up"
+    to: "Down"
     for:
       minutes: 1
       seconds: 30
   - platform: state
     entity_id: sensor.phone_home_wifi_connected
+    from:
+      - "Up"
+      - "Down"
     to: 'off'
     for:
       minutes: 3

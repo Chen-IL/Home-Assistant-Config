@@ -77,12 +77,12 @@
                                             "name": "Phone Last Reboot"
                                         },
                                         {
-                                            "entity": "sensor.phone_storage_sensor",
+                                            "entity": "sensor.phone_internal_storage",
                                             "name": "Phone Storage"
                                         },
                                         {
-                                            "entity": "sensor.phone_audio_sensor",
-                                            "name": "Phone Audio"
+                                            "entity": "sensor.phone_ringer_mode",
+                                            "name": "Phone Ringer"
                                         },
                                         {
                                             "entity": "sensor.phone_proximity_sensor",
@@ -123,6 +123,15 @@
                                     "entity": "sensor.miband_battery",
                                     "name": "MiBand Battery",
                                     "secondary_info": "last-changed"
+                                },
+                                {
+                                    "entity": "binary_sensor.ping_google_dns",
+                                    "name": "Internet",
+                                    "secondary_info": "last-changed",
+                                    "hold_action": {
+                                        "action": "navigate",
+                                        "navigation_path": "/lovelace-system/internet"
+                                    }
                                 },
                                 {
                                     "entity": "input_boolean.me_asleep",
@@ -186,6 +195,10 @@
                                     "type": "custom:restriction-card"
                                 },
                                 {
+                                    "entity": "input_number.bedroom_window_position",
+                                    "name": "Position"
+                                },
+                                {
                                     "card": {
                                         "entity": "fan.bedroom_fan",
                                         "name": "Fan",
@@ -239,6 +252,33 @@
                                     "type": "conditional"
                                 },
                                 {
+                                    "type": "custom:multiple-entity-row",
+                                    "entity": "switch.laptop",
+                                    "name": "Laptop",
+                                    "icon": "mdi:laptop",
+                                    "show_state": true,
+                                    "toggle": true,
+                                    "state_color": true,
+                                    "secondary_info": "last-changed",
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.my_computer_connected",
+                                            "name": false,
+                                            "icon": "mdi:lan-connect",
+                                            "state_color": true
+                                        },
+                                        {
+                                            "entity": "script.laptop_lock",
+                                            "icon": "mdi:lock",
+                                            "name": false,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.laptop_lock"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
                                     "label": "Multimedia",
                                     "type": "section"
                                 },
@@ -259,6 +299,10 @@
                                     "source": "icon",
                                     "type": "custom:mini-media-player",
                                     "volume_stateless": true
+                                },
+                                {
+                                    "entity": "switch.minix_up",
+                                    "secondary_info": "last-changed"
                                 },
                                 {
                                     "artwork": "material",
@@ -282,6 +326,37 @@
                                     },
                                     "info": "scroll",
                                     "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "type": "custom:multiple-entity-row",
+                                    "entity": "sensor.lastfm_me",
+                                    "name": "LastFM",
+                                    "icon": "mdi:music-clef-treble",
+                                    "show_state": false,
+                                    "secondary_info": "last-changed",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.lastfm_yearlyplaycount",
+                                            "name": "Played '21",
+                                            "unit": false
+                                        },
+                                        {
+                                            "entity": "sensor.lastfm_yearlydayavg",
+                                            "name": "Avarage '21",
+                                            "unit": false
+                                        },
+                                        {
+                                            "entity": "sensor.lastfm_played_today",
+                                            "name": "Today",
+                                            "unit": false
+                                        },
+                                        {
+                                            "entity": "input_number.lastfm_played_yesterday",
+                                            "name": "Yesterday",
+                                            "format": "precision0",
+                                            "unit": " "
+                                        }
+                                    ]
                                 }
                             ],
                             "show_header_toggle": false,
@@ -291,13 +366,54 @@
                         },
                         {
                             "card": {
-                                "artwork": "full-cover",
-                                "entity": "media_player.googlehome1164",
-                                "hide": {
-                                    "power": true,
-                                    "runtime": false
-                                },
-                                "type": "custom:mini-media-player"
+                                "type": "vertical-stack",
+                                "cards": [
+                                    {
+                                        "artwork": "full-cover",
+                                        "entity": "media_player.googlehome1164",
+                                        "hide": {
+                                            "power": true,
+                                            "runtime": false
+                                        },
+                                        "type": "custom:mini-media-player"
+                                    },
+                                    {
+                                        "type": "entities",
+                                        "entities": [
+                                            {
+                                                "type": "custom:multiple-entity-row",
+                                                "entity": "sensor.lastfm_me",
+                                                "name": "LastFM",
+                                                "icon": "mdi:music-clef-treble",
+                                                "show_state": false,
+                                                "secondary_info": "last-changed",
+                                                "entities": [
+                                                    {
+                                                        "entity": "sensor.lastfm_yearlyplaycount",
+                                                        "name": "Played '21",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "sensor.lastfm_yearlydayavg",
+                                                        "name": "Avarage '21",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "sensor.lastfm_played_today",
+                                                        "name": "Today",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "input_number.lastfm_played_yesterday",
+                                                        "name": "Yesterday",
+                                                        "format": "precision0",
+                                                        "unit": " "
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
                             },
                             "conditions": [
                                 {
@@ -309,15 +425,56 @@
                         },
                         {
                             "card": {
-                                "artwork": "full-cover",
-                                "entity": "media_player.spotify",
-                                "hide": {
-                                    "power": true,
-                                    "runtime": false,
-                                    "shuffle": false
-                                },
-                                "source": "full",
-                                "type": "custom:mini-media-player"
+                                "type": "vertical-stack",
+                                "cards": [
+                                    {
+                                        "artwork": "full-cover",
+                                        "entity": "media_player.spotify",
+                                        "hide": {
+                                            "power": true,
+                                            "runtime": false,
+                                            "shuffle": false
+                                        },
+                                        "source": "full",
+                                        "type": "custom:mini-media-player"
+                                    },
+                                    {
+                                        "type": "entities",
+                                        "entities": [
+                                            {
+                                                "type": "custom:multiple-entity-row",
+                                                "entity": "sensor.lastfm_me",
+                                                "name": "LastFM",
+                                                "icon": "mdi:music-clef-treble",
+                                                "show_state": false,
+                                                "secondary_info": "last-changed",
+                                                "entities": [
+                                                    {
+                                                        "entity": "sensor.lastfm_yearlyplaycount",
+                                                        "name": "Played '21",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "sensor.lastfm_yearlydayavg",
+                                                        "name": "Avarage '21",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "sensor.lastfm_played_today",
+                                                        "name": "Today",
+                                                        "unit": false
+                                                    },
+                                                    {
+                                                        "entity": "input_number.lastfm_played_yesterday",
+                                                        "name": "Yesterday",
+                                                        "format": "precision0",
+                                                        "unit": " "
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
                             },
                             "conditions": [
                                 {
@@ -379,41 +536,13 @@
                             "hour24": true,
                             "smoothing": true,
                             "show": {
-                                "extrema": false,
+                                "extrema": true,
                                 "average": false,
                                 "labels_secondary": false,
                                 "labels": true,
                                 "name": false,
                                 "icon": false
                             }
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.lastfm_yearlyplaycount",
-                                    "icon": "mdi:music-clef-treble",
-                                    "name": "Played 2020"
-                                },
-                                {
-                                    "entity": "sensor.lastfm_yearlydayavg",
-                                    "icon": "mdi:music-clef-bass",
-                                    "name": "Avarage 2020"
-                                },
-                                {
-                                    "entity": "sensor.lastfm_played_today",
-                                    "icon": "mdi:music-note",
-                                    "name": "Today"
-                                },
-                                {
-                                    "entity": "input_number.lastfm_played_yesterday",
-                                    "icon": "mdi:music-note-sixteenth",
-                                    "name": "Yesterday"
-                                }
-                            ],
-                            "show_icon": true,
-                            "show_name": true,
-                            "show_state": true,
-                            "type": "glance"
                         },
                         {
                             "entities": [
@@ -481,7 +610,7 @@
                             "type": "custom:atomic-calendar-revive"
                         },
                         {
-                            "columns": 4,
+                            "columns": 3,
                             "entities": [
                                 {
                                     "entity": "sensor.israel_coronavirus_confirmed",
@@ -499,11 +628,6 @@
                                     "name": "IL: Deaths"
                                 },
                                 {
-                                    "entity": "sensor.israel_coronavirus_recovered",
-                                    "icon": "mdi:emoticon-happy-outline",
-                                    "name": "IL: Recovered"
-                                },
-                                {
                                     "entity": "sensor.worldwide_coronavirus_confirmed",
                                     "icon": "mdi:emoticon-neutral-outline",
                                     "name": "Total: Confirmed"
@@ -517,11 +641,6 @@
                                     "entity": "sensor.worldwide_coronavirus_deaths",
                                     "icon": "mdi:emoticon-dead-outline",
                                     "name": "Total: Deaths"
-                                },
-                                {
-                                    "entity": "sensor.worldwide_coronavirus_recovered",
-                                    "icon": "mdi:emoticon-happy-outline",
-                                    "name": "Total: Recovered"
                                 }
                             ],
                             "show_icon": true,

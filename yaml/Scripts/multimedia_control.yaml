@@ -58,10 +58,9 @@ watch_mi_box:
 watch_minix:
   alias: Watch Minix
   sequence:
-  - service: script.turn_onoff_if_needed
+  - service: switch.turn_on
     data:
-      wanted_entity_id: switch.minix_up
-      operation: 'on'
+      entity_id: switch.minix_up
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: switch.bedroom_screen
@@ -87,10 +86,6 @@ watch_minix:
 turn_tv_station_off:
   alias: Turn TV and Appliances off
   sequence:
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: switch.minix_up
-      operation: 'off'
   - service: script.turn_onoff_if_needed
     data:
       wanted_entity_id: switch.bedroom_screen

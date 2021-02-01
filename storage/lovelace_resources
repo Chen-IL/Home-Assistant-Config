@@ -77,6 +77,11 @@
                 "url": "/hacsfiles/lovelace-swipe-navigation/swipe-navigation.js",
                 "type": "module",
                 "id": "e7a067866f8940d5a60d136326711ed5"
+            },
+            {
+                "url": "/hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js",
+                "type": "module",
+                "id": "c663396aa79144e198e2609e3a8772cc"
             }
         ]
     }

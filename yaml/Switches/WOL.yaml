@@ -17,7 +17,7 @@
   host: !secret minixup_ip
   broadcast_address: !secret broadcast_ip
   turn_off:
-    service: shell_command.turn_off_minixup
+    service: script.minixup_shutdown
 
 - platform: wake_on_lan
   mac: !secret minixdown_mac
@@ -30,3 +30,11 @@
       topic: "livingroom/minix/shutdown"
       qos: 0
       retain: false
+
+- platform: wake_on_lan
+  mac: !secret laptop_mac
+  name: "Laptop"
+  host: !secret laptop_ip
+  broadcast_address: !secret broadcast_ip
+  turn_off:
+    service: script.laptop_suspend
