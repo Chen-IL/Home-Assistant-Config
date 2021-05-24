@@ -2,9 +2,9 @@
   id: warning_processor
   mode: single
   trigger:
-  - above: '25'
+  - platform: numeric_state
     entity_id: sensor.processor_use
-    platform: numeric_state
+    above: '28'
     for:
       minutes: 5
   condition: []
@@ -21,9 +21,9 @@
   id: warning_temperature
   mode: single
   trigger:
-  - above: '72'
+  - platform: numeric_state
     entity_id: sensor.cpu_temperature
-    platform: numeric_state
+    above: '72'
     for:
       minutes: 2
   condition: []
@@ -43,7 +43,7 @@
     event_type: device_tracker_new_device
   action:
   - service: notify.telegram_main
-    data_template:
+    data:
       title: "<b>New Device</b>"
       message: >
           New device:
@@ -59,13 +59,11 @@
     # - platform: homeassistant
     #   event: start
   condition:
-    - condition: template
-      value_template: "{{ states('sensor.version_latest') != 'unknown'}}"
-    - condition: template
-      value_template: "{{ states('sensor.version_latest') != states('sensor.version_installed') }}"
+    - "{{ states('sensor.version_latest') != 'unknown'}}"
+    - "{{ states('sensor.version_latest') > states('sensor.version_installed') }}"
   action:
   - service: telegram_bot.send_message
-    data_template:
+    data:
       target: !secret telegram_chatid1
       message: >
         Update [available](https://www.home-assistant.io/latest-release-notes/) for Hassio: {{states.sensor.version_latest.state}}
@@ -83,13 +81,11 @@
     - platform: state
       entity_id: persistent_notification.http_login
   condition:
-    - condition: template
-      value_template: "{{ trigger.to_state.state != off }}"
-    - condition: template
-      value_template: "{{ trigger.to_state.state != 'None' }}"
+    - "{{ trigger.to_state.state != off }}"
+    - "{{ trigger.to_state.state != 'None' }}"
   action:
     - service: notify.telegram_warnings
-      data_template:
+      data:
         title: "Failed Hass Login Attempt #to4mi"
         message: "IP: {{ state_attr('persistent_notification.http_login', 'message').split('from')[1] }}"
 
@@ -113,13 +109,10 @@
     - platform: state
       entity_id: sensor.hacs
   condition:
-    - condition: template
-      value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
+    - "{{ states(trigger.entity_id) != 'unknown'}}"
   action:
     - choose:
-        - conditions:
-          - condition: template
-            value_template: "{{ (states(trigger.entity_id) | float) == 0}}"
+        - conditions: "{{ (states(trigger.entity_id) | float) == 0}}"
           sequence:
             - service: persistent_notification.dismiss
               data:
@@ -132,7 +125,7 @@
         - condition: template
           value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
         - service: persistent_notification.create
-          data_template:
+          data:
             title: Updates pending in HACS
             message: >-
               {% for repo in state_attr(trigger.entity_id, 'repositories') %}
@@ -144,13 +137,14 @@
   id: shelly_fw_persistent_notification
   trigger:
     - platform: state
-      entity_id: binary_sensor.shelly_firmware_update
+      entity_id: binary_sensor.shelly_2_5_firmware_update
       to: 'on'
   condition: []
   action:
     - service: persistent_notification.create
       data:
-        message: Shelly Firmware Update Available
+        title: Shelly Firmware Update Available
+        message: "[Go to Settings]({{'http://' + states('sensor.shelly_2_5_ip')}})"
         notification_id: shellyfw
 
 - alias: Warning Ink Replace Needed
@@ -186,14 +180,14 @@
       above: 2
   action:
   - service: notify.telegram_locations
-    data_template:
+    data:
       message: "does not show"
       data:
         location:
           latitude: '{{ trigger.to_state.attributes.lat }}'
           longitude: '{{ trigger.to_state.attributes.lon }}'
   - service: notify.telegram_locations
-    data_template:
+    data:
       title: "🌩 <b>Lightning Strike - {{trigger.to_state.state|round(0)}} km</b>"
       message: "Direction: {{states('sensor.blitzortung_lightning_azimuth')}}°"
   - delay:
@@ -209,13 +203,13 @@
       below: 2.01
   action:
   - service: notify.telegram_locations
-    data_template:
+    data:
       message: "does not show"
       data:
         location:
           latitude: '{{ trigger.to_state.attributes.lat }}'
           longitude: '{{ trigger.to_state.attributes.lon }}'
   - service: notify.telegram_locations
-    data_template:
+    data:
       title: "🌩 <b>Very Close Lightning Strike - {{trigger.to_state.state|round(0)}} km</b>"
       message: "Direction: {{states('sensor.blitzortung_lightning_azimuth')}}°"

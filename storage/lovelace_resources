@@ -64,11 +64,6 @@
                 "id": "6d30a28b888d4b3f9e01288ca5a4a187"
             },
             {
-                "url": "/hacsfiles/transmission-card/transmission-card.js",
-                "type": "module",
-                "id": "5c6d17f5993a48759c2fcc40d9e35f7a"
-            },
-            {
                 "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js",
                 "type": "module",
                 "id": "26c7af7022954d3bb2ab495652719df7"
@@ -82,6 +77,21 @@
                 "url": "/hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js",
                 "type": "module",
                 "id": "c663396aa79144e198e2609e3a8772cc"
+            },
+            {
+                "url": "/hacsfiles/simple-thermostat/simple-thermostat.js",
+                "type": "module",
+                "id": "dc5496c7c0b94444b78d486305c47fb1"
+            },
+            {
+                "url": "/hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js",
+                "type": "module",
+                "id": "5d8c0df334314bdc9263ba533a5deaaa"
+            },
+            {
+                "url": "/hacsfiles/vacuum-card/vacuum-card.js",
+                "type": "module",
+                "id": "21264e8e574b4a28888bdf583bb8a8f7"
             }
         ]
     }

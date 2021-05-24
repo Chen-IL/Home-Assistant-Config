@@ -9,11 +9,17 @@ homeassistant:
 
 default_config:
 
+
+
 color_extractor:
 
 discovery:
   ignore:
     - yeelight
+
+duckdns:
+  domain: !secret duckdnsdomain
+  access_token: !secret duckdnstoken
 
 ffmpeg:
 
@@ -42,9 +48,6 @@ http:
   trusted_proxies:
     - !secret proxy1
     - !secret proxy2
-
-ifttt:
-  key: !secret ift
 
 influxdb:
   host: !secret influx_host
@@ -103,6 +106,9 @@ telegram_bot:
       - !secret telegram_chatid2
       - !secret telegram_chatid3
 
+tts:
+  - platform: google_translate
+    service_name: google_say
 
 automation: !include automations.yaml
 automation old: !include_dir_merge_list yaml/Automations/
@@ -110,7 +116,6 @@ binary_sensor: !include yaml/binarysensors.yaml
 camera: !include yaml/cameras.yaml
 climate: !include yaml/climates.yaml
 device_tracker: !include yaml/devicetrackers.yaml
-fan: !include yaml/fans.yaml
 frontend:
   themes: !include_dir_merge_named themes/
 google_assistant: !include yaml/google_assistant.yaml
@@ -119,7 +124,6 @@ input_boolean: !include yaml/inputbooleans.yaml
 input_datetime: !include yaml/inputdatetimes.yaml
 input_select: !include yaml/inputselects.yaml
 input_text: !include yaml/inputtexts.yaml
-light: !include yaml/lights.yaml
 lock: !include yaml/locks.yaml
 media_player: !include yaml/mediaplayers.yaml
 notify: !include yaml/notifys.yaml
@@ -127,4 +131,5 @@ scene: !include scenes.yaml
 script: !include_dir_merge_named yaml/Scripts/
 sensor: !include_dir_merge_list yaml/Sensors/
 switch: !include_dir_merge_list yaml/Switches/
+template: !include yaml/templates.yaml
 zone: !include yaml/zones.yaml

@@ -1,8 +1,0 @@
-- platform: template
-  sensors:
-    nexus_battery:
-      friendly_name: Phone Battery via OwnTracks
-      unit_of_measurement: "%"
-      value_template: "{{ state_attr('device_tracker.my_phone', 'battery_level')|int }}"
-      device_class: battery
-      unique_id: 'owntracks_battery_nexus'

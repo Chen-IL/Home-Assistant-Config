@@ -1,0 +1,32 @@
+- alias: Warning Power Outage
+  id: warning_power_outage
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.power_outage
+    to:  'on'
+  condition: []
+  action:
+  # If there's a power outage those will not execute. Only used to detect false outage detections.
+  - service: notify.ga_broadcast
+    data:
+      message: 'Power outage is detected'
+  - service: notify.telegram_warnings
+    data:
+      title: "<b>Warning!</b>"
+      message: "Power Outage Detected"
+      # data:
+      #   inline_keyboard:
+      #     - 'CANCEL:/cancel_shutdown_on_outage'
+
+- alias: Shutdown on Power Outage
+  id: shutdown_on_power_outage
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.power_outage
+    to: 'on'
+    for:
+      # delay is in addition to 2 minutes delay_on of the sensor
+      minutes: 2
+  condition: []
+  action:
+  - service: hassio.host_shutdown

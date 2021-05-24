@@ -19,5 +19,40 @@
 - platform: ping
   host: 8.8.8.8
   name: Ping Google DNS
-  scan_interval: 20
+  scan_interval: 30
   count: 3
+
+- platform: ping
+  host: 1.1.1.1
+  name: Ping CloudFlare DNS
+  scan_interval: 30
+  count: 2
+
+- platform: template
+  sensors:
+    power_outage:
+      friendly_name: "Power Outage"
+      unique_id: power_outage
+      device_class: problem
+      delay_on:
+        minutes: 2
+      value_template: >-
+        {{ is_state('sensor.openwrt_router_kib_s_received', 'unavailable')
+           and is_state('sensor.printer_status', 'unavailable')
+           and is_state('media_player.googlehome1164', 'unavailable') }}
+    internet_outage:
+      friendly_name: "Internet Outage"
+      unique_id: internet_outage
+      device_class: problem
+      value_template: >-
+        {{ is_state('binary_sensor.ping_google_dns', 'off')
+           and is_state('binary_sensor.ping_cloudflare_dns', 'off') }}
+    lastfm_problem:
+      friendly_name: LastFM Problem
+      unique_id: lastfm_problem
+      device_class: problem
+      delay_on:
+        minutes: 4
+      value_template: >-
+        {{ is_state('sensor.lastfm_me', 'Not Scrobbling')
+           and is_state('media_player.spotify', 'playing') }}

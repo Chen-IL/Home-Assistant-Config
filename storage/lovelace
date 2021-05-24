@@ -11,88 +11,30 @@
                         {
                             "entities": [
                                 {
+                                    "type": "custom:auto-entities",
                                     "entities": [
                                         {
                                             "entity": "device_tracker.me_nmap",
                                             "name": "NMAP"
                                         },
                                         {
-                                            "entity": "device_tracker.my_phone_app",
-                                            "name": "Phone App Tracker"
-                                        },
-                                        {
-                                            "entity": "device_tracker.me_owntracks",
-                                            "name": "OwnTracks"
-                                        },
-                                        {
                                             "entity": "sensor.me_place",
                                             "name": "Place"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_geocoded_location",
-                                            "name": "Geocoded Location"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_wifi",
-                                            "name": "Phone WiFi"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_wifi_signal_strength",
-                                            "name": "Phone WiFi Signal"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_wifi_link_speed",
-                                            "name": "Phone WiFi Link Speed"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_wifi_bssid",
-                                            "name": "Phone WiFi BSSID"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_battery",
-                                            "name": "Phone Battery (App)"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_battery_state",
-                                            "name": "Phone Battery State"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_bluetooth_connection",
-                                            "name": "Phone Bluetooth Connection"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_phone_state",
-                                            "name": "Phone Calls State"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_detected_activity",
-                                            "name": "Phone Detected Activity"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_steps_sensor",
-                                            "name": "Phone Steps"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_last_reboot",
-                                            "name": "Phone Last Reboot"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_internal_storage",
-                                            "name": "Phone Storage"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_ringer_mode",
-                                            "name": "Phone Ringer"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_proximity_sensor",
-                                            "name": "Phone Proximity"
-                                        },
-                                        {
-                                            "entity": "sensor.phone_light_sensor",
-                                            "name": "Phone Light"
                                         }
                                     ],
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*phone*",
+                                                "sort": {
+                                                    "method": "name"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "unique": true,
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
                                     "group_config": {
                                         "secondary_info": "last-changed"
                                     },
@@ -100,8 +42,8 @@
                                         "entity": "person.me",
                                         "name": "Person Entity",
                                         "secondary_info": "last-changed"
-                                    },
-                                    "type": "custom:fold-entity-row"
+                                    }
+                                    }
                                 },
                                 {
                                     "entity": "sensor.phone_home_wifi_connected",
@@ -109,8 +51,8 @@
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "sensor.me_phone_battery",
-                                    "name": "Phone Battery (Tasker)",
+                                    "entity": "sensor.phone_battery",
+                                    "name": "Phone Battery",
                                     "secondary_info": "last-changed"
                                 },
                                 {
@@ -203,7 +145,9 @@
                                         "entity": "fan.bedroom_fan",
                                         "name": "Fan",
                                         "secondary_info": "last-changed",
-                                        "state_color": true
+                                        "state_color": true,
+                                        "toggle": true,
+                                        "type": "custom:slider-entity-row"
                                     },
                                     "condition": {
                                         "entity": "switch.bedroom_ac_switch",
@@ -219,37 +163,83 @@
                                 },
                                 {
                                     "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "type": "custom:multiple-entity-row",
                                         "entity": "switch.bedroom_ac_switch",
                                         "name": "AC",
                                         "secondary_info": "last-changed",
-                                        "state_color": true
+                                            "state_color": true,
+                                            "toggle": true,
+                                            "entities": [
+                                                {
+                                                    "entity": "script.ac_sweep",
+                                                    "name": false,
+                                                    "icon": "mdi:arrow-up-down",
+                                                    "tap_action": {
+                                                        "action": "call-service",
+                                                        "service": "script.ac_sweep",
+                                                        "haptic": "success"
+                                                    }
+                                                }
+                                            ]
                                     },
-                                    "row": true,
-                                    "type": "custom:restriction-card"
-                                },
+                                        "entities": [
                                 {
+                                                "type": "custom:simple-thermostat",
                                     "entity": "climate.bedroom_aircondition",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "service": "script.ac_sweep"
+                                                "layout": {
+                                                    "step": "row",
+                                                    "mode": {
+                                                        "headings": false
+                                                    }
                                     },
-                                    "name": "Air Condition",
-                                    "secondary_info": "last-changed"
+                                                "step_size": 1,
+                                                "decimals": 0,
+                                                "hide": {
+                                                    "temperature": true,
+                                                    "state": true
                                 },
+                                                "control": {
+                                                    "hvac": {
+                                                        "_hide_when_off": false
+                                                    },
+                                                    "fan": {
+                                                        "_hide_when_off": true,
+                                                        "low": {
+                                                            "name": "Low",
+                                                            "icon": "mdi:fan-speed-1"
+                                                        },
+                                                        "mid": {
+                                                            "name": "Mid",
+                                                            "icon": "mdi:fan-speed-2"
+                                                        },
+                                                        "high": {
+                                                            "name": "High",
+                                                            "icon": "mdi:fan-speed-3"
+                                    },
+                                                        "auto": {
+                                                            "icon": "mdi:fan-plus"
+                                                        }
+                                                    }
+                                },
+                                                "sensors": [
                                 {
-                                    "conditions": [
+                                                        "entity": "sensor.dht_sensor_temperature_filtered",
+                                                        "name": "Currently"
+                                                    },
                                         {
-                                            "entity": "switch.bedroom_ac_switch",
-                                            "state": "on"
+                                                        "entity": "sensor.dht_sensor_humidity",
+                                                        "name": "Humidity"
                                         }
                                     ],
-                                    "row": {
-                                        "entity": "climate.bedroom_aircondition",
-                                        "full_row": true,
-                                        "name": "Temperature",
-                                        "type": "custom:slider-entity-row"
+                                                "header": false
+                                            }
+                                        ]
                                     },
-                                    "type": "conditional"
+                                    "row": true,
+                                    "duration": 10,
+                                    "type": "custom:restriction-card"
                                 },
                                 {
                                     "type": "custom:multiple-entity-row",
@@ -268,12 +258,13 @@
                                             "state_color": true
                                         },
                                         {
-                                            "entity": "script.laptop_lock",
+                                            "entity": "switch.laptop_lock",
                                             "icon": "mdi:lock",
                                             "name": false,
                                             "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.laptop_lock"
+                                                "action": "toggle",
+                                                "entity": "switch.laptop_lock",
+                                                "haptic": "success"
                                             }
                                         }
                                     ]
@@ -557,6 +548,49 @@
                             "type": "entities"
                         },
                         {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.hacs",
+                                            "state_not": "0"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "markdown",
+                                        "content": "{% for repo in state_attr('sensor.hacs', 'repositories') %}\n**{{ repo.display_name }}** _{{ repo[\"installed_version\"] }}_ -> _{{ repo[\"available_version\"] }}_\n{% endfor %}",
+                                        "title": "Hacs Updates"
+                                    }
+                                },
+                                {
+                                    "type": "custom:auto-entities",
+                                    "card": {
+                                        "type": "entities",
+                                        "title": "Add-on Updates",
+                                        "show_header_toggle": false
+                                    },
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "binary_sensor.*update*",
+                                                "state": "on",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                            }
+                                        ],
+                                        "exclude": []
+                                    },
+                                    "sort": {
+                                        "method": "entity_id"
+                                    },
+                                    "show_empty": false
+                                }
+                            ]
+                        },
+                        {
                             "calEventTime": true,
                             "enableModeChange": true,
                             "entities": [
@@ -587,6 +621,11 @@
                                     "entity": "calendar.contacts",
                                     "color": "orange",
                                     "icon": "mdi:cake"
+                                },
+                                {
+                                    "entity": "calendar.home_assistant_devs",
+                                    "color": "pink",
+                                    "icon": "hass:home-assistant"
                                 }
                             ],
                             "europeanDate": true,
@@ -608,45 +647,6 @@
                             "showWeekDay": true,
                             "sortByStartTime": false,
                             "type": "custom:atomic-calendar-revive"
-                        },
-                        {
-                            "columns": 3,
-                            "entities": [
-                                {
-                                    "entity": "sensor.israel_coronavirus_confirmed",
-                                    "icon": "mdi:emoticon-neutral-outline",
-                                    "name": "IL: Confirmed"
-                                },
-                                {
-                                    "entity": "sensor.israel_coronavirus_current",
-                                    "icon": "mdi:emoticon-frown-outline",
-                                    "name": "IL: Current"
-                                },
-                                {
-                                    "entity": "sensor.israel_coronavirus_deaths",
-                                    "icon": "mdi:emoticon-dead-outline",
-                                    "name": "IL: Deaths"
-                                },
-                                {
-                                    "entity": "sensor.worldwide_coronavirus_confirmed",
-                                    "icon": "mdi:emoticon-neutral-outline",
-                                    "name": "Total: Confirmed"
-                                },
-                                {
-                                    "entity": "sensor.worldwide_coronavirus_current",
-                                    "icon": "mdi:emoticon-frown-outline",
-                                    "name": "Total: Current"
-                                },
-                                {
-                                    "entity": "sensor.worldwide_coronavirus_deaths",
-                                    "icon": "mdi:emoticon-dead-outline",
-                                    "name": "Total: Deaths"
-                                }
-                            ],
-                            "show_icon": true,
-                            "show_name": true,
-                            "title": "COVID-19",
-                            "type": "glance"
                         }
                     ],
                     "icon": "mdi:home",
@@ -1009,6 +1009,60 @@
                                     "entity_id": "media_player.bedroom_mi_box"
                                 }
                             }
+                        },
+                        {
+                            "type": "custom:simple-thermostat",
+                            "entity": "climate.bedroom_aircondition",
+                            "layout": {
+                                "step": "row",
+                                "mode": {
+                                    "headings": false
+                                }
+                            },
+                            "step_size": 1,
+                            "decimals": 0,
+                            "hide": {
+                                "temperature": true,
+                                "state": true
+                            },
+                            "control": {
+                                "hvac": {
+                                    "_hide_when_off": false
+                                },
+                                "fan": {
+                                    "_hide_when_off": true,
+                                    "low": {
+                                        "name": "Low",
+                                        "icon": "mdi:fan-speed-1"
+                                    },
+                                    "mid": {
+                                        "name": "Mid",
+                                        "icon": "mdi:fan-speed-2"
+                                    },
+                                    "high": {
+                                        "name": "High",
+                                        "icon": "mdi:fan-speed-3"
+                                    },
+                                    "auto": {
+                                        "icon": "mdi:fan-plus"
+                                    }
+                                }
+                            },
+                            "sensors": [
+                                {
+                                    "entity": "sensor.dht_sensor_temperature_filtered",
+                                    "name": "Currently"
+                                },
+                                {
+                                    "entity": "sensor.dht_sensor_humidity",
+                                    "name": "Humidity"
+                                }
+                            ],
+                            "header": {
+                                "toggle": {
+                                    "entity": "switch.bedroom_ac_switch"
+                                }
+                            }
                         }
                     ],
                     "icon": "mdi:bed",
@@ -1144,6 +1198,27 @@
                         {
                             "entity": "media_player.yes_bedroom",
                             "type": "custom:mini-media-player"
+                        },
+                        {
+                            "type": "custom:vacuum-card",
+                            "entity": "vacuum.roomba",
+                            "image": "default",
+                            "compact_view": true,
+                            "show_name": true,
+                            "show_status": true,
+                            "show_toolbar": true,
+                            "stats": {
+                                "default": [
+                                    {
+                                        "attribute": "bin_present",
+                                        "subtitle": "Bin Present"
+                                    },
+                                    {
+                                        "attribute": "bin_full",
+                                        "subtitle": "Bin Full"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "icon": "mdi:sofa",
@@ -1244,7 +1319,7 @@
                                             "type": "conditional"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "type": "custom:vertical-stack-in-card"
                                 },
                                 {
                                     "cards": [
@@ -1338,7 +1413,7 @@
                                             "type": "conditional"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "type": "custom:vertical-stack-in-card"
                                 },
                                 {
                                     "cards": [
@@ -1432,7 +1507,7 @@
                                             "type": "conditional"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "type": "custom:vertical-stack-in-card"
                                 }
                             ]
                         },
@@ -1451,7 +1526,8 @@
                             "show_state": false
                         },
                         {
-                            "type": "horizontal-stack",
+                            "type": "custom:vertical-stack-in-card",
+                            "horizontal": true,
                             "title": "Lightnings",
                             "cards": [
                                 {

@@ -6,7 +6,7 @@
   condition: []
   action:
   - service: automation.trigger
-    data_template:
+    target:
       entity_id: >
         {% if trigger.event.data.data == "/turn_bedroom_light_off" %}
           automation.undo_turn_on_light
@@ -16,12 +16,12 @@
           automation.do_nothing
         {% endif %}
   - service: telegram_bot.answer_callback_query
-    data_template:
+    data:
       callback_query_id: '{{ trigger.event.data.id }}'
       message: 'Feedback Received!'
       show_alert: false
   - service: telegram_bot.edit_replymarkup
-    data_template:
+    data:
       message_id: '{{ trigger.event.data.message.message_id }}'
       chat_id: '{{ trigger.event.data.user_id }}'
       inline_keyboard: []

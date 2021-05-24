@@ -13,9 +13,6 @@
       position: 40
     entity_id: cover.bedroom_window1
     service: cover.set_cover_position
-  - data: {}
-    entity_id: automation.shutdown_pi_on_power_outage
-    service: automation.turn_on
   mode: single
 - id: '1589664836212'
   alias: turn AC on on power outage morning
@@ -33,24 +30,4 @@
       temperature: 21
     entity_id: climate.bedroom_aircondition
     service: climate.set_temperature
-  mode: single
-- id: '1589666505243'
-  alias: Shutdown Pi on power outage
-  description: based on printer unavailable and upnp speed too
-  trigger:
-  - entity_id: sensor.router_kib_sec_received
-    for: 00:00:40
-    platform: state
-    to: unavailable
-  condition: []
-  action:
-  - delay: 00:02:20
-  - condition: state
-    entity_id: sensor.printer_status
-    state: unavailable
-  - condition: state
-    entity_id: sensor.router_kib_sec_received
-    state: unavailable
-  - data: {}
-    service: hassio.host_shutdown
   mode: single

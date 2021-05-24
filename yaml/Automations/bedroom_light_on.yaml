@@ -1,14 +1,14 @@
 - alias: Turn Light on in Bedroom
   id: bedroom_light_on
   trigger:
-  - entity_id: sensor.phone_home_wifi_connected
-    platform: state
+  - platform: state
+    entity_id: sensor.phone_home_wifi_connected
     to: Up
   - platform: numeric_state
     entity_id: sensor.sunlight_pct
     below: 11
-  - entity_id: cover.bedroom_window1
-    platform: state
+  - platform: state
+    entity_id: cover.bedroom_window1
     to: 'closed'
   condition:
   - condition: state
@@ -37,18 +37,20 @@
         above: 8
       sequence:
         - service: light.turn_on
+          target:
+            entity_id: light.bedroom_light
           data:
             brightness: 255
-            entity_id: light.bedroom_light
             color_temp: 200
     default:
       - service: light.turn_on
+        target:
+          entity_id: light.bedroom_light
         data:
           brightness: 204
-          entity_id: light.bedroom_light
           color_temp: 312
   - service: notify.telegram_main
-    data_template:
+    data:
       title: "<b>Bedroom Light automatically turned ON</b>"
       message: >
         Triggered by: {{ trigger.platform }}
@@ -66,10 +68,9 @@
       event_data:
         action: turn_bedroom_light_off
   action:
-  - data:
-      entity_id:
-      - light.bedroom_light
-    service: light.turn_off
+  - service: light.turn_off
+    target:
+      entity_id: light.bedroom_light
   - service: notify.telegram_main
     data:
       message: "Bedroom Light turned OFF by request #to4mi"

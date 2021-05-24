@@ -6,20 +6,20 @@
       value_template: "{{not is_state('climate.bedroom_aircondition', 'off') }}"
       turn_off:
         service: climate.turn_off
-        data:
+        target:
           entity_id: climate.bedroom_aircondition
       turn_on:
         service: climate.turn_on
-        data:
+        target:
           entity_id: climate.bedroom_aircondition
     bedroom_tv:
       friendly_name: "Bedroom TV"
       value_template: "{{is_state('switch.bedroom_screen', 'on') }}"
       turn_off:
         service: script.turn_on
-        data:
+        target:
           entity_id: script.turn_tv_station_off
       turn_on:
         service: script.turn_on
-        data:
+        target:
           entity_id: script.watch_mi_box

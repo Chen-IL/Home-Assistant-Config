@@ -3,15 +3,22 @@
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
-    from: 'closed'
     to: 'open'
+    for:
+      seconds: 2
   condition:
   - condition: state
     entity_id: input_boolean.window_improperly_closed
     state: 'off'
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: cover.bedroom_window1
+        attribute: current_position
+        state: 0
   action:
   - service: input_boolean.turn_on
-    data:
+    target:
       entity_id: input_boolean.window_improperly_closed
 
 - alias: Properly Close Window
@@ -19,7 +26,6 @@
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
-    from: 'open'
     to: 'closed'
   condition:
   - condition: state
@@ -29,17 +35,18 @@
   - delay:
       milliseconds: 500
   - service: cover.set_cover_position
-    data:
+    target:
       entity_id: cover.bedroom_window1
+    data:
       position: 4
   - wait_template: "{{ is_state_attr('cover.bedroom_window1', 'current_position', 4) }}"
   - delay:
-      milliseconds: 500
+      milliseconds: 600
   - service: input_boolean.turn_off
-    data:
+    target:
       entity_id: input_boolean.window_improperly_closed
   - service: cover.close_cover
-    data:
+    target:
       entity_id: cover.bedroom_window1
 
 - alias: When Window Opens Sleep is Off
@@ -47,7 +54,6 @@
   trigger:
   - platform: state
     entity_id: cover.bedroom_window1
-    from: 'closed'
     to: 'open'
   condition:
   - condition: state
@@ -55,7 +61,7 @@
     state: 'on'
   action:
   - service: input_boolean.turn_off
-    data:
+    target:
       entity_id: input_boolean.me_asleep
 
 - alias: Bedroom Window Position Getter
@@ -64,12 +70,14 @@
   trigger:
     - platform: state
       entity_id: cover.bedroom_window1
-      attribute: roller_state
-      to: "stop"
+      to:
+        - 'open'
+        - 'closed'
   action:
     - service: input_number.set_value
-      data_template:
+      target:
         entity_id: input_number.bedroom_window_position
+      data:
         value: '{{ trigger.to_state.attributes.current_position }}'
 
 - alias: Bedroom Window Position Setter
@@ -85,6 +93,7 @@
       above: -1
   action:
     - service: cover.set_cover_position
-      data_template:
+      target:
         entity_id: cover.bedroom_window1
+      data:
         position: '{{ trigger.to_state.state | int }}'

@@ -1,5 +1,5 @@
-- platform: nmap_tracker
-  home_interval: 10
+- platform: luci
+  host: !secret wrtaddr
+  username: !secret wrtusr
+  password: !secret wrtpwd
   consider_home: 240
-  hosts:
-    - !secret nmap_range

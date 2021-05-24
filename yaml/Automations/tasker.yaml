@@ -6,19 +6,17 @@
     platform: webhook
     webhook_id: !secret webhook_volume
   condition:
-  - condition: template
-    value_template: "{{ trigger.json.category == 'changevol' }}"
-  - condition: template
-    value_template: "{{ trigger.json.vol in ['up', 'down', 'mute'] }}"
+  - "{{ trigger.json.category == 'changevol' }}"
+  - "{{ trigger.json.vol in ['up', 'down', 'mute'] }}"
   - condition: state
     entity_id: media_player.bedroom_receiver
     state: 'on'
   action:
-  - service_template: 'media_player.volume_{{trigger.json.vol}}'
-    data:
+  - service: 'media_player.volume_{{trigger.json.vol}}'
+    target:
       entity_id: media_player.bedroom_receiver
   - delay:
       milliseconds: 100
-  - service_template: 'media_player.volume_{{trigger.json.vol}}'
-    data:
+  - service: 'media_player.volume_{{trigger.json.vol}}'
+    target:
       entity_id: media_player.bedroom_receiver

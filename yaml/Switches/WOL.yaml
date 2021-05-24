@@ -37,4 +37,6 @@
   host: !secret laptop_ip
   broadcast_address: !secret broadcast_ip
   turn_off:
-    service: script.laptop_suspend
+    service: switch.toggle
+    target:
+      entity_id: switch.laptop_suspend

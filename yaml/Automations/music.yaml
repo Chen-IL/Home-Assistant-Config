@@ -6,14 +6,20 @@
   condition: []
   action:
     - service: input_number.set_value
-      data_template:
+      target:
         entity_id: input_number.lastfm_played_yesterday
+      data:
         value: "{{ states('sensor.lastfm_played_today') | int }}"
+    # only continue if total player is > 0 (actually above 10). Will be 0 if lastfm didn't load.
+    - condition: numeric_state
+      entity_id: sensor.lastfm_playcount
+      above: 10
     - delay:
         seconds: 2
     - service: input_number.set_value
-      data_template:
+      target:
         entity_id: input_number.lastfm_midnight_total
+      data:
         value: "{{ states('sensor.lastfm_playcount') | int }}"
 
 # Not in WARNINGS channel
@@ -25,15 +31,13 @@
     - platform: state
       entity_id: sensor.lastfm_top
   condition:
-    - condition: template
-      value_template: "{{ trigger.to_state.state != 'unknown' }}"
-    - condition: template
-      value_template: "{{ trigger.to_state.state != 'None' }}"
+    - "{{ trigger.to_state.state != 'unknown' }}"
+    - "{{ trigger.to_state.state != 'None' }}"
   action:
   - delay:
       seconds: 70
   - condition: template
-    value_template: "{{  trigger.to_state.state == states('sensor.lastfm_top') }}"
+    value_template: "{{ trigger.to_state.state == states('sensor.lastfm_top') }}"
   - service: notify.telegram_main
     data:
       message: >
@@ -58,9 +62,39 @@
   - condition: template
     value_template: "{{ states('sensor.lastfm_playcount')|int % 1000 < 2 or states('sensor.lastfm_yearlyplaycount')|int % 1000 < 2 }}"
   - service: notify.telegram_main
-    data_template:
+    data:
       message: >
           🎵 {{trigger.to_state.name}} is now {{(trigger.to_state.state | int / 1000) | int}}k
+
+- id: modavg_songs_notify
+  alias: Crossed Daily Modulo Avg
+  trigger:
+    - platform: state
+      entity_id: sensor.lastfm_daymodavg
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.lastfm_daymodavg
+      above: 0
+    - "{{ trigger.to_state.state != 'unknown' }}"
+  action:
+  - service: notify.telegram_main
+    data:
+      message: >
+          📻 Daily Songs reached {{ trigger.to_state.state }} times the daily average.
+
+- id: lastfm_not_scrobbling
+  alias: LastFM not Scrobbling
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.lastfm_problem
+      to: 'on'
+  condition: []
+  action:
+  - service: notify.telegram_warnings
+    data:
+      message: "Last.FM is not scrobbling while Spotify is playing."
+
+
 
 - alias: Music Light Color
   id: music_light_color
@@ -70,19 +104,9 @@
       entity_id: media_player.spotify
   action:
     - service: color_extractor.turn_on
-      data_template:
-        color_extract_url: 'http://127.0.0.1:8123 {{- states.media_player.spotify.attributes.entity_picture }}'
+      target:
         entity_id: light.bedroom_light
-        transition: 5
-
-- alias: Torrent Completed
-  id: torrent_completed
-  trigger:
-    platform: event
-    event_type: transmission_downloaded_torrent
-  action:
-    service: notify.telegram_main
-    data:
-      message: >
-          ✔ Torrent Completed:
-          {{trigger.event.data.name}}
+      data:
+        color_extract_url: 'http://127.0.0.1:8123 {{- states.media_player.spotify.attributes.entity_picture }}'
+        transition: 15
+        brightness: '{{range(5,10) | random}}0'

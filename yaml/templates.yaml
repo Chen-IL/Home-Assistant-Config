@@ -1,0 +1,20 @@
+# Trying to replace my input_number entities + automations with these.
+# Problem: Values become unknown after reboots.
+
+- trigger:
+  - platform: time
+    at: "23:59:58"
+  sensor:
+    - name: Songs Played Yesterday
+      unique_id: lastfm_played_yesterday
+      unit_of_measurement: Songs
+      state: "{{ states('sensor.lastfm_played_today') | int }}"
+
+- trigger:
+  - platform: time
+    at: "00:00:01"
+  sensor:
+    - name: Midnight Songs Total
+      unique_id: lastfm_midnight_total
+      unit_of_measurement: Songs
+      state: "{{ states('sensor.lastfm_playcount') | int }}"

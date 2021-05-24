@@ -1,45 +1,47 @@
 - alias: When Fan ON AC OFF
   id: fan_on_ac_off
   trigger:
-  - entity_id: fan.bedroom_fan
+  - platform: state
+    entity_id: fan.bedroom_fan
     from: 'off'
-    platform: state
     to: 'on'
   condition:
   - condition: state
     entity_id: switch.bedroom_ac_switch
     state: 'on'
   action:
-  - data:
+  - service: switch.turn_off
+    target:
       entity_id: switch.bedroom_ac_switch
-    service: switch.turn_off
+    
 
 
 
 - alias: When AC ON Fan OFF
   id: ac_on_fan_off
   trigger:
-  - entity_id: switch.bedroom_ac_switch
+  - platform: state
+    entity_id: switch.bedroom_ac_switch
     from: 'off'
-    platform: state
     to: 'on'
   condition:
   - condition: state
     entity_id: fan.bedroom_fan
     state: 'on'
   action:
-  - data:
+  - service: fan.turn_off
+    target:
       entity_id: fan.bedroom_fan
-    service: fan.turn_off
+    
 
 
 
 - alias: When AC ON cool Sweep ON
   id: ac_on_cool_sweep_on
   trigger:
-  - entity_id: climate.bedroom_aircondition
+  - platform: state
+    entity_id: climate.bedroom_aircondition
     from: 'off'
-    platform: state
     to: 'cool'
   action:
   - delay: 00:00:03
@@ -49,46 +51,28 @@
 - alias: When AC ON Announce Temperature
   id: ac_on_announcement
   trigger:
-  - entity_id: switch.bedroom_ac_switch
-    platform: state
+  - platform: state
+    entity_id: switch.bedroom_ac_switch
     from: 'off'
     to: 'on'
   condition: []
   action:
   - service: notify.ga_broadcast
-    data_template:
+    data:
       message: 'AC is set to {{ states.climate.bedroom_aircondition.state }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
 
 - alias: When Fan ON Announce Temperature
   id: fan_on_announcement
   trigger:
-  - entity_id: fan.bedroom_fan
-    platform: state
+  - platform: state
+    entity_id: fan.bedroom_fan
     from: 'off'
     to: 'on'
   condition: []
   action:
   - service: notify.ga_broadcast
-    data_template:
+    data:
       message: 'Fan speed is {{ states.fan.bedroom_fan.attributes.speed }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
-
-- alias: Refresh Fan Status on Boot
-  id: boot_fan_status
-  trigger:
-  - platform: homeassistant
-    event: start
-  condition: []
-  action:
-  - service: mqtt.publish
-    data:
-      topic: "cmnd/tasmotas/state"
-      payload: ""
-  - service: mqtt.publish
-    data:
-      topic: "cmnd/tasmotas/POWER"
-  - service: mqtt.publish
-    data:
-      topic: "cmnd/iFan03-2/POWER2"
 
 - alias: AC Shutdown 20-Minutes Timer
   id: ac_sleep_timer
@@ -113,12 +97,12 @@
           state: 'heat'
       sequence:
         - service: switch.turn_off
-          data:
+          target:
             entity_id: switch.bedroom_ac_switch
     # if not heat turn off and (maybe) turn fan on
     default:
       - service: switch.turn_off
-        data:
+        target:
           entity_id: switch.bedroom_ac_switch
       - condition: state
         entity_id: input_boolean.fan_on_after_falling_asleep_with_ac
@@ -129,8 +113,10 @@
         entity_id: input_boolean.fan_on_after_falling_asleep_with_ac
         state: 'on'
       - service: fan.turn_on
-        data:
+        target:
           entity_id: fan.bedroom_fan
+        data:
+          percentage: 100
 
 - alias: AC ON_OFF again
   id: ac_on_off_again
@@ -138,18 +124,18 @@
   trigger:
   - platform: state
     entity_id: switch.bedroom_ac_switch
-    from:  'on'
-    to:  'off'
+    from: 'on'
+    to: 'off'
   - platform: state
     entity_id: switch.bedroom_ac_switch
-    from:  'off'
-    to:  'on'
+    from: 'off'
+    to: 'on'
   condition: []
   action:
   - delay:
       seconds: 1
-  - service_template: 'climate.turn_{{trigger.to_state.state}}'
-    data:
+  - service: 'climate.turn_{{trigger.to_state.state}}'
+    target:
       entity_id: climate.bedroom_aircondition
   - delay:
       seconds: 15

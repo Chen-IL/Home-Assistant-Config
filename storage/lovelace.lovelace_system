@@ -6,6 +6,100 @@
             "title": "System",
             "views": [
                 {
+                    "title": "Links",
+                    "path": "links",
+                    "icon": "mdi:link",
+                    "panel": false,
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "type": "weblink",
+                                    "url": "/jellyfin",
+                                    "name": "Jellyfin",
+                                    "icon": "mdi:television-play"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local/radarr",
+                                    "name": "Radarr",
+                                    "icon": "mdi:movie-open"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local/sonarr",
+                                    "name": "Sonarr",
+                                    "icon": "mdi:television-box"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local/bazarr",
+                                    "name": "Bazarr",
+                                    "icon": "mdi:subtitles"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://multimedia.local:9092",
+                                    "name": "qBittorrent",
+                                    "icon": "mdi:download-multiple"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local/jackett",
+                                    "name": "Jackett",
+                                    "icon": "mdi:magnify"
+                                },
+                                {
+                                    "type": "section"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local:9536",
+                                    "name": "Grocy",
+                                    "icon": "mdi:cart"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local:9726",
+                                    "name": "Barcode Buddy",
+                                    "icon": "mdi:barcode-scan"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "/calibre",
+                                    "name": "Calibre",
+                                    "icon": "mdi:book-open-variant"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "icon": "mdi:home-assistant",
+                                    "name": "Home Assistant Integrations",
+                                    "type": "weblink",
+                                    "url": "https://www.home-assistant.io/integrations/"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local:4357",
+                                    "name": "Observer",
+                                    "icon": "mdi:home-assistant"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "url": "http://homeassistant.local:3000",
+                                    "name": "Assistant Relay",
+                                    "icon": "mdi:google-assistant"
+                                }
+                            ],
+                            "type": "entities"
+                        }
+                    ]
+                },
+                {
                     "title": "Internet",
                     "path": "internet",
                     "icon": "mdi:web",
@@ -13,6 +107,158 @@
                     "cards": [
                         {
                             "type": "vertical-stack",
+                            "title": "AdGuard",
+                            "cards": [
+                                {
+                                    "type": "grid",
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "sensor",
+                                            "graph": "line",
+                                            "entity": "sensor.adguard_dns_queries",
+                                            "detail": 2,
+                                            "name": "Queries",
+                                            "unit": " "
+                                        },
+                                        {
+                                            "type": "sensor",
+                                            "graph": "line",
+                                            "entity": "sensor.adguard_dns_queries_blocked_ratio",
+                                            "detail": 2,
+                                            "name": "Blocked"
+                                        },
+                                        {
+                                            "type": "sensor",
+                                            "graph": "line",
+                                            "entity": "sensor.adguard_average_processing_speed",
+                                            "detail": 2,
+                                            "name": "Processing"
+                                        },
+                                        {
+                                            "type": "sensor",
+                                            "entity": "sensor.adguard_dns_queries_blocked",
+                                            "graph": "line",
+                                            "name": "Blocked",
+                                            "detail": 2,
+                                            "unit": "q's"
+                                        }
+                                    ],
+                                    "columns": 2
+                                },
+                                {
+                                    "type": "glance",
+                                    "entities": [
+                                        {
+                                            "entity": "switch.adguard_protection",
+                                            "name": "Protection",
+                                            "icon": "mdi:shield-check-outline"
+                                        },
+                                        {
+                                            "entity": "switch.adguard_filtering",
+                                            "name": "Filtering",
+                                            "icon": "mdi:list-status"
+                                        },
+                                        {
+                                            "entity": "switch.adguard_query_log",
+                                            "name": "Log Queries",
+                                            "icon": "mdi:math-log"
+                                        }
+                                    ],
+                                    "state_color": true,
+                                    "show_state": true,
+                                    "show_icon": true
+                                }
+                            ]
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "type": "custom:mini-graph-card",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.openwrt_router_kib_s_received",
+                                            "name": "Received",
+                                            "show_state": true,
+                                            "show_indicator": false,
+                                            "state_adaptive_color": true
+                                        },
+                                        {
+                                            "entity": "sensor.openwrt_router_kib_s_sent",
+                                            "name": "Sent",
+                                            "show_state": true,
+                                            "show_indicator": true,
+                                            "state_adaptive_color": true,
+                                            "y_axis": "secondary"
+                                        }
+                                    ],
+                                    "icon": "mdi:wan",
+                                    "name": "Internet Speed",
+                                    "hours_to_show": 2,
+                                    "points_per_hour": 180,
+                                    "aggregate_func": "max",
+                                    "height": 200,
+                                    "line_width": 2,
+                                    "hour24": true,
+                                    "smoothing": false,
+                                    "show": {
+                                        "name": false,
+                                        "icon": false,
+                                        "fill": false,
+                                        "points": "hover",
+                                        "labels": true,
+                                        "labels_secondary": true
+                                    }
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.ping_google_dns",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.ping_cloudflare_dns",
+                                            "secondary_info": "last-changed"
+                                        },
+                                        {
+                                            "icon": "mdi:router-wireless",
+                                            "name": "Router1",
+                                            "type": "weblink",
+                                            "url": "http://router1.local"
+                                        },
+                                        {
+                                            "icon": "mdi:router-wireless",
+                                            "name": "Router2",
+                                            "type": "weblink",
+                                            "url": "http://router2.local"
+                                        }
+                                    ],
+                                    "type": "entities",
+                                    "state_color": true
+                                },
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.disconnected_ratio_24h_google",
+                                            "state_not": "0.0"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "logbook",
+                                        "entities": [
+                                            "binary_sensor.ping_google_dns",
+                                            "binary_sensor.ping_cloudflare_dns"
+                                        ],
+                                        "hours_to_show": 12
+                                    }
+                                }
+                            ],
+                            "type": "vertical-stack",
+                            "title": "Internet Speed"
+                        },
+                        {
+                            "type": "custom:vertical-stack-in-card",
                             "title": "Disconnections",
                             "cards": [
                                 {
@@ -39,6 +285,9 @@
                                             "entity": "sensor.disconnected_ratio_24h_google",
                                             "name": "Ratio (24h)",
                                             "icon": "mdi:chart-arc"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.internet_outage"
                                         }
                                     ],
                                     "state_color": true,
@@ -47,15 +296,37 @@
                                     "columns": 3
                                 },
                                 {
+                                    "type": "custom:auto-entities",
+                                    "card": {
                                     "type": "history-graph",
+                                        "refresh_interval": 0,
+                                        "hours_to_show": 6
+                                    },
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "binary_sensor.ping_*"
+                                            }
+                                        ],
+                                        "exclude": []
+                                    },
                                     "entities": [
                                         {
                                             "entity": "binary_sensor.ping_google_dns",
                                             "name": "Google"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.ping_cloudflare_dns",
+                                            "name": "Cloudflare"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.internet_outage"
                                         }
                                     ],
-                                    "refresh_interval": 0,
-                                    "hours_to_show": 6
+                                    "sort": {
+                                        "method": "last_changed",
+                                        "reverse": true
+                                    }
                                 },
                                 {
                                     "type": "custom:mini-graph-card",
@@ -122,235 +393,371 @@
                                     ]
                                 }
                             ]
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "type": "custom:mini-graph-card",
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.router_kib_s_received",
-                                            "name": "Received",
-                                            "show_state": true,
-                                            "show_indicator": false,
-                                            "state_adaptive_color": true
-                                        },
-                                        {
-                                            "entity": "sensor.router_kib_s_sent",
-                                            "name": "Sent",
-                                            "show_state": true,
-                                            "show_indicator": true,
-                                            "state_adaptive_color": true,
-                                            "y_axis": "secondary"
-                                        }
-                                    ],
-                                    "icon": "mdi:wan",
-                                    "name": "Internet Speed",
-                                    "hours_to_show": 2,
-                                    "points_per_hour": 180,
-                                    "aggregate_func": "max",
-                                    "height": 200,
-                                    "line_width": 2,
-                                    "hour24": true,
-                                    "smoothing": false,
-                                    "show": {
-                                        "name": false,
-                                        "icon": false,
-                                        "fill": false,
-                                        "points": "hover",
-                                        "labels": true,
-                                        "labels_secondary": true
-                                    }
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "binary_sensor.ping_google_dns",
-                                            "secondary_info": "last-changed"
-                                        }
-                                    ],
-                                    "type": "entities",
-                                    "state_color": true
-                                }
-                            ],
-                            "type": "vertical-stack",
-                            "title": "Internet Speed"
-                        },
-                        {
-                            "type": "vertical-stack",
-                            "title": "AdGuard",
-                            "cards": [
-                                {
-                                    "type": "grid",
-                                    "square": false,
-                                    "cards": [
-                                        {
-                                            "type": "sensor",
-                                            "graph": "line",
-                                            "entity": "sensor.adguard_dns_queries",
-                                            "detail": 2,
-                                            "name": "Queries",
-                                            "unit": " "
-                                        },
-                                        {
-                                            "type": "sensor",
-                                            "graph": "line",
-                                            "entity": "sensor.adguard_dns_queries_blocked_ratio",
-                                            "detail": 2,
-                                            "name": "Blocked"
-                                        },
-                                        {
-                                            "type": "sensor",
-                                            "graph": "line",
-                                            "entity": "sensor.adguard_average_processing_speed",
-                                            "detail": 2,
-                                            "name": "Processing"
-                                        },
-                                        {
-                                            "type": "sensor",
-                                            "entity": "sensor.adguard_rules_count",
-                                            "graph": "line",
-                                            "name": "Rules",
-                                            "unit": " ",
-                                            "detail": 2
-                                        },
-                                        {
-                                            "type": "sensor",
-                                            "entity": "sensor.adguard_dns_queries_blocked",
-                                            "graph": "line",
-                                            "name": "Blocked",
-                                            "detail": 2,
-                                            "unit": "q's"
-                                        },
-                                        {
-                                            "type": "sensor",
-                                            "entity": "sensor.adguard_safe_browsing_blocked",
-                                            "graph": "line",
-                                            "name": "Safe Blocked",
-                                            "detail": 2
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "glance",
-                                    "entities": [
-                                        {
-                                            "entity": "switch.adguard_protection",
-                                            "name": "Protection",
-                                            "icon": "mdi:shield-check-outline"
-                                        },
-                                        {
-                                            "entity": "switch.adguard_filtering",
-                                            "name": "Filtering",
-                                            "icon": "mdi:list-status"
-                                        },
-                                        {
-                                            "entity": "switch.adguard_safe_browsing",
-                                            "name": "Safe Browsing",
-                                            "icon": "mdi:safe"
-                                        },
-                                        {
-                                            "entity": "switch.adguard_query_log",
-                                            "name": "Log Queries",
-                                            "icon": "mdi:math-log"
-                                        }
-                                    ],
-                                    "state_color": true,
-                                    "show_state": true,
-                                    "show_icon": true
-                                }
-                            ]
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "columns": 4,
-                                    "entities": [
-                                        {
-                                            "entity": "switch.transmission_switch",
-                                            "name": "Switch"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_status",
-                                            "name": "Status"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_total_torrents",
-                                            "icon": "mdi:format-list-numbered",
-                                            "name": "Total"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_started_torrents",
-                                            "icon": "mdi:format-list-checks",
-                                            "name": "Started"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_active_torrents",
-                                            "icon": "mdi:view-list",
-                                            "name": "Active"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_completed_torrents",
-                                            "icon": "mdi:check",
-                                            "name": "Completed"
-                                        },
-                                        {
-                                            "entity": "sensor.transmission_paused_torrents",
-                                            "icon": "mdi:pause",
-                                            "name": "Paused"
-                                        },
-                                        {
-                                            "entity": "switch.transmission_turtle_mode",
-                                            "icon": "mdi:speedometer-slow",
-                                            "name": "Turtle Mode"
-                                        }
-                                    ],
-                                    "type": "glance"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "detail": 2,
-                                            "entity": "sensor.transmission_down_speed",
-                                            "graph": "line",
-                                            "hours_to_show": 12,
-                                            "icon": "mdi:download-network",
-                                            "name": "Down",
-                                            "type": "sensor"
-                                        },
-                                        {
-                                            "detail": 2,
-                                            "entity": "sensor.transmission_up_speed",
-                                            "graph": "line",
-                                            "hours_to_show": 12,
-                                            "icon": "mdi:upload-network",
-                                            "name": "Up",
-                                            "type": "sensor"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "custom:transmission-card"
-                                }
-                            ],
-                            "type": "vertical-stack",
-                            "title": "Transmission"
-                        },
-                        {
-                            "type": "logbook",
-                            "entities": [
-                                "binary_sensor.ping_google_dns"
-                            ],
-                            "hours_to_show": 12
                         }
                     ]
-                },
-                {
+                        },
+                        {
                     "title": "Local",
                     "path": "local",
                     "icon": "mdi:lan",
                     "badges": [],
+                            "cards": [
+                                {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.printer_status"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_uptime"
+                                        }
+                                    ],
+                                    "type": "glance",
+                                    "title": "Printer"
+                                },
+                                {
+                                    "type": "custom:bar-card",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.printer_black_ink_remaining",
+                                            "name": "Black",
+                                            "color": "gray"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_cyan_ink_remaining",
+                                            "name": "Cyan",
+                                            "color": "cyan"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_magenta_ink_remaining",
+                                            "name": "Magenta",
+                                            "color": "magenta"
+                                        },
+                                        {
+                                            "entity": "sensor.printer_yellow_ink_remaining",
+                                            "name": "Yellow",
+                                            "color": "yellow"
+                                        }
+                                    ],
+                                    "direction": "up",
+                                    "height": "100px",
+                                    "stack": "horizontal",
+                                    "positions": {
+                                        "icon": "off"
+                                    },
+                                    "width": "63px",
+                                    "severity": [
+                                        {
+                                            "color": "red",
+                                            "from": 0,
+                                            "to": 3
+                                        },
+                                        {
+                                            "color": "orange",
+                                            "from": 4,
+                                            "to": 15
+                                }
+                                    ]
+                        },
+                        {
+                            "cards": [
+                                {
+                                            "detail": 2,
+                                            "entity": "sensor.printer_page_counter",
+                                            "graph": "line",
+                                            "name": "Total",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "detail": 2,
+                                            "entity": "sensor.printer_b_w_counter",
+                                            "graph": "line",
+                                            "name": "B/W",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "detail": 0,
+                                            "entity": "sensor.printer_color_counter",
+                                            "graph": "line",
+                                            "name": "Color",
+                                            "type": "sensor"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "custom:vertical-stack-in-card"
+                                        },
+                                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.shelly_2_5_temperature",
+                                    "name": "Temp"
+                                        },
+                                        {
+                                    "entity": "binary_sensor.shelly_2_5_overtemperature",
+                                    "name": "Overtemp?"
+                                        },
+                                        {
+                                    "entity": "sensor.shelly_2_5_temperarure_status",
+                                    "name": "Status"
+                                },
+                                {
+                                    "entity": "binary_sensor.shelly_2_5_firmware_update",
+                                    "name": "FW Update"
+                                },
+                                        {
+                                    "entity": "sensor.shelly_2_5_uptime",
+                                    "name": "Uptime"
+                                        },
+                                        {
+                                    "entity": "sensor.shelly_2_5_power",
+                                    "name": "Power"
+                                        },
+                                        {
+                                    "entity": "sensor.shelly_2_5_energy",
+                                    "name": "Energy"
+                                        },
+                                        {
+                                    "entity": "sensor.shelly_2_5_voltage",
+                                    "name": "Voltage"
+                                },
+                                {
+                                    "entity": "sensor.shelly_2_5_rssi",
+                                    "name": "RSSI"
+                                        }
+                                    ],
+                            "title": "Shelly",
+                            "type": "glance",
+                            "state_color": true
+                        },
+                        {
+                            "type": "entities",
+                            "state_color": true,
+                                    "entities": [
+                                        {
+                                    "entity": "switch.minix_up",
+                                    "secondary_info": "last-changed"
+                                        },
+                                        {
+                                    "entity": "binary_sensor.minix_up_connected",
+                                    "secondary_info": "last-changed"
+                                        },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*minixup_jellyfin*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                        },
+                                        {
+                                                "entity_id": "sensor.jellyfin_minixup",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                        },
+                                        {
+                                                "entity_id": "media_player.jellyfin_*"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "type": "weblink",
+                                            "url": "/jellyfin",
+                                            "name": "Jellyfin",
+                                            "icon": "mdi:television-play"
+                                        }
+                                    }
+                                        },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*minixup_radarr*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "type": "weblink",
+                                            "url": "http://homeassistant.local/radarr",
+                                            "name": "Radarr",
+                                            "icon": "mdi:movie-open"
+                                        }
+                                    }
+                                        },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*minixup_sonarr*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "type": "weblink",
+                                            "url": "http://homeassistant.local/sonarr",
+                                            "name": "Sonarr",
+                                            "icon": "mdi:television-box"
+                                        }
+                                    }
+                                        },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "sensor.qbittorrent_*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "type": "weblink",
+                                            "url": "http://multimedia.local:9092",
+                                            "name": "qBittorrent",
+                                            "icon": "mdi:download-multiple"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*minixup_teamviewer*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                        }
+                                    ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "binary_sensor.minixup_teamviewer"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "entity": "binary_sensor.minixup_teamviewer",
+                                            "icon": "mdi:teamviewer",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    }
+                                },
+                                {
+                                    "entity": "sensor.minixup_cpu_usage"
+                                },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "sensor.minixup_memory*"
+                                            }
+                                        ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "sensor.minixup_memory_usage"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "entity": "sensor.minixup_memory_usage"
+                                        }
+                                    }
+                                        },
+                                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "sensor.minixup_storage_c_*"
+                                        }
+                                    ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "sensor.minixup_storage_c_usage"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "entity": "sensor.minixup_storage_c_usage",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "sensor.minixup_storage_d_*"
+                                }
+                            ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "sensor.minixup_storage_d_usage"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": {
+                                            "entity": "sensor.minixup_storage_d_usage",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    }
+                        },
+                        {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "script.minixup*"
+                                            }
+                            ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "script.minixup_refresh"
+                                            }
+                                        ]
+                                    },
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "head": "script.minixup_refresh"
+                                    }
+                        }
+                    ]
+                },
+                {
+                            "type": "vertical-stack",
                     "cards": [
                         {
                             "card": {
@@ -368,6 +775,11 @@
                                                 "secondary_info": "last-changed"
                                             },
                                             {
+                                                        "entity": "sensor.laptop_state",
+                                                        "icon": "mdi:laptop-windows",
+                                                        "secondary_info": "last-changed"
+                                                    },
+                                                    {
                                                 "conditions": [
                                                     {
                                                         "entity": "binary_sensor.laptop_power_status",
@@ -566,7 +978,7 @@
                                         ]
                                     }
                                 ],
-                                "type": "vertical-stack"
+                                        "type": "custom:vertical-stack-in-card"
                             },
                             "conditions": [
                                 {
@@ -578,21 +990,29 @@
                         },
                         {
                             "card": {
+                                        "cards": [
+                                            {
                                 "entities": [
                                     {
                                         "entity": "switch.laptop",
-                                        "icon": "mdi:laptop-windows",
-                                        "secondary_info": "last-changed"
+                                                        "secondary_info": "last-changed",
+                                                        "icon": "mdi:laptop-chromebook"
                                     },
                                     {
                                         "entity": "binary_sensor.my_computer_connected",
+                                                        "icon": "mdi:laptop-chromebook",
+                                                        "secondary_info": "last-changed"
+                                                    },
+                                                    {
+                                                        "entity": "sensor.laptop_state",
                                         "icon": "mdi:laptop-windows",
                                         "secondary_info": "last-changed"
                                     },
                                     {
-                                        "action_name": "Refresh",
-                                        "entity": "script.laptop_refresh",
-                                        "icon": "mdi:refresh"
+                                                        "type": "weblink",
+                                                        "url": "/calibre",
+                                                        "name": "Calibre",
+                                                        "icon": "mdi:television-play"
                                     }
                                 ],
                                 "show_header_toggle": false,
@@ -600,211 +1020,127 @@
                                 "title": "Laptop",
                                 "type": "entities"
                             },
-                            "conditions": [
                                 {
-                                    "entity": "binary_sensor.my_computer_connected",
-                                    "state_not": "on"
-                                }
-                            ],
-                            "type": "conditional"
-                        },
-                        {
+                                                "type": "grid",
+                                                "square": false,
+                                                "columns": 3,
                             "cards": [
                                 {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.printer_status"
+                                                        "entity": "switch.laptop_lock",
+                                                        "hold_action": {
+                                                            "action": "more-info"
                                         },
-                                        {
-                                            "entity": "sensor.printer_uptime"
-                                        }
-                                    ],
-                                    "type": "glance",
-                                    "title": "Printer"
+                                                        "icon": "mdi:lock",
+                                                        "name": "Lock",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
                                 },
-                                {
-                                    "type": "custom:bar-card",
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.printer_black_ink_remaining",
-                                            "name": "Black",
-                                            "color": "gray"
+                                                        "type": "button"
                                         },
                                         {
-                                            "entity": "sensor.printer_cyan_ink_remaining",
-                                            "name": "Cyan",
-                                            "color": "cyan"
+                                                        "card": {
+                                                            "entity": "switch.laptop_suspend",
+                                                            "hold_action": {
+                                                                "action": "more-info"
                                         },
-                                        {
-                                            "entity": "sensor.printer_magenta_ink_remaining",
-                                            "name": "Magenta",
-                                            "color": "magenta"
+                                                            "icon": "mdi:power-settings",
+                                                            "name": "Suspend",
+                                                            "show_icon": true,
+                                                            "show_name": true,
+                                                            "show_state": false,
+                                                            "tap_action": {
+                                                                "action": "toggle"
                                         },
-                                        {
-                                            "entity": "sensor.printer_yellow_ink_remaining",
-                                            "name": "Yellow",
-                                            "color": "yellow"
-                                        }
-                                    ],
-                                    "direction": "up",
-                                    "height": "100px",
-                                    "stack": "horizontal",
-                                    "positions": {
-                                        "icon": "off"
+                                                            "type": "button"
                                     },
-                                    "width": "63px",
-                                    "severity": [
-                                        {
-                                            "color": "red",
-                                            "from": 0,
-                                            "to": 3
+                                                        "type": "custom:restriction-card"
                                         },
                                         {
-                                            "color": "orange",
-                                            "from": 4,
-                                            "to": 15
-                                        }
-                                    ]
+                                                        "entity": "script.laptop_refresh",
+                                                        "hold_action": {
+                                                            "action": "more-info"
                                 },
-                                {
-                                    "cards": [
-                                        {
-                                            "detail": 2,
-                                            "entity": "sensor.printer_page_counter",
-                                            "graph": "line",
-                                            "name": "Total",
-                                            "type": "sensor"
+                                                        "icon": "mdi:refresh",
+                                                        "name": "Refresh",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
                                         },
-                                        {
-                                            "detail": 2,
-                                            "entity": "sensor.printer_b_w_counter",
-                                            "graph": "line",
-                                            "name": "B/W",
-                                            "type": "sensor"
-                                        },
-                                        {
-                                            "detail": 0,
-                                            "entity": "sensor.printer_color_counter",
-                                            "graph": "line",
-                                            "name": "Color",
-                                            "type": "sensor"
+                                                        "type": "button"
                                         }
-                                    ],
-                                    "type": "horizontal-stack"
+                                                ]
                                 }
                             ],
-                            "type": "vertical-stack"
+                                        "type": "custom:vertical-stack-in-card"
                         },
+                                    "conditions": [
                         {
-                            "entities": [
-                                {
-                                    "entity": "sensor.shelly_power",
-                                    "name": "Power"
+                                            "entity": "switch.laptop",
+                                            "state": "on"
                                 },
                                 {
-                                    "entity": "sensor.shelly_energy",
-                                    "name": "Energy"
-                                },
-                                {
-                                    "entity": "sensor.shelly_temperature",
-                                    "name": "Temp"
-                                },
-                                {
-                                    "entity": "binary_sensor.shelly_overtemperature",
-                                    "name": "Overtemp?"
-                                },
-                                {
-                                    "entity": "binary_sensor.shelly_firmware_update",
-                                    "name": "FW Update"
+                                            "entity": "binary_sensor.my_computer_connected",
+                                            "state": "off"
                                 }
                             ],
-                            "title": "Shelly",
-                            "type": "glance"
+                                    "type": "conditional"
                         },
                         {
-                            "type": "entities",
-                            "state_color": true,
+                                    "card": {
                             "entities": [
                                 {
-                                    "entity": "switch.minix_up",
+                                                "entity": "switch.laptop",
+                                                "icon": "mdi:laptop-windows",
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "binary_sensor.minix_up_connected",
+                                                "entity": "binary_sensor.my_computer_connected",
+                                                "icon": "mdi:laptop-windows",
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "*minixup_jellyfin*",
-                                                "options": {
+                                                "entity": "sensor.laptop_state",
+                                                "icon": "mdi:laptop-windows",
                                                     "secondary_info": "last-changed"
+                                    },
+                                            {
+                                                "action_name": "Refresh",
+                                                "entity": "script.laptop_refresh",
+                                                "icon": "mdi:refresh"
+                                        }
+                                        ],
+                                        "show_header_toggle": false,
+                                        "state_color": true,
+                                        "title": "Laptop",
+                                        "type": "entities"
+                                },
+                                    "conditions": [
+                                {
+                                            "entity": "switch.laptop",
+                                            "state_not": "on"
                                                 }
+                                    ],
+                                    "type": "conditional"
                                             }
                                         ]
                                     },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "type": "weblink",
-                                            "url": "/jellyfin",
-                                            "name": "Jellyfin",
-                                            "icon": "mdi:television-play"
-                                        }
-                                    }
-                                },
                                 {
                                     "type": "custom:auto-entities",
+                                    "card": {
+                                "type": "entities",
+                                "state_color": true,
+                                "show_header_toggle": false,
+                                "title": "Devices"
+                                },
                                     "filter": {
                                         "include": [
                                             {
-                                                "entity_id": "*minixup_radarr*",
-                                                "options": {
-                                                    "secondary_info": "last-changed"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "type": "weblink",
-                                            "url": "http://homeassistant.local/radarr",
-                                            "name": "Radarr",
-                                            "icon": "mdi:movie-open"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "*minixup_sonarr*",
-                                                "options": {
-                                                    "secondary_info": "last-changed"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "type": "weblink",
-                                            "url": "http://homeassistant.local/sonarr",
-                                            "name": "Sonarr",
-                                            "icon": "mdi:television-box"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "*minixup_teamviewer*",
+                                        "domain": "device_tracker",
                                                 "options": {
                                                     "secondary_info": "last-changed"
                                                 }
@@ -812,85 +1148,14 @@
                                         ],
                                         "exclude": [
                                             {
-                                                "entity_id": "binary_sensor.minixup_teamviewer"
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "entity": "binary_sensor.minixup_teamviewer",
-                                            "icon": "mdi:teamviewer",
-                                            "secondary_info": "last-changed"
-                                        }
-                                    }
-                                },
-                                {
-                                    "entity": "sensor.minixup_cpu_usage"
-                                },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "sensor.minixup_memory*"
-                                            }
-                                        ],
-                                        "exclude": [
-                                            {
-                                                "entity_id": "sensor.minixup_memory_usage"
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "entity": "sensor.minixup_memory_usage"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "sensor.minixup_storage*"
-                                            }
-                                        ],
-                                        "exclude": [
-                                            {
-                                                "entity_id": "sensor.minixup_storage_c_usage"
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": {
-                                            "entity": "sensor.minixup_storage_c_usage",
-                                            "secondary_info": "last-changed"
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "filter": {
-                                        "include": [
-                                            {
-                                                "entity_id": "script.minixup*"
-                                            }
-                                        ],
-                                        "exclude": [
-                                            {
-                                                "entity_id": "script.minixup_refresh"
-                                            }
-                                        ]
-                                    },
-                                    "card": {
-                                        "type": "custom:fold-entity-row",
-                                        "head": "script.minixup_refresh"
-                                    }
+                                        "entity_id": "device_tracker.me_phone"
                                 }
-                            ]
+                                        ]
+                                    },
+                            "sort": {
+                                "method": "last_changed",
+                                "reverse": true
+                                    }
                         }
                     ]
                 },
@@ -964,13 +1229,18 @@
                                             "entity": "sensor.last_boot"
                                         },
                                         {
-                                            "entity": "binary_sensor.rpi_power_status"
+                                            "entity": "binary_sensor.rpi_power_status",
+                                            "name": "Power State"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.power_outage"
                                         }
                                     ],
-                                    "type": "glance"
+                                    "type": "glance",
+                                    "state_color": false
                                 }
                             ],
-                            "type": "vertical-stack"
+                            "type": "custom:vertical-stack-in-card"
                         },
                         {
                             "entities": [
@@ -998,130 +1268,6 @@
                             "show_header_toggle": false,
                             "state_color": true,
                             "title": "Hass",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "icon": "mdi:home-assistant",
-                                    "name": "Home Assistant Integrations",
-                                    "type": "weblink",
-                                    "url": "https://www.home-assistant.io/integrations/"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:4357",
-                                    "name": "Observer",
-                                    "icon": "mdi:home-assistant"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:3000",
-                                    "name": "Assistant Relay",
-                                    "icon": "mdi:google-assistant"
-                                },
-                                {
-                                    "type": "section",
-                                    "label": "Media"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "/jellyfin",
-                                    "name": "Jellyfin",
-                                    "icon": "mdi:television-play"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local/radarr",
-                                    "name": "Radarr",
-                                    "icon": "mdi:movie-open"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local/sonarr",
-                                    "name": "Sonarr",
-                                    "icon": "mdi:television-box"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local/bazarr",
-                                    "name": "Bazarr",
-                                    "icon": "mdi:subtitles"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:9091",
-                                    "name": "Transmission",
-                                    "icon": "mdi:download-multiple"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:9117",
-                                    "name": "Jackett",
-                                    "icon": "mdi:magnify"
-                                },
-                                {
-                                    "type": "section"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:9536",
-                                    "name": "Grocy",
-                                    "icon": "mdi:cart"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:9726",
-                                    "name": "Barcode Buddy",
-                                    "icon": "mdi:barcode-scan"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "/calibre",
-                                    "name": "Calibre",
-                                    "icon": "mdi:book-open-variant"
-                                },
-                                {
-                                    "type": "section",
-                                    "label": "Local or Former"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://minixup.local:8096",
-                                    "name": "Jellyfin (local)",
-                                    "icon": "mdi:television-play"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://homeassistant.local:8096",
-                                    "name": "Jellyfin (pi)",
-                                    "icon": "mdi:television-play"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://minixup.local:7878",
-                                    "name": "Radarr (local)",
-                                    "icon": "mdi:movie-open"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://minixup.local:8989",
-                                    "name": "Sonarr (local)",
-                                    "icon": "mdi:television-box"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://minixup.local:6767/bazarr",
-                                    "name": "Bazarr (local)",
-                                    "icon": "mdi:subtitles"
-                                },
-                                {
-                                    "type": "weblink",
-                                    "url": "http://laptop.local:2665",
-                                    "name": "Calibre (local)",
-                                    "icon": "mdi:book-open-variant"
-                                }
-                            ],
                             "type": "entities"
                         }
                     ]
@@ -1191,26 +1337,25 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "calendar.main"
+                            "type": "custom:auto-entities",
+                            "card": {
+                                "type": "entities",
+                                "title": "Calendars",
+                                "show_header_toggle": false,
+                                "state_color": true
                                 },
+                            "filter": {
+                                "include": [
                                 {
-                                    "entity": "calendar.holidays_israel"
-                                },
-                                {
-                                    "entity": "calendar.holidays_usa"
-                                },
-                                {
-                                    "entity": "calendar.kayak_trips"
-                                },
-                                {
-                                    "entity": "calendar.contacts"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Calendars",
-                            "type": "entities"
+                                        "domain": "calendar"
+                                    }
+                                ],
+                                "exclude": []
+                            },
+                            "sort": {
+                                "method": "friendly_name",
+                                "reverse": true
+                            }
                         }
                     ],
                     "icon": "mdi:home-automation",

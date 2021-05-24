@@ -688,7 +688,7 @@ class Places(Entity):
                     user_display.append(street)
                     user_display.append(street_number)
                 else:
-                    if "street" in display_options and user_display[-1] != street:
+                    if "street" in display_options and street not in user_display:
                         user_display.append(street)
                     if "street_number" in display_options:
                         user_display.append(street_number)

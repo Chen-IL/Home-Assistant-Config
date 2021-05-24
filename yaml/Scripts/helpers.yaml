@@ -3,40 +3,53 @@ turn_onoff_if_needed:
   sequence:
   - condition: template
     value_template: '{{ states(wanted_entity_id) != operation }}'
-  - service_template: 'homeassistant.turn_{{operation}}'
-    data_template:
+  - service: 'homeassistant.turn_{{operation}}'
+    target:
       entity_id: '{{wanted_entity_id}}'
 
 ac_sweep:
   alias: AC Sweep
   sequence:
   - service: remote.send_command
-    data:
+    target:
       entity_id: remote.bedroom_remote
+    data:
       command: "b64:JgDKAI6REDcQFBA3EDcRExAUEDcRExETEDcRExAUEzQRNxATETcQFBA3EDcQFBA3ERMQNxE3EDcQFBAUEDcQFBA3ERMQFBA3EDcRNxAUEBMRExETEBQQFBATERMRNxA3EDcRNxA3EqqOkRA3EBQQNxA3ERMQFBA3ERMQFBA3EhIQFBA3ETcQExE3EBQQNxA3ERMQNxETEDgQNxA3ERMQFBA3EBQQNxETEBQQNxE3EDcQFBAUEBMRExAUEBQQFBATETcQNxA3ETcQNxAADQUAAAAAAAAAAAAAAAAAAA=="
 
 ac_power:
   alias: AC Power
   sequence:
   - service: climate.set_fan_mode
-    data_template:
+    target:
       entity_id: climate.bedroom_aircondition
+    data:
       fan_mode: >
         {% if states.climate.bedroom_aircondition.attributes.fan_mode == "low"-%} mid
         {%- else -%} low {%- endif %}
   - service: notify.ga_broadcast
-    data_template:
+    data:
       message: 'AC is set to {{ states.climate.bedroom_aircondition.state }} at {{ states.climate.bedroom_aircondition.attributes.fan_mode }} speed. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
 
 battery_update:
   alias: Battery Update
   sequence:
   - service: notify.ga_broadcast
-    data_template:
+    data:
       message: >
         Your phone's battery has {{states.sensor.me_phone_battery.state}}% as of {{relative_time(states.sensor.me_phone_battery.last_changed)}} ago.
         Your band is charged to {{states.sensor.miband_battery.state}}% as of {{relative_time(states.sensor.miband_battery.last_changed)}} ago.
         Your laptop's battery is on {{states.sensor.laptop_battery_remaining.state}}% as of {{relative_time(states.sensor.laptop_battery_remaining.last_changed)}} ago.
+
+internet_update:
+  alias: Internet Update
+  sequence:
+  - service: notify.ga_broadcast
+    data:
+      message: >
+        The internet is currently {%if states.binary_sensor.ping_google_dns.state == 'on'%}connected {%else%}disconnected {%endif-%}
+        for {{relative_time(states.binary_sensor.ping_google_dns.last_changed)}}.
+        Today it has disconnected {{states('sensor.disconnections_today_google')}} times, for a total duration of {{states('sensor.disconnected_minutes_today')}} minutes.
+        Over the last 24 hours it has been disconnected about {{states('sensor.disconnected_ratio_24h_google')}}% of the time.
 
 
 restart_homeassistant:
@@ -48,21 +61,22 @@ shake_window:
   alias: Shake Window
   sequence:
   - service: cover.close_cover
-    data:
+    target:
       entity_id: cover.bedroom_window1
   - wait_template: "{{ is_state('cover.bedroom_window1', 'closed') }}"
   - delay:
       seconds: 1
   - service: cover.set_cover_position
-    data:
+    target:
       entity_id: cover.bedroom_window1
+    data:
       position: 4
   - wait_template: "{{ is_state_attr('cover.bedroom_window1', 'current_position', 4) }}"
   - service: input_boolean.turn_off
-    data:
+    target:
       entity_id: input_boolean.window_improperly_closed
   - delay:
       seconds: 1
   - service: cover.close_cover
-    data:
+    target:
       entity_id: cover.bedroom_window1

@@ -1,0 +1,62 @@
+- platform: template
+  sensors:
+    ping_google_min:
+      friendly_name: Ping Google Min
+      value_template: "{{ state_attr('binary_sensor.ping_google_dns', 'round_trip_time_min') }}"
+      unique_id: 'ping_google_min'
+      unit_of_measurement: 'ms'
+    ping_google_max:
+      friendly_name: Ping Google Max
+      value_template: "{{ state_attr('binary_sensor.ping_google_dns', 'round_trip_time_max') }}"
+      unique_id: 'ping_google_max'
+      unit_of_measurement: 'ms'
+    disconnected_minutes_today:
+      friendly_name: Disconnected Minutes Today Google
+      value_template: >-
+        {%- set time = state_attr('sensor.disconnected_time_today_google', 'value') %}
+        {%- if 'h' in time %}
+          {{ (time.split('h')[0] | int) * 60 +  (time.split('h')[1][:-1] | int) }}
+        {%- else %}
+          {{ time[:-1] | int }}
+        {%- endif %}
+      unique_id: 'disconnected_minutes_today_google'
+      unit_of_measurement: 'minutes'
+    ping_google_last_changed:
+      friendly_name: Ping Google Last Changed
+      unique_id: 'ping_google_last_changed'
+      value_template: "{{ as_timestamp(states.binary_sensor.ping_google_dns.last_changed) | timestamp_local }}"
+      device_class: timestamp
+
+
+- platform: history_stats
+  name: Disconnections Today Google
+  entity_id: binary_sensor.ping_google_dns
+  state: 'off'
+  type: count
+  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: Disconnected Ratio Today Google
+  entity_id: binary_sensor.ping_google_dns
+  state: 'off'
+  type: ratio
+  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: Disconnected Ratio 24h Google
+  entity_id: binary_sensor.ping_google_dns
+  state: 'off'
+  type: ratio
+  duration:
+    hours: 24
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: Disconnected Time Today Google
+  entity_id: binary_sensor.ping_google_dns
+  state: 'off'
+  type: time
+  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+  end: '{{ now() }}'

@@ -7,9 +7,3 @@
 - platform: mqtt
   name: "MiBand Status"
   state_topic: "me/miband/status"
-
-- platform: mqtt
-  name: "My Phone Battery"
-  device_class: battery
-  state_topic: "me/phone/battery"
-  unit_of_measurement: "%"

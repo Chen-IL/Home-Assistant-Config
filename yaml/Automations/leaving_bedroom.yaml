@@ -53,9 +53,8 @@
         action: cancel_leaving_bedroom
   action:
   - service: script.turn_off
-    data:
-      entity_id:
-      - script.offer_run_leaving_bedroom
+    target:
+      entity_id: script.offer_run_leaving_bedroom
   - service: notify.telegram_main
     data:
       title: "<b>I get it, you're in your room.</b>"
@@ -66,18 +65,18 @@
 - alias: Skip Bedroom Turn-off if Entering room
   id: leaving_bedroom_skip
   trigger:
-  - entity_id: device_tracker.me_bluetooth
-    platform: state
+  - platform: state
+    entity_id: device_tracker.me_bluetooth
     to: home
-  - entity_id: sensor.phone_home_wifi_connected
-    platform: state
+  - platform: state
+    entity_id: sensor.phone_home_wifi_connected
     to: Up
   condition:
   - condition: state
     entity_id: script.offer_run_leaving_bedroom
     state: 'on'
   action:
-  - data:
+  - service: automation.trigger
+    target:
       entity_id: automation.leaving_bedroom_cancel
-    service: automation.trigger
   - service: script.cancel_leaving_bedroom

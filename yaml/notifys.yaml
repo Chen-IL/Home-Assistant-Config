@@ -8,10 +8,6 @@
   platform: telegram
   chat_id: !secret telegram_chatid3
 - name: ga_broadcast
-  platform: rest
-  resource: http://127.0.0.1:3000/assistant
-  method: POST_JSON
-  message_param_name: command
-  data: 
-    user: !secret ga_user
-    broadcast: true
+  platform: tts
+  tts_service: tts.google_say
+  media_player: media_player.googlehome1164

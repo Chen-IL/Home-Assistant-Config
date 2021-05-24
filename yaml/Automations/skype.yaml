@@ -11,8 +11,7 @@
   - condition: state #Make sure we're home
     entity_id: group.familyathome
     state: home
-  - condition: template #Make sure their time's correct
-    value_template: '{{ states("sensor.seattle_time") >= "07:00" }}'
+  - '{{ states("sensor.seattle_time") >= "07:00" }}' #Make sure their time's correct
   - condition: time #Make sure our time is OK - not during the night - after midnight
     after: '11:00:00'
   - condition: state #Make sure it's not already on
@@ -29,7 +28,7 @@
         state: "on"
   action:
   - service: switch.turn_on
-    data:
+    target:
       entity_id: switch.minix_down
   - service: notify.telegram_main
     data:
@@ -49,7 +48,7 @@
     state: "off"
   action:
   - service: switch.turn_off
-    data:
+    target:
       entity_id: switch.minix_down
   - service: notify.telegram_main
     data:
