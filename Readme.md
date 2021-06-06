@@ -21,6 +21,11 @@ Monitoring of printer status. I get notified when ink replacement is needed.
 ### **Internet Status**
 <img src="screenshots/internet.png" raw=true alt="Internet"/>  
 
+### **Updates Card**
+<img width=425 src="screenshots/updates.png" raw=true alt="Updates"/>
+
+You can find my Updates Card code [here](docs/updates.md).
+
 ## Structure
 You'll be unable to reproduce my own Home Assistant instance using these files directly. However, you are welcome to use this repo as inspiration for your own instance.  
 Note that it is recommended that you install the included custom components and python scripts directly from their source (rather than this repository).
