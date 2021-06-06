@@ -3,7 +3,23 @@
 This repository hosts my [Home Assistant](https://home-assistant.io) configuration files.
 
 ## Screenshots
-<img src="screenshots/bedroom.png" raw=true alt="Bedroom"/>
+### **Bedroom Controls**
+<img src="screenshots/bedroom.png" raw=true alt="Bedroom"/>  
+
+### **Raspberry Pi Status**
+<img src="screenshots/raspberry.png" raw=true alt="Raspberry"/>  
+Monitoring of host machine and Home Assistant status.
+
+### **Printer Status**
+<img width=425 src="screenshots/printer.png" raw=true alt="Printer">  
+
+Monitoring of printer status. I get notified when ink replacement is needed.
+
+### **Main Dashboard** 
+<img src="screenshots/main-view.png" raw=true alt="Main"/>
+
+### **Internet Status**
+<img src="screenshots/internet.png" raw=true alt="Internet"/>  
 
 ## Structure
 You'll be unable to reproduce my own Home Assistant instance using these files directly. However, you are welcome to use this repo as inspiration for your own instance.  
