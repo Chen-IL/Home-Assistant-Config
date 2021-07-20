@@ -36,7 +36,7 @@ battery_update:
   - service: notify.ga_broadcast
     data:
       message: >
-        Your phone's battery has {{states.sensor.me_phone_battery.state}}% as of {{relative_time(states.sensor.me_phone_battery.last_changed)}} ago.
+        Your phone's battery has {{states.sensor.oneplus_battery.state}}% as of {{relative_time(states.sensor.oneplus_battery.last_changed)}} ago.
         Your band is charged to {{states.sensor.miband_battery.state}}% as of {{relative_time(states.sensor.miband_battery.last_changed)}} ago.
         Your laptop's battery is on {{states.sensor.laptop_battery_remaining.state}}% as of {{relative_time(states.sensor.laptop_battery_remaining.last_changed)}} ago.
 
@@ -56,27 +56,3 @@ restart_homeassistant:
   alias: Restart HomeAssistant
   sequence:
   - service: homeassistant.restart
-
-shake_window:
-  alias: Shake Window
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id: cover.bedroom_window1
-  - wait_template: "{{ is_state('cover.bedroom_window1', 'closed') }}"
-  - delay:
-      seconds: 1
-  - service: cover.set_cover_position
-    target:
-      entity_id: cover.bedroom_window1
-    data:
-      position: 4
-  - wait_template: "{{ is_state_attr('cover.bedroom_window1', 'current_position', 4) }}"
-  - service: input_boolean.turn_off
-    target:
-      entity_id: input_boolean.window_improperly_closed
-  - delay:
-      seconds: 1
-  - service: cover.close_cover
-    target:
-      entity_id: cover.bedroom_window1

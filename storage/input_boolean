@@ -1,13 +1,23 @@
 {
+    "version": 1,
+    "key": "input_boolean",
     "data": {
         "items": [
             {
                 "icon": "mdi:fan",
                 "id": "fan_on_after_falling_asleep_with_ac",
                 "name": "Fan ON after Falling Asleep with AC"
+            },
+            {
+                "name": "Chen Asleep",
+                "icon": "mdi:sleep",
+                "id": "chen_asleep_2"
+            },
+            {
+                "name": "Guest Mode",
+                "icon": "mdi:account-multiple",
+                "id": "guest_mode_2"
             }
         ]
-    },
-    "key": "input_boolean",
-    "version": 1
+    }
 }

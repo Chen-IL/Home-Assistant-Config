@@ -45,24 +45,31 @@
     target:
       entity_id: input_boolean.guest_mode
 
-- alias: Cleaning Guest Start
-  id: cleaning_guest_on
+
+- alias: Cleaning Guest Toggle
+  id: 9669adf6-f328-4941-a8b8-7fdc0b65bb60
   trigger:
   - platform: time
     at: input_datetime.house_cleaning_start
-  condition: "{{(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state)}}"
-  action:
-  - service: input_boolean.turn_on
-    target:
-      entity_id: input_boolean.guest_mode
-
-- alias: Cleaning Guest End
-  id: cleaning_guest_off
-  trigger:
+    id: "start"
   - platform: time
     at: input_datetime.house_cleaning_end
+    id: "end"
   condition: "{{(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][now().weekday()] == states.input_select.houseclean_day.state)}}"
   action:
-  - service: input_boolean.turn_off
-    target:
-      entity_id: input_boolean.guest_mode
+  - alias: "Start OR End?"
+    choose:
+    - conditions:
+        - condition: trigger
+          id: "start"
+      sequence:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.guest_mode
+    - conditions:
+        - condition: trigger
+          id: "end"
+      sequence:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.guest_mode

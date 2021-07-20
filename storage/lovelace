@@ -14,18 +14,18 @@
                                     "type": "custom:auto-entities",
                                     "entities": [
                                         {
-                                            "entity": "device_tracker.me_nmap",
+                                            "entity": "device_tracker.chen_nmap",
                                             "name": "NMAP"
                                         },
                                         {
-                                            "entity": "sensor.me_place",
+                                            "entity": "sensor.chen_place",
                                             "name": "Place"
                                         }
                                     ],
                                     "filter": {
                                         "include": [
                                             {
-                                                "entity_id": "*phone*",
+                                                "entity_id": "*oneplus*",
                                                 "sort": {
                                                     "method": "name"
                                                 }
@@ -35,14 +35,14 @@
                                     "unique": true,
                                     "card": {
                                         "type": "custom:fold-entity-row",
-                                    "group_config": {
-                                        "secondary_info": "last-changed"
-                                    },
-                                    "head": {
-                                        "entity": "person.me",
-                                        "name": "Person Entity",
-                                        "secondary_info": "last-changed"
-                                    }
+                                        "group_config": {
+                                            "secondary_info": "last-changed"
+                                        },
+                                        "head": {
+                                            "entity": "person.chen",
+                                            "name": "Person Entity",
+                                            "secondary_info": "last-changed"
+                                        }
                                     }
                                 },
                                 {
@@ -51,9 +51,34 @@
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "sensor.phone_battery",
+                                    "entity": "sensor.oneplus_battery",
                                     "name": "Phone Battery",
                                     "secondary_info": "last-changed"
+                                },
+                                {
+                                    "type": "custom:auto-entities",
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "*galaxytab*",
+                                                "sort": {
+                                                    "method": "name"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "unique": true,
+                                    "card": {
+                                        "type": "custom:fold-entity-row",
+                                        "group_config": {
+                                            "secondary_info": "last-changed"
+                                        },
+                                        "head": {
+                                            "entity": "sensor.galaxytab_battery_level",
+                                            "name": "Tablet Battery",
+                                            "secondary_info": "last-changed"
+                                        }
+                                    }
                                 },
                                 {
                                     "entity": "sensor.miband_status",
@@ -76,14 +101,14 @@
                                     }
                                 },
                                 {
-                                    "entity": "input_boolean.me_asleep",
+                                    "entity": "input_boolean.chen_asleep",
                                     "name": "Asleep?",
                                     "secondary_info": "last-changed"
                                 }
                             ],
                             "show_header_toggle": false,
                             "state_color": true,
-                            "title": "Me",
+                            "title": "Chen",
                             "type": "entities"
                         },
                         {
@@ -166,9 +191,9 @@
                                         "type": "custom:fold-entity-row",
                                         "head": {
                                             "type": "custom:multiple-entity-row",
-                                        "entity": "switch.bedroom_ac_switch",
-                                        "name": "AC",
-                                        "secondary_info": "last-changed",
+                                            "entity": "switch.bedroom_ac_switch",
+                                            "name": "AC",
+                                            "secondary_info": "last-changed",
                                             "state_color": true,
                                             "toggle": true,
                                             "entities": [
@@ -183,23 +208,23 @@
                                                     }
                                                 }
                                             ]
-                                    },
+                                        },
                                         "entities": [
-                                {
+                                            {
                                                 "type": "custom:simple-thermostat",
-                                    "entity": "climate.bedroom_aircondition",
+                                                "entity": "climate.bedroom_aircondition",
                                                 "layout": {
                                                     "step": "row",
                                                     "mode": {
                                                         "headings": false
                                                     }
-                                    },
+                                                },
                                                 "step_size": 1,
                                                 "decimals": 0,
                                                 "hide": {
                                                     "temperature": true,
                                                     "state": true
-                                },
+                                                },
                                                 "control": {
                                                     "hvac": {
                                                         "_hide_when_off": false
@@ -217,22 +242,22 @@
                                                         "high": {
                                                             "name": "High",
                                                             "icon": "mdi:fan-speed-3"
-                                    },
+                                                        },
                                                         "auto": {
                                                             "icon": "mdi:fan-plus"
                                                         }
                                                     }
-                                },
+                                                },
                                                 "sensors": [
-                                {
+                                                    {
                                                         "entity": "sensor.dht_sensor_temperature_filtered",
                                                         "name": "Currently"
                                                     },
-                                        {
+                                                    {
                                                         "entity": "sensor.dht_sensor_humidity",
                                                         "name": "Humidity"
-                                        }
-                                    ],
+                                                    }
+                                                ],
                                                 "header": false
                                             }
                                         ]
@@ -268,28 +293,175 @@
                                             }
                                         }
                                     ]
-                                },
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true,
+                            "title": "Bedroom Controls",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
                                 {
-                                    "label": "Multimedia",
-                                    "type": "section"
-                                },
-                                {
-                                    "entity": "switch.bedroom_tv",
-                                    "icon": "mdi:television-guide",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_receiver",
-                                    "group": true,
-                                    "hide": {
-                                        "icon_state": false,
-                                        "power_state": false
+                                    "type": "custom:fold-entity-row",
+                                    "head": {
+                                        "entity": "switch.bedroom_tv",
+                                        "icon": "mdi:television-guide",
+                                        "secondary_info": "last-changed",
+                                        "state_color": true
                                     },
-                                    "icon": "mdi:audio-video",
-                                    "name": "Receiver",
-                                    "source": "icon",
-                                    "type": "custom:mini-media-player",
-                                    "volume_stateless": true
+                                    "entities": [
+                                        {
+                                            "entity": "switch.bedroom_screen",
+                                            "hold_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.bedroom_remote",
+                                                    "command": "b64:JgBQAAABKJQRFBEUERQRExEUERQSOBEUETkSOBE4EjgRORI4ERQROREUEjgRFBAUETkRFBEUERQROREUEjcSOBITETkRORE5EQAFIgABJkwRAA0FAAAAAAAAAAA="
+                                                }
+                                            },
+                                            "name": "Screen",
+                                            "secondary_info": "last-changed",
+                                            "state_color": true
+                                        },
+                                        {
+                                            "entity": "media_player.bedroom_receiver",
+                                            "group": true,
+                                            "hide": {
+                                                "icon_state": false,
+                                                "power_state": false
+                                            },
+                                            "icon": "mdi:audio-video",
+                                            "name": "Receiver",
+                                            "source": "icon",
+                                            "type": "custom:mini-media-player",
+                                            "volume_stateless": true
+                                        },
+                                        {
+                                            "entity": "media_player.bedroom_mi_box",
+                                            "group": true,
+                                            "hide": {
+                                                "icon_state": false,
+                                                "power_state": false
+                                            },
+                                            "icon": "mdi:android",
+                                            "name": "Mi Box",
+                                            "type": "custom:mini-media-player",
+                                            "volume_stateless": true
+                                        },
+                                        {
+                                            "entity": "media_player.chen_mi_box",
+                                            "group": true,
+                                            "type": "custom:mini-media-player"
+                                        },
+                                        {
+                                            "type": "custom:fold-entity-row",
+                                            "head": {
+                                                "entity": "sensor.chen_mi_box_app",
+                                                "secondary_info": "last-changed"
+                                            },
+                                            "entities": [
+                                                {
+                                                    "type": "custom:tv-card",
+                                                    "back": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACMRFSQWERUbFiQWERURFhoWLhUkFhoWAAGPIhEWJBYRFRsWIxYRFhEWGhYtFiQWGhYADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "channeldown": {
+                                                        "service": "media_player.volume_down",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_receiver"
+                                                        }
+                                                    },
+                                                    "channelup": {
+                                                        "service": "media_player.volume_up",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_receiver"
+                                                        }
+                                                    },
+                                                    "down": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACMRFiQVEhUbFiMWERYRFhoWJBUkFhEWAAGgIxEWJBURFhsVJBYRFhEWGhYkFSQWERYADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "entity": "media_player.bedroom_mi_box",
+                                                    "forward": {
+                                                        "service": "media_player.media_next_track",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_mi_box"
+                                                        }
+                                                    },
+                                                    "home": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACYSFSQWERUbFiQWERURFiQWERUbFiMWAAGhIhEWJBYRFRsWJBURFhEWJBYQFhsVJBYADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "left": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA2ABQmExQTHRMmFBMUExMnEzATHRMdFAABkCETEycTExQdEyYUExMUEyYULxQdEx0TAAioDQANBQAA"
+                                                        }
+                                                    },
+                                                    "name": "Mi Box",
+                                                    "power": {
+                                                        "service": "media_player.turn_on",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_mi_box"
+                                                        }
+                                                    },
+                                                    "reverse": {
+                                                        "service": "media_player.media_previous_track",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_mi_box"
+                                                        }
+                                                    },
+                                                    "right": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACQRFSQWERYaFiQWERYQFi4VERYRFiQVAAGhIxEVJBYRFhoWJBYRFREWLRYRFhEWJBUADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "select": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACMRFiQVERYbFSQWERYRFS4WGhYRFi0WAAGOIxEVJBYRFhoWJBYRFhAWLhUbFREWLhUADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "tv": true,
+                                                    "up": {
+                                                        "service": "remote.send_command",
+                                                        "service_data": {
+                                                            "entity_id": "remote.bedroom_remote",
+                                                            "command": "b64:JgA0ACISFSQWERUbFiQWERURFhoWGxUkFi0WAAGMJREWJBYRFRsWIxYRFhEWGhYaFiQWLRYADQUAAAAA"
+                                                        }
+                                                    },
+                                                    "volume_down": {
+                                                        "service": "media_player.volume_down",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_mi_box"
+                                                        }
+                                                    },
+                                                    "volume_up": {
+                                                        "service": "media_player.volume_up",
+                                                        "service_data": {
+                                                            "entity_id": "media_player.bedroom_mi_box"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     "entity": "switch.minix_up",
@@ -352,8 +524,8 @@
                             ],
                             "show_header_toggle": false,
                             "state_color": true,
-                            "title": "Bedroom Controls",
-                            "type": "custom:hui-entities-card"
+                            "title": "Bedroom Multimedia",
+                            "type": "entities"
                         },
                         {
                             "card": {
@@ -503,7 +675,6 @@
                                     "show_state": true,
                                     "show_indicator": true,
                                     "show_fill": false,
-                                    "show_points": false,
                                     "state_adaptive_color": true
                                 },
                                 {
@@ -548,7 +719,7 @@
                             "type": "entities"
                         },
                         {
-                            "type": "vertical-stack",
+                            "type": "custom:vertical-stack-in-card",
                             "cards": [
                                 {
                                     "type": "conditional",
@@ -597,7 +768,7 @@
                                 {
                                     "color": "blue",
                                     "entity": "calendar.main",
-                                    "eventCalName": "Me",
+                                    "eventCalName": "Chen",
                                     "icon": "mdi:star"
                                 },
                                 {
@@ -626,6 +797,11 @@
                                     "entity": "calendar.home_assistant_devs",
                                     "color": "pink",
                                     "icon": "hass:home-assistant"
+                                },
+                                {
+                                    "entity": "calendar.uefa_euro",
+                                    "color": "gray",
+                                    "icon": "mdi:soccer"
                                 }
                             ],
                             "europeanDate": true,
@@ -635,7 +811,7 @@
                             "showColors": true,
                             "showCurrentEventLine": false,
                             "showDate": true,
-                            "showDescription": true,
+                            "showDescription": false,
                             "showEventIcon": true,
                             "showFullDayProgress": false,
                             "showLoader": true,
@@ -647,6 +823,32 @@
                             "showWeekDay": true,
                             "sortByStartTime": false,
                             "type": "custom:atomic-calendar-revive"
+                        },
+                        {
+                            "type": "custom:auto-entities",
+                            "card": {
+                                "type": "entities",
+                                "show_header_toggle": false,
+                                "state_color": false
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "device_tracker.*_nmap",
+                                        "options": {
+                                            "secondary_info": "last-changed"
+                                        },
+                                        "state": "not_home"
+                                    }
+                                ],
+                                "exclude": []
+                            },
+                            "sort": {
+                                "method": "last_changed",
+                                "reverse": true,
+                                "numeric": false
+                            },
+                            "show_empty": false
                         }
                     ],
                     "icon": "mdi:home",
@@ -658,71 +860,6 @@
                     "cards": [
                         {
                             "entities": [
-                                {
-                                    "entity": "light.bedroom_light",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "service": "light.turn_on",
-                                        "service_data": {
-                                            "brightness": 204,
-                                            "color_temp": 312,
-                                            "entity_id": "light.bedroom_light"
-                                        }
-                                    },
-                                    "name": "Light",
-                                    "secondary_info": "last-changed",
-                                    "toggle": true,
-                                    "type": "custom:slider-entity-row"
-                                },
-                                {
-                                    "entity": "cover.bedroom_window1",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "confirmation": {
-                                            "text": "Shake Window?"
-                                        },
-                                        "service": "script.shake_window"
-                                    },
-                                    "name": "Window",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "cover.bedroom_window1",
-                                    "full_row": true,
-                                    "name": "Window",
-                                    "step": 1,
-                                    "type": "custom:slider-entity-row"
-                                },
-                                {
-                                    "entity": "fan.bedroom_fan",
-                                    "name": "Fan",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "switch.bedroom_ac_switch",
-                                    "name": "AC",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "climate.bedroom_aircondition",
-                                    "name": "Air Condition",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "conditions": [
-                                        {
-                                            "entity": "switch.bedroom_ac_switch",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "row": {
-                                        "entity": "climate.bedroom_aircondition",
-                                        "full_row": true,
-                                        "name": "Temperature",
-                                        "type": "custom:slider-entity-row"
-                                    },
-                                    "type": "conditional"
-                                },
                                 {
                                     "entity": "switch.my_computer",
                                     "name": "Computer",
@@ -745,78 +882,6 @@
                                 {
                                     "label": "Multimedia",
                                     "type": "section"
-                                },
-                                {
-                                    "entity": "switch.bedroom_tv",
-                                    "icon": "mdi:television-guide",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "switch.bedroom_screen",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "service": "remote.send_command",
-                                        "service_data": {
-                                            "entity_id": "remote.bedroom_remote",
-                                            "command": "b64:JgBQAAABKJQRFBEUERQRExEUERQSOBEUETkSOBE4EjgRORI4ERQROREUEjgRFBAUETkRFBEUERQROREUEjcSOBITETkRORE5EQAFIgABJkwRAA0FAAAAAAAAAAA="
-                                        }
-                                    },
-                                    "name": "Screen",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_receiver",
-                                    "group": true,
-                                    "hide": {
-                                        "icon_state": false,
-                                        "power_state": false
-                                    },
-                                    "icon": "mdi:audio-video",
-                                    "name": "Receiver",
-                                    "source": "icon",
-                                    "type": "custom:mini-media-player",
-                                    "volume_stateless": true
-                                },
-                                {
-                                    "entity": "media_player.bedroom_mi_box",
-                                    "group": true,
-                                    "hide": {
-                                        "icon_state": false,
-                                        "power_state": false
-                                    },
-                                    "icon": "mdi:android",
-                                    "name": "Mi Box",
-                                    "type": "custom:mini-media-player",
-                                    "volume_stateless": true
-                                },
-                                {
-                                    "entity": "media_player.mibox3",
-                                    "group": true,
-                                    "type": "custom:mini-media-player"
-                                },
-                                {
-                                    "entity": "sensor.mibox_bedroom_app",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "switch.minix_up",
-                                    "name": "Minix",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "media_player.spotify",
-                                    "group": true,
-                                    "hide": {
-                                        "power": true,
-                                        "runtime": false,
-                                        "shuffle": false
-                                    },
-                                    "info": "scroll",
-                                    "source": "full",
-                                    "type": "custom:mini-media-player"
-                                },
-                                {
-                                    "type": "divider"
                                 },
                                 {
                                     "entity": "media_player.googlehome1164",
@@ -912,157 +977,6 @@
                             ],
                             "title": "Bedroom Automations",
                             "type": "entities"
-                        },
-                        {
-                            "back": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACMRFSQWERUbFiQWERURFhoWLhUkFhoWAAGPIhEWJBYRFRsWIxYRFhEWGhYtFiQWGhYADQUAAAAA"
-                                }
-                            },
-                            "channeldown": {
-                                "service": "media_player.volume_down",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_receiver"
-                                }
-                            },
-                            "channelup": {
-                                "service": "media_player.volume_up",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_receiver"
-                                }
-                            },
-                            "down": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACMRFiQVEhUbFiMWERYRFhoWJBUkFhEWAAGgIxEWJBURFhsVJBYRFhEWGhYkFSQWERYADQUAAAAA"
-                                }
-                            },
-                            "entity": "media_player.bedroom_mi_box",
-                            "forward": {
-                                "service": "media_player.media_next_track",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_mi_box"
-                                }
-                            },
-                            "home": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACYSFSQWERUbFiQWERURFiQWERUbFiMWAAGhIhEWJBYRFRsWJBURFhEWJBYQFhsVJBYADQUAAAAA"
-                                }
-                            },
-                            "left": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA2ABQmExQTHRMmFBMUExMnEzATHRMdFAABkCETEycTExQdEyYUExMUEyYULxQdEx0TAAioDQANBQAA"
-                                }
-                            },
-                            "name": "Mi Box",
-                            "power": {
-                                "service": "media_player.turn_on",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_mi_box"
-                                }
-                            },
-                            "reverse": {
-                                "service": "media_player.media_previous_track",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_mi_box"
-                                }
-                            },
-                            "right": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACQRFSQWERYaFiQWERYQFi4VERYRFiQVAAGhIxEVJBYRFhoWJBYRFREWLRYRFhEWJBUADQUAAAAA"
-                                }
-                            },
-                            "select": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACMRFiQVERYbFSQWERYRFS4WGhYRFi0WAAGOIxEVJBYRFhoWJBYRFhAWLhUbFREWLhUADQUAAAAA"
-                                }
-                            },
-                            "tv": true,
-                            "type": "custom:tv-card",
-                            "up": {
-                                "service": "remote.send_command",
-                                "service_data": {
-                                    "entity_id": "remote.bedroom_remote",
-                                    "command": "b64:JgA0ACISFSQWERUbFiQWERURFhoWGxUkFi0WAAGMJREWJBYRFRsWIxYRFhEWGhYaFiQWLRYADQUAAAAA"
-                                }
-                            },
-                            "volume_down": {
-                                "service": "media_player.volume_down",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_mi_box"
-                                }
-                            },
-                            "volume_up": {
-                                "service": "media_player.volume_up",
-                                "service_data": {
-                                    "entity_id": "media_player.bedroom_mi_box"
-                                }
-                            }
-                        },
-                        {
-                            "type": "custom:simple-thermostat",
-                            "entity": "climate.bedroom_aircondition",
-                            "layout": {
-                                "step": "row",
-                                "mode": {
-                                    "headings": false
-                                }
-                            },
-                            "step_size": 1,
-                            "decimals": 0,
-                            "hide": {
-                                "temperature": true,
-                                "state": true
-                            },
-                            "control": {
-                                "hvac": {
-                                    "_hide_when_off": false
-                                },
-                                "fan": {
-                                    "_hide_when_off": true,
-                                    "low": {
-                                        "name": "Low",
-                                        "icon": "mdi:fan-speed-1"
-                                    },
-                                    "mid": {
-                                        "name": "Mid",
-                                        "icon": "mdi:fan-speed-2"
-                                    },
-                                    "high": {
-                                        "name": "High",
-                                        "icon": "mdi:fan-speed-3"
-                                    },
-                                    "auto": {
-                                        "icon": "mdi:fan-plus"
-                                    }
-                                }
-                            },
-                            "sensors": [
-                                {
-                                    "entity": "sensor.dht_sensor_temperature_filtered",
-                                    "name": "Currently"
-                                },
-                                {
-                                    "entity": "sensor.dht_sensor_humidity",
-                                    "name": "Humidity"
-                                }
-                            ],
-                            "header": {
-                                "toggle": {
-                                    "entity": "switch.bedroom_ac_switch"
-                                }
-                            }
                         }
                     ],
                     "icon": "mdi:bed",
@@ -1179,7 +1093,7 @@
                                     "volume_stateless": true
                                 },
                                 {
-                                    "entity": "media_player.mibox3_2",
+                                    "entity": "media_player.livingroom",
                                     "group": true,
                                     "hide": {
                                         "runtime": false
@@ -1188,7 +1102,7 @@
                                     "type": "custom:mini-media-player"
                                 },
                                 {
-                                    "entity": "sensor.mibox_livingroom_app",
+                                    "entity": "sensor.livingroom_app",
                                     "secondary_info": "last-changed"
                                 }
                             ],
@@ -1524,6 +1438,11 @@
                             "type": "picture-entity",
                             "show_name": false,
                             "show_state": false
+                        },
+                        {
+                            "aspect_ratio": "80%",
+                            "type": "iframe",
+                            "url": "https://embed.windy.com/embed2.html?wind"
                         },
                         {
                             "type": "custom:vertical-stack-in-card",

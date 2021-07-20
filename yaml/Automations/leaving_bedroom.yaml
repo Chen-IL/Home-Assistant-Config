@@ -17,16 +17,22 @@
     to: 'off'
     for:
       minutes: 3
+  - platform: state
+    entity_id: device_tracker.chen_nmap
+    from: 'home'
+    to: 'not_home'
+    for:
+      minutes: 5
   condition:
   - condition: state
     entity_id: script.offer_run_leaving_bedroom
     state: 'off'
   - condition: state
-    entity_id: input_boolean.me_asleep
+    entity_id: input_boolean.chen_asleep
     state: 'off'
   action:
   - service: notify.telegram_main
-    data_template:
+    data:
       title: "<b>You Have Left Your Bedroom</b>"
       message: >
         About to run leaving script.
@@ -66,8 +72,8 @@
   id: leaving_bedroom_skip
   trigger:
   - platform: state
-    entity_id: device_tracker.me_bluetooth
-    to: home
+    entity_id: device_tracker.chen_nmap
+    to: "home"
   - platform: state
     entity_id: sensor.phone_home_wifi_connected
     to: Up

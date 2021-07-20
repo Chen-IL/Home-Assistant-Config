@@ -21,7 +21,7 @@
             {
                 "id": "eb69625a818041e0acacd4cccddb91b4",
                 "type": "module",
-                "url": "/hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js"
+                "url": "/hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js?hacstag=246549747450"
             },
             {
                 "id": "66e80dcffadd4ae59deead1009875ac1",
@@ -69,7 +69,7 @@
                 "id": "26c7af7022954d3bb2ab495652719df7"
             },
             {
-                "url": "/hacsfiles/lovelace-swipe-navigation/swipe-navigation.js",
+                "url": "/hacsfiles/lovelace-swipe-navigation/swipe-navigation.js?hacstag=183995552136",
                 "type": "module",
                 "id": "e7a067866f8940d5a60d136326711ed5"
             },
@@ -89,7 +89,7 @@
                 "id": "5d8c0df334314bdc9263ba533a5deaaa"
             },
             {
-                "url": "/hacsfiles/vacuum-card/vacuum-card.js",
+                "url": "/hacsfiles/vacuum-card/vacuum-card.js?hacstag=2612912951230",
                 "type": "module",
                 "id": "21264e8e574b4a28888bdf583bb8a8f7"
             }

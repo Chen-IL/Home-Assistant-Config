@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "key": "input_select",
+    "data": {
+        "items": [
+            {
+                "name": "House Cleaning Day",
+                "icon": "mdi:broom",
+                "options": [
+                    "SKIP",
+                    "Sunday",
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                ],
+                "id": "house_cleaning_day_2"
+            }
+        ]
+    }
+}

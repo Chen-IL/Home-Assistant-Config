@@ -284,7 +284,7 @@ DEFAULT_HOME_ZONE = 'zone.home'
 DEFAULT_KEY = "no key"
 DEFAULT_MAP_PROVIDER = 'apple'
 DEFAULT_MAP_ZOOM = '18'
-DEFAULT_LANGUAGE = 'no language'
+DEFAULT_LANGUAGE = 'default'
 
 SCAN_INTERVAL = timedelta(seconds=30)
 THROTTLE_INTERVAL = timedelta(seconds=600)
@@ -331,6 +331,7 @@ class Places(Entity):
         self._map_provider = map_provider.lower()
         self._map_zoom = map_zoom.lower()
         self._language = language.lower()
+        self._language.replace(" ", "")
         self._state = "Initializing... (since 99:99)"
 
         home_latitude = str(hass.states.get(home_zone).attributes.get('latitude'))
@@ -555,16 +556,7 @@ class Places(Entity):
                 
             _LOGGER.debug( "(" + self._name + ") Map Link generated: " + self._map_link )
 
-            if self._api_key == 'no key':
-                if self._language == 'no language':
-                    osm_url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + self._latitude + "&lon=" + self._longitude + "&addressdetails=1&namedetails=1&zoom=18&limit=1"
-                else:
-                    osm_url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + self._latitude + "&lon=" + self._longitude + "&accept-language=" + self._language + "&addressdetails=1&namedetails=1&zoom=18&limit=1"
-            else:
-                if self._language == 'no language':
-                    osm_url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + self._latitude + "&lon=" + self._longitude + "&addressdetails=1&namedetails=1&zoom=18&limit=1&email=" + self._api_key
-                else:
-                    osm_url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + self._latitude + "&lon=" + self._longitude + "&accept-language=" + self._language + "&addressdetails=1&namedetails=1&zoom=18&limit=1&email=" + self._api_key
+            osm_url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + self._latitude + "&lon=" + self._longitude + ("&accept-language=" + self._language if self._language != DEFAULT_LANGUAGE else "") + "&addressdetails=1&namedetails=1&zoom=18&limit=1" + ("&email=" + self._api_key if self._api_key != DEFAULT_KEY else "")
 
             osm_decoded = {}
             _LOGGER.info( "(" + self._name + ") OpenStreetMap request sent with lat=" + self._latitude + " and lon=" + self._longitude)
@@ -603,8 +595,10 @@ class Places(Entity):
                         place_name = osm_decoded["address"][place_category]
                 if "name" in osm_decoded["namedetails"]:
                     place_name = osm_decoded["namedetails"]["name"]
-                if "name:en" in osm_decoded["namedetails"] and self._language in ["en", "en,he"]:
-                    place_name = osm_decoded["namedetails"]["name:en"]
+                for language in self._language.split(','):
+                    if "name:" + language in osm_decoded["namedetails"]:
+                        place_name = osm_decoded["namedetails"]["name:" + language]
+                        break
                 if "neighbourhood" in osm_decoded["address"]:
                     place_neighbourhood = osm_decoded["address"]["neighbourhood"]
                 if self._devicetracker_zone == 'not_home' and place_name != 'house':

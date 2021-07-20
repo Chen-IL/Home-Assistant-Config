@@ -1,8 +1,0 @@
-house_cleaning_start:
-  name: House Cleaning Start
-  has_date: false
-  has_time: true
-house_cleaning_end:
-  name: House Cleaning End
-  has_date: false
-  has_time: true

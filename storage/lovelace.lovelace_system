@@ -1332,6 +1332,12 @@
                                 },
                                 {
                                     "entity": "input_datetime.house_cleaning_end"
+                                },
+                                {
+                                    "entity": "input_number.auto_ac_min"
+                                },
+                                {
+                                    "entity": "input_number.auto_ac_max"
                                 }
                             ],
                             "type": "entities"

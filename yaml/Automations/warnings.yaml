@@ -213,3 +213,41 @@
     data:
       title: "🌩 <b>Very Close Lightning Strike - {{trigger.to_state.state|round(0)}} km</b>"
       message: "Direction: {{states('sensor.blitzortung_lightning_azimuth')}}°"
+
+# Not in WARNINGS channel
+- alias: Tablet Battery Notification
+  id: 2847081e-775c-4d62-ada3-c46d72b3ee11
+  trigger:
+    - platform: state
+      entity_id: sensor.galaxytab_battery_level
+      to:
+        - "5"
+        - "10"
+        - "15"
+        - "85"
+        - "90"
+        - "95"
+        - "100"
+  action:
+  - condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: sensor.galaxytab_battery_state
+            state: "discharging"
+          - condition: numeric_state
+            entity_id: sensor.galaxytab_battery_level
+            below: 20
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: sensor.galaxytab_battery_state
+            state: "charging"
+          - condition: numeric_state
+            entity_id: sensor.galaxytab_battery_level
+            above: 80
+  - service: notify.telegram_main
+    data:
+      message: >
+          🔋 Tablet Battery: {{ trigger.to_state.state }}%

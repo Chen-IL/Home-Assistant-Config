@@ -1,33 +1,19 @@
 play_spotify_on_mi_box:
   alias: Play Spotify on Mi Box
   sequence:
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_receiver
-      operation: 'on'
-  - delay: 00:00:02
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_mi_box
-      operation: 'on'
-  - delay: 00:00:10
-  - service: media_player.select_source
-    target:
-      entity_id: media_player.bedroom_receiver
-    data:
-      source: Mi Box
+  - service: script.watch_mi_box
   - service: media_player.select_source
     target:
       entity_id: media_player.spotify
     data:
-      source: My Mi Box
+      source: Chen Mi Box
   - delay: 00:00:05
   - service: media_player.media_play
     target:
       entity_id: media_player.spotify
   - service: media_player.select_source
     target:
-      entity_id: media_player.spotify
+      entity_id: media_player.bedroom_receiver
     data:
       source: Stereo5
     
@@ -42,10 +28,10 @@ watch_mi_box:
       wanted_entity_id: switch.bedroom_screen
       operation: 'on'
   - delay: 00:00:01
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_mi_box
-      operation: 'on'
+  # - service: script.turn_onoff_if_needed
+  #   data:
+  #     wanted_entity_id: media_player.bedroom_mi_box
+  #     operation: 'on'
   - delay: 00:00:01
   - service: script.turn_onoff_if_needed
     data:
@@ -103,10 +89,10 @@ turn_tv_station_off:
       wanted_entity_id: media_player.bedroom_receiver
       operation: 'off'
   - delay: 00:00:01
-  - service: script.turn_onoff_if_needed
-    data:
-      wanted_entity_id: media_player.bedroom_mi_box
-      operation: 'off'
+  # - service: script.turn_onoff_if_needed
+  #   data:
+  #     wanted_entity_id: media_player.bedroom_mi_box
+  #     operation: 'off'
 
 play_mp3_on_google_home:
   alias: Play MP3 on Google Home

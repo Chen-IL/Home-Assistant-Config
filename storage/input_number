@@ -30,6 +30,26 @@
                 "unit_of_measurement": "%",
                 "step": 1.0,
                 "id": "bedroom_window_position"
+            },
+            {
+                "min": 20.0,
+                "max": 30.0,
+                "name": "Auto AC Max",
+                "icon": "mdi:thermometer-plus",
+                "step": 0.1,
+                "unit_of_measurement": "\u00b0C",
+                "mode": "box",
+                "id": "auto_ac_max"
+            },
+            {
+                "min": 20.0,
+                "max": 30.0,
+                "name": "Auto AC Min",
+                "icon": "mdi:thermometer-minus",
+                "unit_of_measurement": "\u00b0C",
+                "step": 0.1,
+                "mode": "box",
+                "id": "auto_ac_min"
             }
         ]
     }

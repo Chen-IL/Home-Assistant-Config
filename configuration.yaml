@@ -120,9 +120,6 @@ frontend:
   themes: !include_dir_merge_named themes/
 google_assistant: !include yaml/google_assistant.yaml
 group: !include_dir_merge_named yaml/Groups/
-input_boolean: !include yaml/inputbooleans.yaml
-input_datetime: !include yaml/inputdatetimes.yaml
-input_select: !include yaml/inputselects.yaml
 input_text: !include yaml/inputtexts.yaml
 lock: !include yaml/locks.yaml
 media_player: !include yaml/mediaplayers.yaml

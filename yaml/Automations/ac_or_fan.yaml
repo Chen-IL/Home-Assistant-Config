@@ -48,6 +48,7 @@
   - service: script.ac_sweep
 
 
+
 - alias: When AC ON Announce Temperature
   id: ac_on_announcement
   trigger:
@@ -55,7 +56,10 @@
     entity_id: switch.bedroom_ac_switch
     from: 'off'
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.chen_asleep
+    state: "off"
   action:
   - service: notify.ga_broadcast
     data:
@@ -68,18 +72,23 @@
     entity_id: fan.bedroom_fan
     from: 'off'
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.chen_asleep
+    state: "off"
   action:
   - service: notify.ga_broadcast
     data:
       message: 'Fan speed is {{ states.fan.bedroom_fan.attributes.speed }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
+
+
 
 - alias: AC Shutdown 20-Minutes Timer
   id: ac_sleep_timer
   mode: restart
   trigger:
   - platform: state
-    entity_id: input_boolean.me_asleep
+    entity_id: input_boolean.chen_asleep
     from: 'off'
     to: 'on'
   condition: []
@@ -117,6 +126,97 @@
           entity_id: fan.bedroom_fan
         data:
           percentage: 100
+
+
+- alias: Auto AC While Asleep
+  id: a7f50a77-93ad-4589-ad87-6f8ac432cce1
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.dht_sensor_temperature_filtered
+    above: input_number.auto_ac_max
+    for:
+      minutes: 30
+    id: "hot"
+  - platform: numeric_state
+    entity_id: sensor.dht_sensor_temperature_filtered
+    below: input_number.auto_ac_min
+    for:
+      minutes: 8
+    id: "cold"
+  - platform: state
+    entity_id: climate.bedroom_aircondition
+    from: "cool"
+    to: "off"
+    for:
+      minutes: 15
+    id: "fan"
+  - platform: state
+    entity_id: input_boolean.chen_asleep
+    from: "off"
+    to: "on"
+    for:
+      minutes: 20
+    id: "asleep"
+  condition:
+  - condition: state
+    alias: "is sleeping"
+    entity_id: input_boolean.chen_asleep
+    state: "on"
+  action:
+  - alias: "turn fan on, or too hot / too cold"
+    choose:
+    - conditions:
+        - condition: trigger
+          id: "fan"
+      sequence:
+        - service: fan.set_percentage
+          data:
+            percentage: 100
+          target:
+            entity_id: fan.bedroom_fan
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.dht_sensor_temperature_filtered
+          above: input_number.auto_ac_max
+      sequence:
+        - condition: state
+          entity_id: climate.bedroom_aircondition
+          state: "off"
+        - service: climate.turn_on
+          target:
+            entity_id: climate.bedroom_aircondition
+        - delay:
+            seconds: 10
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: climate.bedroom_aircondition
+            attribute: "temperature"
+            state: 24
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.bedroom_aircondition
+          data:
+            temperature: 24
+        - delay:
+            seconds: 2
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.bedroom_aircondition
+          data:
+            temperature: 24
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.dht_sensor_temperature_filtered
+          below: input_number.auto_ac_min
+      sequence:
+        - condition: state
+          entity_id: climate.bedroom_aircondition
+          state: "cool"
+        - service: climate.turn_off
+          target:
+            entity_id: climate.bedroom_aircondition
+
 
 - alias: AC ON_OFF again
   id: ac_on_off_again
