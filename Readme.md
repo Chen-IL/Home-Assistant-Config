@@ -35,7 +35,7 @@ My Lovelace UI configuration can be seen in the storage folder.
 
 ## Cool Automations
 * `Power Saving Automation:` A set of automations that use tracking sensors (mostly, my phone's internet connection) to shut down devices when I'm away. It announces before taking action using the smart speaker, and has an override boolean switch, for times when others are visiting.
-* `AC and Fan Related:` Some of these automations ensure exclusive operation of either ceiling fan or air condition unit within the same room. Another automation repeats the On or Off signals, since my IR remote is not reliable enough. A useful automation shuts the bedroom AC unit 20 minutes after I fall asleep, and if it was cooling - it later turns on the ceiling fan.
+* `AC and Fan Related:` Some of these automations ensure exclusive operation of either ceiling fan or air condition unit within the same room. Another automation repeats the On or Off signals, since my IR remote is not reliable enough. A useful automation is activated while I'm asleep - turning the AC on/off when the room becomes uncomfortably hot/cold, and also turning the fan on 15 minutes after turning the AC unit off.  
 * `Music-Light Coordination:` Setting RGB light color based on current track's artwork from Spotify.
 * `Notifications and Warnings:` Using telegram to notify of abnormal operation and other interesting information I like track.
 * `Power Outage response:` My Home Assistant unit is hosted behind a UPS that does not provide an easy way to signal and trigger graceful shutdown. I recognize a power outage by multiple local devices' state, and trigger a shutdown. I also have automations that get various devices in specific state ahead of a planned power outage.
