@@ -35,9 +35,9 @@
       friendly_name: Phone Home WiFi Connected
       unique_id: 'phone_home_wifi_connected'
       value_template: >-
-        {%- if states('sensor.phone_wifi_bssid')[:-1] in states('input_text.upssid') -%}
+        {%- if states('sensor.phone_wifi_bssid')[:-2] in states('input_text.upssid') -%}
           Up
-        {%- elif states('sensor.phone_wifi_bssid')[:-1] in states('input_text.downssid') -%}
+        {%- elif states('sensor.phone_wifi_bssid')[:-2] in states('input_text.downssid') -%}
           Down
         {%- elif states('sensor.phone_wifi_bssid')|length == 17 -%}
           {{ states('sensor.phone_wifi_bssid') }}
@@ -45,9 +45,9 @@
           off
         {%- endif %}
       icon_template: >-
-        {%- if states('sensor.phone_wifi_bssid')[:-1] in states('input_text.upssid') -%}
+        {%- if states('sensor.phone_wifi_bssid')[:-2] in states('input_text.upssid') -%}
           mdi:transfer-up
-        {%- elif states('sensor.phone_wifi_bssid')[:-1] in states('input_text.downssid') -%}
+        {%- elif states('sensor.phone_wifi_bssid')[:-2] in states('input_text.downssid') -%}
           mdi:transfer-down
         {%- elif states('sensor.phone_wifi_bssid')|length == 17 -%}
           mdi:cellphone-nfc

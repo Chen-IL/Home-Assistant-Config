@@ -1,5 +1,0 @@
-- platform: luci
-  host: !secret wrtaddr
-  username: !secret wrtusr
-  password: !secret wrtpwd
-  consider_home: 240

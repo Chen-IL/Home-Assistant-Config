@@ -28,7 +28,6 @@
       mode: '{{ trigger.payload_json.mode | default }}'
       qos: 0
       shellyswitch25:
-        mode: "roller"
         roller-0-name: "Bedroom Window"
         roller-0-class: "shutter"
 

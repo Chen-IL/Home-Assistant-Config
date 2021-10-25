@@ -21,7 +21,7 @@
             {
                 "id": "eb69625a818041e0acacd4cccddb91b4",
                 "type": "module",
-                "url": "/hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js?hacstag=246549747450"
+                "url": "/hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js?hacstag=246549747510"
             },
             {
                 "id": "66e80dcffadd4ae59deead1009875ac1",
@@ -36,7 +36,7 @@
             {
                 "id": "8dbfa47c57f74a1f981411b5485eb7ef",
                 "type": "module",
-                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js"
+                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381130"
             },
             {
                 "id": "c2709ef534724255b53e2bb9989d28ed",
@@ -44,7 +44,7 @@
                 "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js"
             },
             {
-                "url": "/hacsfiles/compass-card/compass-card.js",
+                "url": "/hacsfiles/compass-card/compass-card.js?hacstag=286038496140",
                 "type": "module",
                 "id": "148f578cb3b244408fd8834f18362db8"
             },
@@ -89,7 +89,7 @@
                 "id": "5d8c0df334314bdc9263ba533a5deaaa"
             },
             {
-                "url": "/hacsfiles/vacuum-card/vacuum-card.js?hacstag=2612912951230",
+                "url": "/hacsfiles/vacuum-card/vacuum-card.js?hacstag=2612912951241",
                 "type": "module",
                 "id": "21264e8e574b4a28888bdf583bb8a8f7"
             }

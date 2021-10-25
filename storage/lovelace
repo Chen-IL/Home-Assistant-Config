@@ -101,9 +101,32 @@
                                     }
                                 },
                                 {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.phone_home_wifi_connected",
+                                            "state_not": "Up"
+                                        },
+                                        {
+                                            "entity": "sensor.phone_home_wifi_connected",
+                                            "state_not": "Down"
+                                        }
+                                    ],
+                                    "row": {
+                                        "entity": "switch.asuswrt_vpn_server1",
+                                        "secondary_info": "last-changed",
+                                        "name": "VPN"
+                                    }
+                                },
+                                {
                                     "entity": "input_boolean.chen_asleep",
                                     "name": "Asleep?",
-                                    "secondary_info": "last-changed"
+                                    "secondary_info": "last-changed",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "script.going_to_sleep",
+                                        "confirmation": true
+                                    }
                                 }
                             ],
                             "show_header_toggle": false,
@@ -799,9 +822,9 @@
                                     "icon": "hass:home-assistant"
                                 },
                                 {
-                                    "entity": "calendar.uefa_euro",
-                                    "color": "gray",
-                                    "icon": "mdi:soccer"
+                                    "entity": "calendar.shared",
+                                    "color": "blue",
+                                    "icon": "mdi:heart"
                                 }
                             ],
                             "europeanDate": true,

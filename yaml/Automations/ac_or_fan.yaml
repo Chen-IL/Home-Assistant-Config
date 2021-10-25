@@ -44,43 +44,46 @@
     from: 'off'
     to: 'cool'
   action:
-  - delay: 00:00:03
+  - delay: 00:00:02
   - service: script.ac_sweep
 
 
-
-- alias: When AC ON Announce Temperature
-  id: ac_on_announcement
+- alias: When AC or Fan ON Announce Temperature
+  id: d5f1e860-ac25-4dab-af68-b0a9821e8026
   trigger:
   - platform: state
     entity_id: switch.bedroom_ac_switch
     from: 'off'
     to: 'on'
-  condition:
-  - condition: state
-    entity_id: input_boolean.chen_asleep
-    state: "off"
-  action:
-  - service: notify.ga_broadcast
-    data:
-      message: 'AC is set to {{ states.climate.bedroom_aircondition.state }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
-
-- alias: When Fan ON Announce Temperature
-  id: fan_on_announcement
-  trigger:
+    id: 'ac'
   - platform: state
     entity_id: fan.bedroom_fan
     from: 'off'
     to: 'on'
+    id: 'fan'
   condition:
   - condition: state
     entity_id: input_boolean.chen_asleep
     state: "off"
+  - condition: not
+    conditions:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: media_player.googlehome1164
+        state: "playing"
+      - condition: state
+        entity_id: media_player.googlehome1164
+        attribute: "app_name"
+        state: "Spotify"
   action:
   - service: notify.ga_broadcast
     data:
-      message: 'Fan speed is {{ states.fan.bedroom_fan.attributes.speed }}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.'
-
+      message: >
+        {% if trigger.id == "ac" %}{% set message = "AC is set to " + states.climate.bedroom_aircondition.state %}
+        {% elif trigger.id == "fan" %}{% set message = "Fan speed is "+ states.fan.bedroom_fan.attributes.speed %}
+        {% else %}{% set message = "Unknown operation" %} {% endif %}
+        {{message}}. Currently {{ states.climate.bedroom_aircondition.attributes.current_temperature }} degrees.
 
 
 - alias: AC Shutdown 20-Minutes Timer
@@ -174,6 +177,25 @@
             percentage: 100
           target:
             entity_id: fan.bedroom_fan
+        # If the temperature is still colder than MIN_TEMP+1 then AC is probably still on (IR command fault)
+        - condition: numeric_state
+          entity_id: sensor.dht_sensor_temperature_filtered
+          below: input_number.auto_ac_min
+          value_template: "{{ float(state.state) - 1 }}"
+        - service: climate.turn_off
+          target:
+            entity_id: climate.bedroom_aircondition
+        - choose:
+          - conditions:
+              - condition: state
+                entity_id: automation.ac_on_off_again
+                state: 'on'
+            sequence:
+              - delay:
+                  seconds: 2
+              - service: climate.turn_off
+                target:
+                  entity_id: climate.bedroom_aircondition
     - conditions:
         - condition: numeric_state
           entity_id: sensor.dht_sensor_temperature_filtered
@@ -182,29 +204,16 @@
         - condition: state
           entity_id: climate.bedroom_aircondition
           state: "off"
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.bedroom_aircondition
+          data:
+            temperature: 24
+        - delay:
+            seconds: 1
         - service: climate.turn_on
           target:
             entity_id: climate.bedroom_aircondition
-        - delay:
-            seconds: 10
-        - condition: not
-          conditions:
-          - condition: state
-            entity_id: climate.bedroom_aircondition
-            attribute: "temperature"
-            state: 24
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.bedroom_aircondition
-          data:
-            temperature: 24
-        - delay:
-            seconds: 2
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.bedroom_aircondition
-          data:
-            temperature: 24
     - conditions:
         - condition: numeric_state
           entity_id: sensor.dht_sensor_temperature_filtered
@@ -216,6 +225,33 @@
         - service: climate.turn_off
           target:
             entity_id: climate.bedroom_aircondition
+
+
+- alias: Auto AC While Asleep - Reset Temperature
+  id: c54e821f-d0a4-4163-a116-1a171fac3e18
+  trigger:
+  - platform: state
+    entity_id: input_boolean.chen_asleep
+    from: "on"
+    to: "off"
+    for:
+      minutes: 1
+  condition:
+  - condition: state
+    entity_id: automation.auto_ac_while_asleep
+    state: "on"
+  - condition: state
+    entity_id: climate.bedroom_aircondition
+    attribute: temperature
+    state: 24
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.bedroom_aircondition
+    data:
+      temperature: 23
+
+
 
 
 - alias: AC ON_OFF again

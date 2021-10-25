@@ -37,7 +37,7 @@
       delay_on:
         minutes: 2
       value_template: >-
-        {{ is_state('sensor.openwrt_router_kib_s_received', 'unavailable')
+        {{ is_state('sensor.asuswrt_download_speed', 'unavailable')
            and is_state('sensor.printer_status', 'unavailable')
            and is_state('media_player.googlehome1164', 'unavailable') }}
     internet_outage:

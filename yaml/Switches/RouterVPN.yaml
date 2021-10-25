@@ -1,0 +1,9 @@
+- platform: command_line
+  scan_interval: 300
+  switches:
+   asuswrt_vpn_server1:
+        command_on: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service start_vpnserver1"
+        command_off: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service stop_vpnserver1"
+        command_state: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com pidof vpnserver1 >/dev/null && echo 'enabled' || echo 'disabled'"
+        value_template: '{{ value == "enabled" }}'
+        friendly_name: Asuswrt VPN Server 1

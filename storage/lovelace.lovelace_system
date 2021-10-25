@@ -177,15 +177,15 @@
                                     "type": "custom:mini-graph-card",
                                     "entities": [
                                         {
-                                            "entity": "sensor.openwrt_router_kib_s_received",
-                                            "name": "Received",
+                                            "entity": "sensor.asuswrt_download_speed",
+                                            "name": "Download",
                                             "show_state": true,
                                             "show_indicator": false,
                                             "state_adaptive_color": true
                                         },
                                         {
-                                            "entity": "sensor.openwrt_router_kib_s_sent",
-                                            "name": "Sent",
+                                            "entity": "sensor.asuswrt_upload_speed",
+                                            "name": "Upload",
                                             "show_state": true,
                                             "show_indicator": true,
                                             "state_adaptive_color": true,
@@ -211,15 +211,83 @@
                                     }
                                 },
                                 {
+                                    "type": "glance",
                                     "entities": [
                                         {
-                                            "entity": "binary_sensor.ping_google_dns",
-                                            "secondary_info": "last-changed"
+                                            "entity": "sensor.asuswrt_devices_connected",
+                                            "name": "Connected"
                                         },
                                         {
-                                            "entity": "binary_sensor.ping_cloudflare_dns",
-                                            "secondary_info": "last-changed"
+                                            "entity": "sensor.asuswrt_download",
+                                            "name": "Downloaded"
                                         },
+                                        {
+                                            "entity": "sensor.asuswrt_upload",
+                                            "name": "Uploaded"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_load_avg_1m",
+                                            "name": "Load (1m)"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_load_avg_5m",
+                                            "name": "Load (5m)"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_load_avg_15m",
+                                            "name": "Load (15m)"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_cpu_temp",
+                                            "name": "CPU Temp"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_2_4_ghz_temp",
+                                            "name": "2.4 GHz Temp"
+                                        },
+                                        {
+                                            "entity": "sensor.asuswrt_5_ghz_temp",
+                                            "name": "5 GHz Temp"
+                                        },
+                                        {
+                                            "entity": "switch.asuswrt_vpn_server1",
+                                            "name": "VPN"
+                                        }
+                                    ],
+                                    "columns": 3
+                                },
+                                {
+                                    "type": "custom:auto-entities",
+                                    "card": {
+                                        "type": "entities",
+                                        "state_color": true
+                                    },
+                                    "filter": {
+                                        "include": [
+                                            {
+                                                "entity_id": "sensor.asuswrt_*",
+                                                "options": {}
+                                            },
+                                            {
+                                                "entity_id": "binary_sensor.ping_*",
+                                                "options": {
+                                                    "secondary_info": "last-changed"
+                                                }
+                                            }
+                                        ],
+                                        "exclude": [
+                                            {
+                                                "entity_id": "sensor.asuswrt_*_speed"
+                                            },
+                                            {
+                                                "entity_id": "sensor.asuswrt*"
+                                            }
+                                        ]
+                                    },
+                                    "sort": {
+                                        "method": "none"
+                                    },
+                                    "entities": [
                                         {
                                             "icon": "mdi:router-wireless",
                                             "name": "Router1",
@@ -232,9 +300,7 @@
                                             "type": "weblink",
                                             "url": "http://router2.local"
                                         }
-                                    ],
-                                    "type": "entities",
-                                    "state_color": true
+                                    ]
                                 },
                                 {
                                     "type": "conditional",
@@ -298,7 +364,7 @@
                                 {
                                     "type": "custom:auto-entities",
                                     "card": {
-                                    "type": "history-graph",
+                                        "type": "history-graph",
                                         "refresh_interval": 0,
                                         "hours_to_show": 6
                                     },
@@ -395,14 +461,14 @@
                             ]
                         }
                     ]
-                        },
-                        {
+                },
+                {
                     "title": "Local",
                     "path": "local",
                     "icon": "mdi:lan",
                     "badges": [],
-                            "cards": [
-                                {
+                    "cards": [
+                        {
                             "cards": [
                                 {
                                     "entities": [
@@ -457,12 +523,12 @@
                                             "color": "orange",
                                             "from": 4,
                                             "to": 15
-                                }
+                                        }
                                     ]
-                        },
-                        {
-                            "cards": [
+                                },
                                 {
+                                    "cards": [
+                                        {
                                             "detail": 2,
                                             "entity": "sensor.printer_page_counter",
                                             "graph": "line",
@@ -488,46 +554,46 @@
                                 }
                             ],
                             "type": "custom:vertical-stack-in-card"
-                                        },
-                                        {
+                        },
+                        {
                             "entities": [
                                 {
                                     "entity": "sensor.shelly_2_5_temperature",
                                     "name": "Temp"
-                                        },
-                                        {
+                                },
+                                {
                                     "entity": "binary_sensor.shelly_2_5_overtemperature",
                                     "name": "Overtemp?"
-                                        },
-                                        {
-                                    "entity": "sensor.shelly_2_5_temperarure_status",
+                                },
+                                {
+                                    "entity": "sensor.shelly_2_5_temperature_status",
                                     "name": "Status"
                                 },
                                 {
                                     "entity": "binary_sensor.shelly_2_5_firmware_update",
                                     "name": "FW Update"
                                 },
-                                        {
+                                {
                                     "entity": "sensor.shelly_2_5_uptime",
                                     "name": "Uptime"
-                                        },
-                                        {
+                                },
+                                {
                                     "entity": "sensor.shelly_2_5_power",
                                     "name": "Power"
-                                        },
-                                        {
+                                },
+                                {
                                     "entity": "sensor.shelly_2_5_energy",
                                     "name": "Energy"
-                                        },
-                                        {
+                                },
+                                {
                                     "entity": "sensor.shelly_2_5_voltage",
                                     "name": "Voltage"
                                 },
                                 {
                                     "entity": "sensor.shelly_2_5_rssi",
                                     "name": "RSSI"
-                                        }
-                                    ],
+                                }
+                            ],
                             "title": "Shelly",
                             "type": "glance",
                             "state_color": true
@@ -535,16 +601,16 @@
                         {
                             "type": "entities",
                             "state_color": true,
-                                    "entities": [
-                                        {
+                            "entities": [
+                                {
                                     "entity": "switch.minix_up",
                                     "secondary_info": "last-changed"
-                                        },
-                                        {
+                                },
+                                {
                                     "entity": "binary_sensor.minix_up_connected",
                                     "secondary_info": "last-changed"
-                                        },
-                                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
@@ -553,14 +619,14 @@
                                                 "options": {
                                                     "secondary_info": "last-changed"
                                                 }
-                                        },
-                                        {
+                                            },
+                                            {
                                                 "entity_id": "sensor.jellyfin_minixup",
                                                 "options": {
                                                     "secondary_info": "last-changed"
                                                 }
-                                        },
-                                        {
+                                            },
+                                            {
                                                 "entity_id": "media_player.jellyfin_*"
                                             }
                                         ]
@@ -574,8 +640,8 @@
                                             "icon": "mdi:television-play"
                                         }
                                     }
-                                        },
-                                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
@@ -596,8 +662,8 @@
                                             "icon": "mdi:movie-open"
                                         }
                                     }
-                                        },
-                                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
@@ -618,8 +684,8 @@
                                             "icon": "mdi:television-box"
                                         }
                                     }
-                                        },
-                                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
@@ -650,8 +716,8 @@
                                                 "options": {
                                                     "secondary_info": "last-changed"
                                                 }
-                                        }
-                                    ],
+                                            }
+                                        ],
                                         "exclude": [
                                             {
                                                 "entity_id": "binary_sensor.minixup_teamviewer"
@@ -670,7 +736,7 @@
                                 {
                                     "entity": "sensor.minixup_cpu_usage"
                                 },
-                                        {
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
@@ -690,15 +756,15 @@
                                             "entity": "sensor.minixup_memory_usage"
                                         }
                                     }
-                                        },
-                                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
                                             {
                                                 "entity_id": "sensor.minixup_storage_c_*"
-                                        }
-                                    ],
+                                            }
+                                        ],
                                         "exclude": [
                                             {
                                                 "entity_id": "sensor.minixup_storage_c_usage"
@@ -719,8 +785,8 @@
                                         "include": [
                                             {
                                                 "entity_id": "sensor.minixup_storage_d_*"
-                                }
-                            ],
+                                            }
+                                        ],
                                         "exclude": [
                                             {
                                                 "entity_id": "sensor.minixup_storage_d_usage"
@@ -734,15 +800,15 @@
                                             "secondary_info": "last-changed"
                                         }
                                     }
-                        },
-                        {
+                                },
+                                {
                                     "type": "custom:auto-entities",
                                     "filter": {
                                         "include": [
                                             {
                                                 "entity_id": "script.minixup*"
                                             }
-                            ],
+                                        ],
                                         "exclude": [
                                             {
                                                 "entity_id": "script.minixup_refresh"
@@ -753,283 +819,116 @@
                                         "type": "custom:fold-entity-row",
                                         "head": "script.minixup_refresh"
                                     }
-                        }
-                    ]
-                },
-                {
-                            "type": "vertical-stack",
-                    "cards": [
-                        {
-                            "card": {
-                                "cards": [
-                                    {
-                                        "entities": [
-                                            {
-                                                "entity": "switch.laptop",
-                                                "secondary_info": "last-changed",
-                                                "icon": "mdi:laptop-chromebook"
-                                            },
-                                            {
-                                                "entity": "binary_sensor.my_computer_connected",
-                                                "icon": "mdi:laptop-chromebook",
-                                                "secondary_info": "last-changed"
-                                            },
-                                            {
-                                                        "entity": "sensor.laptop_state",
-                                                        "icon": "mdi:laptop-windows",
-                                                        "secondary_info": "last-changed"
-                                                    },
-                                                    {
-                                                "conditions": [
-                                                    {
-                                                        "entity": "binary_sensor.laptop_power_status",
-                                                        "state_not": "on"
-                                                    }
-                                                ],
-                                                "row": {
-                                                    "entity": "sensor.laptop_battery_remaining_time"
-                                                },
-                                                "type": "conditional"
-                                            },
-                                            {
-                                                "type": "custom:auto-entities",
-                                                "filter": {
-                                                    "include": [
-                                                        {
-                                                            "entity_id": "*laptop_calibre*"
-                                                        }
-                                                    ]
-                                                },
-                                                "card": {
-                                                    "type": "custom:fold-entity-row",
-                                                    "head": {
-                                                        "type": "weblink",
-                                                        "url": "/calibre",
-                                                        "name": "Calibre",
-                                                        "icon": "mdi:television-play"
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "show_header_toggle": false,
-                                        "state_color": true,
-                                        "title": "Laptop",
-                                        "type": "entities"
-                                    },
-                                    {
-                                        "columns": 4,
-                                        "entities": [
-                                            {
-                                                "entity": "binary_sensor.laptop_power_status",
-                                                "name": "AC Power"
-                                            },
-                                            {
-                                                "entity": "sensor.laptop_battery_remaining",
-                                                "name": "Batt %"
-                                            },
-                                            {
-                                                "entity": "sensor.laptop_battery_full_lifetime",
-                                                "name": "Batt Lifetime"
-                                            },
-                                            {
-                                                "entity": "binary_sensor.laptop_battery_status",
-                                                "name": "Batt Status"
-                                            }
-                                        ],
-                                        "type": "glance"
-                                    },
-                                    {
-                                        "type": "grid",
-                                        "square": false,
-                                        "columns": 4,
-                                        "cards": [
-                                            {
-                                                "entity": "script.laptop_vol_mute",
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                },
-                                                "icon": "mdi:volume-off",
-                                                "name": "(Un)Mute",
-                                                "show_icon": true,
-                                                "show_name": true,
-                                                "show_state": false,
-                                                "tap_action": {
-                                                    "action": "toggle"
-                                                },
-                                                "type": "button"
-                                            },
-                                            {
-                                                "entity": "script.laptop_lock",
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                },
-                                                "icon": "mdi:lock",
-                                                "name": "Lock",
-                                                "show_icon": true,
-                                                "show_name": true,
-                                                "show_state": false,
-                                                "tap_action": {
-                                                    "action": "toggle"
-                                                },
-                                                "type": "button"
-                                            },
-                                            {
-                                                "card": {
-                                                    "entity": "script.laptop_suspend",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:power-settings",
-                                                    "name": "Suspend",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "show_state": false,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                "type": "custom:restriction-card"
-                                            },
-                                            {
-                                                "card": {
-                                                    "entity": "script.laptop_hibernate",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:power-sleep",
-                                                    "name": "Hibernate",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "show_state": false,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                "type": "custom:restriction-card"
-                                            },
-                                            {
-                                                "card": {
-                                                    "entity": "script.laptop_shutdown",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:power",
-                                                    "name": "Shutdown",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "show_state": false,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                "type": "custom:restriction-card"
-                                            },
-                                            {
-                                                "entity": "script.laptop_displays_on",
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                },
-                                                "icon": "mdi:monitor",
-                                                "name": "Disp. ON",
-                                                "show_icon": true,
-                                                "show_name": true,
-                                                "show_state": false,
-                                                "tap_action": {
-                                                    "action": "toggle"
-                                                },
-                                                "type": "button"
-                                            },
-                                            {
-                                                "card": {
-                                                    "entity": "script.laptop_displays_off",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:monitor-off",
-                                                    "name": "Disp. OFF",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "show_state": false,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                "type": "custom:restriction-card"
-                                            },
-                                            {
-                                                "entity": "script.laptop_refresh",
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                },
-                                                "icon": "mdi:refresh",
-                                                "name": "Refresh",
-                                                "show_icon": true,
-                                                "show_name": true,
-                                                "show_state": false,
-                                                "tap_action": {
-                                                    "action": "toggle"
-                                                },
-                                                "type": "button"
-                                            }
-                                        ]
-                                    }
-                                ],
-                                        "type": "custom:vertical-stack-in-card"
-                            },
-                            "conditions": [
-                                {
-                                    "entity": "binary_sensor.my_computer_connected",
-                                    "state": "on"
                                 }
-                            ],
-                            "type": "conditional"
+                            ]
                         },
                         {
-                            "card": {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "card": {
                                         "cards": [
                                             {
-                                "entities": [
-                                    {
-                                        "entity": "switch.laptop",
+                                                "entities": [
+                                                    {
+                                                        "entity": "switch.laptop",
                                                         "secondary_info": "last-changed",
                                                         "icon": "mdi:laptop-chromebook"
-                                    },
-                                    {
-                                        "entity": "binary_sensor.my_computer_connected",
+                                                    },
+                                                    {
+                                                        "entity": "binary_sensor.my_computer_connected",
                                                         "icon": "mdi:laptop-chromebook",
                                                         "secondary_info": "last-changed"
                                                     },
                                                     {
                                                         "entity": "sensor.laptop_state",
-                                        "icon": "mdi:laptop-windows",
-                                        "secondary_info": "last-changed"
-                                    },
-                                    {
-                                                        "type": "weblink",
-                                                        "url": "/calibre",
-                                                        "name": "Calibre",
-                                                        "icon": "mdi:television-play"
-                                    }
-                                ],
-                                "show_header_toggle": false,
-                                "state_color": true,
-                                "title": "Laptop",
-                                "type": "entities"
-                            },
-                                {
+                                                        "icon": "mdi:laptop-windows",
+                                                        "secondary_info": "last-changed"
+                                                    },
+                                                    {
+                                                        "conditions": [
+                                                            {
+                                                                "entity": "binary_sensor.laptop_power_status",
+                                                                "state_not": "on"
+                                                            }
+                                                        ],
+                                                        "row": {
+                                                            "entity": "sensor.laptop_battery_remaining_time"
+                                                        },
+                                                        "type": "conditional"
+                                                    },
+                                                    {
+                                                        "type": "custom:auto-entities",
+                                                        "filter": {
+                                                            "include": [
+                                                                {
+                                                                    "entity_id": "*laptop_calibre*"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "card": {
+                                                            "type": "custom:fold-entity-row",
+                                                            "head": {
+                                                                "type": "weblink",
+                                                                "url": "/calibre",
+                                                                "name": "Calibre",
+                                                                "icon": "mdi:television-play"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "show_header_toggle": false,
+                                                "state_color": true,
+                                                "title": "Laptop",
+                                                "type": "entities"
+                                            },
+                                            {
+                                                "columns": 4,
+                                                "entities": [
+                                                    {
+                                                        "entity": "binary_sensor.laptop_power_status",
+                                                        "name": "AC Power"
+                                                    },
+                                                    {
+                                                        "entity": "sensor.laptop_battery_remaining",
+                                                        "name": "Batt %"
+                                                    },
+                                                    {
+                                                        "entity": "sensor.laptop_battery_full_lifetime",
+                                                        "name": "Batt Lifetime"
+                                                    },
+                                                    {
+                                                        "entity": "binary_sensor.laptop_battery_status",
+                                                        "name": "Batt Status"
+                                                    }
+                                                ],
+                                                "type": "glance"
+                                            },
+                                            {
                                                 "type": "grid",
                                                 "square": false,
-                                                "columns": 3,
-                            "cards": [
-                                {
-                                                        "entity": "switch.laptop_lock",
+                                                "columns": 4,
+                                                "cards": [
+                                                    {
+                                                        "entity": "script.laptop_vol_mute",
                                                         "hold_action": {
                                                             "action": "more-info"
-                                        },
+                                                        },
+                                                        "icon": "mdi:volume-off",
+                                                        "name": "(Un)Mute",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
+                                                        },
+                                                        "type": "button"
+                                                    },
+                                                    {
+                                                        "entity": "script.laptop_lock",
+                                                        "hold_action": {
+                                                            "action": "more-info"
+                                                        },
                                                         "icon": "mdi:lock",
                                                         "name": "Lock",
                                                         "show_icon": true,
@@ -1037,15 +936,15 @@
                                                         "show_state": false,
                                                         "tap_action": {
                                                             "action": "toggle"
-                                },
+                                                        },
                                                         "type": "button"
-                                        },
-                                        {
+                                                    },
+                                                    {
                                                         "card": {
-                                                            "entity": "switch.laptop_suspend",
+                                                            "entity": "script.laptop_suspend",
                                                             "hold_action": {
                                                                 "action": "more-info"
-                                        },
+                                                            },
                                                             "icon": "mdi:power-settings",
                                                             "name": "Suspend",
                                                             "show_icon": true,
@@ -1053,16 +952,85 @@
                                                             "show_state": false,
                                                             "tap_action": {
                                                                 "action": "toggle"
-                                        },
+                                                            },
                                                             "type": "button"
-                                    },
+                                                        },
                                                         "type": "custom:restriction-card"
-                                        },
-                                        {
+                                                    },
+                                                    {
+                                                        "card": {
+                                                            "entity": "script.laptop_hibernate",
+                                                            "hold_action": {
+                                                                "action": "more-info"
+                                                            },
+                                                            "icon": "mdi:power-sleep",
+                                                            "name": "Hibernate",
+                                                            "show_icon": true,
+                                                            "show_name": true,
+                                                            "show_state": false,
+                                                            "tap_action": {
+                                                                "action": "toggle"
+                                                            },
+                                                            "type": "button"
+                                                        },
+                                                        "type": "custom:restriction-card"
+                                                    },
+                                                    {
+                                                        "card": {
+                                                            "entity": "script.laptop_shutdown",
+                                                            "hold_action": {
+                                                                "action": "more-info"
+                                                            },
+                                                            "icon": "mdi:power",
+                                                            "name": "Shutdown",
+                                                            "show_icon": true,
+                                                            "show_name": true,
+                                                            "show_state": false,
+                                                            "tap_action": {
+                                                                "action": "toggle"
+                                                            },
+                                                            "type": "button"
+                                                        },
+                                                        "type": "custom:restriction-card"
+                                                    },
+                                                    {
+                                                        "entity": "script.laptop_displays_on",
+                                                        "hold_action": {
+                                                            "action": "more-info"
+                                                        },
+                                                        "icon": "mdi:monitor",
+                                                        "name": "Disp. ON",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
+                                                        },
+                                                        "type": "button"
+                                                    },
+                                                    {
+                                                        "card": {
+                                                            "entity": "script.laptop_displays_off",
+                                                            "hold_action": {
+                                                                "action": "more-info"
+                                                            },
+                                                            "icon": "mdi:monitor-off",
+                                                            "name": "Disp. OFF",
+                                                            "show_icon": true,
+                                                            "show_name": true,
+                                                            "show_state": false,
+                                                            "tap_action": {
+                                                                "action": "toggle"
+                                                            },
+                                                            "type": "button"
+                                                        },
+                                                        "type": "custom:restriction-card"
+                                                    },
+                                                    {
                                                         "entity": "script.laptop_refresh",
                                                         "hold_action": {
                                                             "action": "more-info"
-                                },
+                                                        },
                                                         "icon": "mdi:refresh",
                                                         "name": "Refresh",
                                                         "show_icon": true,
@@ -1070,92 +1038,190 @@
                                                         "show_state": false,
                                                         "tap_action": {
                                                             "action": "toggle"
-                                        },
+                                                        },
                                                         "type": "button"
-                                        }
+                                                    }
                                                 ]
-                                }
-                            ],
+                                            }
+                                        ],
                                         "type": "custom:vertical-stack-in-card"
-                        },
+                                    },
                                     "conditions": [
-                        {
+                                        {
+                                            "entity": "binary_sensor.my_computer_connected",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "cards": [
+                                            {
+                                                "entities": [
+                                                    {
+                                                        "entity": "switch.laptop",
+                                                        "secondary_info": "last-changed",
+                                                        "icon": "mdi:laptop-chromebook"
+                                                    },
+                                                    {
+                                                        "entity": "binary_sensor.my_computer_connected",
+                                                        "icon": "mdi:laptop-chromebook",
+                                                        "secondary_info": "last-changed"
+                                                    },
+                                                    {
+                                                        "entity": "sensor.laptop_state",
+                                                        "icon": "mdi:laptop-windows",
+                                                        "secondary_info": "last-changed"
+                                                    },
+                                                    {
+                                                        "type": "weblink",
+                                                        "url": "/calibre",
+                                                        "name": "Calibre",
+                                                        "icon": "mdi:television-play"
+                                                    }
+                                                ],
+                                                "show_header_toggle": false,
+                                                "state_color": true,
+                                                "title": "Laptop",
+                                                "type": "entities"
+                                            },
+                                            {
+                                                "type": "grid",
+                                                "square": false,
+                                                "columns": 3,
+                                                "cards": [
+                                                    {
+                                                        "entity": "switch.laptop_lock",
+                                                        "hold_action": {
+                                                            "action": "more-info"
+                                                        },
+                                                        "icon": "mdi:lock",
+                                                        "name": "Lock",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
+                                                        },
+                                                        "type": "button"
+                                                    },
+                                                    {
+                                                        "card": {
+                                                            "entity": "switch.laptop_suspend",
+                                                            "hold_action": {
+                                                                "action": "more-info"
+                                                            },
+                                                            "icon": "mdi:power-settings",
+                                                            "name": "Suspend",
+                                                            "show_icon": true,
+                                                            "show_name": true,
+                                                            "show_state": false,
+                                                            "tap_action": {
+                                                                "action": "toggle"
+                                                            },
+                                                            "type": "button"
+                                                        },
+                                                        "type": "custom:restriction-card"
+                                                    },
+                                                    {
+                                                        "entity": "script.laptop_refresh",
+                                                        "hold_action": {
+                                                            "action": "more-info"
+                                                        },
+                                                        "icon": "mdi:refresh",
+                                                        "name": "Refresh",
+                                                        "show_icon": true,
+                                                        "show_name": true,
+                                                        "show_state": false,
+                                                        "tap_action": {
+                                                            "action": "toggle"
+                                                        },
+                                                        "type": "button"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "type": "custom:vertical-stack-in-card"
+                                    },
+                                    "conditions": [
+                                        {
                                             "entity": "switch.laptop",
                                             "state": "on"
-                                },
-                                {
+                                        },
+                                        {
                                             "entity": "binary_sensor.my_computer_connected",
                                             "state": "off"
-                                }
-                            ],
+                                        }
+                                    ],
                                     "type": "conditional"
-                        },
-                        {
-                                    "card": {
-                            "entities": [
+                                },
                                 {
+                                    "card": {
+                                        "entities": [
+                                            {
                                                 "entity": "switch.laptop",
                                                 "icon": "mdi:laptop-windows",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
+                                                "secondary_info": "last-changed"
+                                            },
+                                            {
                                                 "entity": "binary_sensor.my_computer_connected",
                                                 "icon": "mdi:laptop-windows",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
+                                                "secondary_info": "last-changed"
+                                            },
+                                            {
                                                 "entity": "sensor.laptop_state",
                                                 "icon": "mdi:laptop-windows",
-                                                    "secondary_info": "last-changed"
-                                    },
+                                                "secondary_info": "last-changed"
+                                            },
                                             {
                                                 "action_name": "Refresh",
                                                 "entity": "script.laptop_refresh",
                                                 "icon": "mdi:refresh"
-                                        }
+                                            }
                                         ],
                                         "show_header_toggle": false,
                                         "state_color": true,
                                         "title": "Laptop",
                                         "type": "entities"
-                                },
+                                    },
                                     "conditions": [
-                                {
+                                        {
                                             "entity": "switch.laptop",
                                             "state_not": "on"
-                                                }
+                                        }
                                     ],
                                     "type": "conditional"
-                                            }
-                                        ]
-                                    },
-                                {
-                                    "type": "custom:auto-entities",
-                                    "card": {
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:auto-entities",
+                            "card": {
                                 "type": "entities",
                                 "state_color": true,
                                 "show_header_toggle": false,
                                 "title": "Devices"
-                                },
-                                    "filter": {
-                                        "include": [
-                                            {
+                            },
+                            "filter": {
+                                "include": [
+                                    {
                                         "domain": "device_tracker",
-                                                "options": {
-                                                    "secondary_info": "last-changed"
-                                                }
-                                            }
-                                        ],
-                                        "exclude": [
-                                            {
+                                        "options": {
+                                            "secondary_info": "last-changed"
+                                        }
+                                    }
+                                ],
+                                "exclude": [
+                                    {
                                         "entity_id": "device_tracker.me_phone"
-                                }
-                                        ]
-                                    },
+                                    }
+                                ]
+                            },
                             "sort": {
                                 "method": "last_changed",
                                 "reverse": true
-                                    }
+                            }
                         }
                     ]
                 },
@@ -1257,11 +1323,11 @@
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "sensor.snapshot_backup",
+                                    "entity": "sensor.backup_state",
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "binary_sensor.snapshots_stale",
+                                    "entity": "binary_sensor.backups_stale",
                                     "secondary_info": "last-changed"
                                 }
                             ],
@@ -1349,10 +1415,10 @@
                                 "title": "Calendars",
                                 "show_header_toggle": false,
                                 "state_color": true
-                                },
+                            },
                             "filter": {
                                 "include": [
-                                {
+                                    {
                                         "domain": "calendar"
                                     }
                                 ],

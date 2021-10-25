@@ -115,7 +115,6 @@ automation old: !include_dir_merge_list yaml/Automations/
 binary_sensor: !include yaml/binarysensors.yaml
 camera: !include yaml/cameras.yaml
 climate: !include yaml/climates.yaml
-device_tracker: !include yaml/devicetrackers.yaml
 frontend:
   themes: !include_dir_merge_named themes/
 google_assistant: !include yaml/google_assistant.yaml
