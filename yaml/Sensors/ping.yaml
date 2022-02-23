@@ -14,7 +14,9 @@
       friendly_name: Disconnected Minutes Today Google
       value_template: >-
         {%- set time = state_attr('sensor.disconnected_time_today_google', 'value') %}
-        {%- if 'h' in time %}
+        {%- if not time %}
+          0
+        {%- elif 'h' in time %}
           {{ (time.split('h')[0] | int) * 60 +  (time.split('h')[1][:-1] | int) }}
         {%- else %}
           {{ time[:-1] | int }}

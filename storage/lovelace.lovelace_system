@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace.lovelace_system",
     "data": {
         "config": {
@@ -126,6 +127,7 @@
                                             "graph": "line",
                                             "entity": "sensor.adguard_dns_queries_blocked_ratio",
                                             "detail": 2,
+                                            "limits": null,
                                             "name": "Blocked"
                                         },
                                         {
@@ -238,20 +240,28 @@
                                             "name": "Load (15m)"
                                         },
                                         {
-                                            "entity": "sensor.asuswrt_cpu_temp",
+                                            "entity": "sensor.asuswrt_cpu_temperature",
                                             "name": "CPU Temp"
                                         },
                                         {
-                                            "entity": "sensor.asuswrt_2_4_ghz_temp",
+                                            "entity": "sensor.asuswrt_2_4ghz_temperature",
                                             "name": "2.4 GHz Temp"
                                         },
                                         {
-                                            "entity": "sensor.asuswrt_5_ghz_temp",
+                                            "entity": "sensor.asuswrt_5ghz_temperature",
                                             "name": "5 GHz Temp"
                                         },
                                         {
                                             "entity": "switch.asuswrt_vpn_server1",
-                                            "name": "VPN"
+                                            "name": "VPN Server 1"
+                                        },
+                                        {
+                                            "entity": "switch.asuswrt_vpn_client1",
+                                            "name": "VPN Client 1"
+                                        },
+                                        {
+                                            "entity": "switch.asuswrt_vpn_client2",
+                                            "name": "VPN Client 2"
                                         }
                                     ],
                                     "columns": 3
@@ -558,20 +568,20 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.shelly_2_5_temperature",
+                                    "entity": "sensor.shelly_2_5_device_temperature",
                                     "name": "Temp"
                                 },
                                 {
-                                    "entity": "binary_sensor.shelly_2_5_overtemperature",
-                                    "name": "Overtemp?"
-                                },
-                                {
-                                    "entity": "sensor.shelly_2_5_temperature_status",
-                                    "name": "Status"
+                                    "entity": "binary_sensor.shelly_2_5_overheating",
+                                    "name": "Overheat?"
                                 },
                                 {
                                     "entity": "binary_sensor.shelly_2_5_firmware_update",
                                     "name": "FW Update"
+                                },
+                                {
+                                    "entity": "button.shelly_2_5_ota_update",
+                                    "name": "OTA"
                                 },
                                 {
                                     "entity": "sensor.shelly_2_5_uptime",
@@ -833,16 +843,16 @@
                                                     {
                                                         "entity": "switch.laptop",
                                                         "secondary_info": "last-changed",
-                                                        "icon": "mdi:laptop-chromebook"
+                                                        "icon": "mdi:laptop"
                                                     },
                                                     {
                                                         "entity": "binary_sensor.my_computer_connected",
-                                                        "icon": "mdi:laptop-chromebook",
+                                                        "icon": "mdi:laptop",
                                                         "secondary_info": "last-changed"
                                                     },
                                                     {
                                                         "entity": "sensor.laptop_state",
-                                                        "icon": "mdi:laptop-windows",
+                                                        "icon": "mdi:laptop",
                                                         "secondary_info": "last-changed"
                                                     },
                                                     {
@@ -1062,16 +1072,16 @@
                                                     {
                                                         "entity": "switch.laptop",
                                                         "secondary_info": "last-changed",
-                                                        "icon": "mdi:laptop-chromebook"
+                                                        "icon": "mdi:laptop"
                                                     },
                                                     {
                                                         "entity": "binary_sensor.my_computer_connected",
-                                                        "icon": "mdi:laptop-chromebook",
+                                                        "icon": "mdi:laptop",
                                                         "secondary_info": "last-changed"
                                                     },
                                                     {
                                                         "entity": "sensor.laptop_state",
-                                                        "icon": "mdi:laptop-windows",
+                                                        "icon": "mdi:laptop",
                                                         "secondary_info": "last-changed"
                                                     },
                                                     {
@@ -1161,17 +1171,17 @@
                                         "entities": [
                                             {
                                                 "entity": "switch.laptop",
-                                                "icon": "mdi:laptop-windows",
+                                                "icon": "mdi:laptop",
                                                 "secondary_info": "last-changed"
                                             },
                                             {
                                                 "entity": "binary_sensor.my_computer_connected",
-                                                "icon": "mdi:laptop-windows",
+                                                "icon": "mdi:laptop",
                                                 "secondary_info": "last-changed"
                                             },
                                             {
                                                 "entity": "sensor.laptop_state",
-                                                "icon": "mdi:laptop-windows",
+                                                "icon": "mdi:laptop",
                                                 "secondary_info": "last-changed"
                                             },
                                             {

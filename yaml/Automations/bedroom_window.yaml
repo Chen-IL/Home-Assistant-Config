@@ -5,8 +5,8 @@
   - platform: state
     entity_id: cover.bedroom_window1
     to: 'closing'
-  condition: #condition needs to be from_state attribute current_position is greater than 4 (perhaps not 4 and not 0)
-  - "{{ trigger.from_state.attributes.current_position > 4 }}"
+  condition: #condition needs to be from_state attribute current_position is greater than 6 (perhaps not 6 and not 0)
+  - "{{ trigger.from_state.attributes.current_position > 6 }}"
   action:
   - wait_template: "{{ is_state('cover.bedroom_window1', 'closed') }}"
     timeout:
@@ -25,7 +25,8 @@
       position: 4
   - wait_template: "{{ is_state_attr('cover.bedroom_window1', 'current_position', 4) }}"
   - delay:
-      milliseconds: 600
+      seconds: 1
+      milliseconds: 500
   - service: cover.close_cover
     target:
       entity_id: cover.bedroom_window1
@@ -45,22 +46,6 @@
     target:
       entity_id: input_boolean.chen_asleep
 
-- alias: Bedroom Window Position Getter
-  id: bedroom_window_position_getter
-  mode: restart
-  trigger:
-    - platform: state
-      entity_id: cover.bedroom_window1
-      to:
-        - 'open'
-        - 'closed'
-  action:
-    - service: input_number.set_value
-      target:
-        entity_id: input_number.bedroom_window_position
-      data:
-        value: '{{ trigger.to_state.attributes.current_position }}'
-
 - alias: Bedroom Window Position Setter
   id: bedroom_window_position_setter
   mode: restart
@@ -71,10 +56,18 @@
     - condition: numeric_state
       entity_id: input_number.bedroom_window_position
       below: 101
-      above: -1
+      above: 0
+      # Will NOT activate when setting 0. to avoid accidentally fully closing on an unexpected error
   action:
     - service: cover.set_cover_position
       target:
         entity_id: cover.bedroom_window1
       data:
         position: '{{ trigger.to_state.state | int }}'
+    - delay:
+        minutes: 2
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.bedroom_window_position
+      data:
+        value: 101

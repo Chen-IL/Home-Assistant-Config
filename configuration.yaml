@@ -74,7 +74,8 @@ logbook:
 
 logger:
   default: warn
-  # logs:
+  logs:
+    pychromecast.socket_client: fatal
   #   homeassistant.core: info
 
 python_script:

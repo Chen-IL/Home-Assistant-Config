@@ -144,7 +144,7 @@
     - service: persistent_notification.create
       data:
         title: Shelly Firmware Update Available
-        message: "[Go to Settings]({{'http://' + states('sensor.shelly_2_5_ip')}})"
+        message: "[Go to Settings](http://shelly25.local/)"
         notification_id: shellyfw
 
 - alias: Warning Ink Replace Needed

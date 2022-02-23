@@ -1,6 +1,7 @@
 - platform: generic
   name: Weather Graph
-  still_image_url: https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.svg
+  # still_image_url: https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.svg
+  still_image_url: https://www.yr.no/en/content/2-293397/meteogram.svg
   content_type: 'image/svg+xml'
 
 - platform: generic

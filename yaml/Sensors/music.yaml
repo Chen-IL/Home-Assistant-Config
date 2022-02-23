@@ -18,36 +18,36 @@
     lastfm_yearlyplaycount:
       friendly_name: Yearly Played Songs
       unit_of_measurement: "Songs"
-      value_template: '{{  (states("sensor.lastfm_playcount") |int) - 10000  }}'
-      availability_template: "{{ states('sensor.lastfm_playcount')|int > 10000 }}"
+      value_template: "{{  state_attr('sensor.lastfm_me', 'play_count') - 10000  }}"
+      availability_template: "{{ state_attr('sensor.lastfm_me', 'play_count') > 10000 }}"
       unique_id: 'lastfm_yearlyplaycount'
     lastfm_yearlydayavg:
-      friendly_name: "Daily Avarage Songs: 2021"
+      friendly_name: "Daily Avarage Songs: 2022"
       unit_of_measurement: "Songs"
       value_template: >
           {%set tz = as_timestamp(now()) | timestamp_custom('%z')-%}
-          {{((states("sensor.lastfm_yearlyplaycount") | int) / (((as_timestamp(now())-as_timestamp("2021-01-01 00:00"~tz)) | int /60/1440) | round(0,'ceil') )) | round(2)}}
-      availability_template: "{{ states('sensor.lastfm_yearlyplaycount')|int > 0 }}"
+          {{((states("sensor.lastfm_yearlyplaycount") | int(default=0)) / (((as_timestamp(now())-as_timestamp("2022-01-01 00:00"~tz)) | int /60/1440) | round(0,'ceil') )) | round(2)}}
+      availability_template: "{{ states('sensor.lastfm_yearlyplaycount')|int(default=0) > 0 }}"
       unique_id: lastfm_yearlydayavg
     lastfm_dayavg:
       friendly_name: "Daily Avarage Songs"
       unit_of_measurement: "Songs"
       value_template: >
           {%set tz = as_timestamp(now()) | timestamp_custom('%z')-%}
-          {{((states("sensor.lastfm_playcount") | int) / (((as_timestamp(now())-as_timestamp("2010-01-01 00:00"~tz)) | int /60/1440) | round(0,'ceil'))) | round(2)}}
-      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+          {{(state_attr('sensor.lastfm_me', 'play_count') / (((as_timestamp(now())-as_timestamp("2010-01-01 00:00"~tz)) | int /60/1440) | round(0,'ceil'))) | round(2)}}
+      availability_template: "{{ state_attr('sensor.lastfm_me', 'play_count') > 0 }}"
       unique_id: 'lastfm_dayavg'
     lastfm_played_today:
       friendly_name: "Songs Played Today"
       unit_of_measurement: "Songs"
-      value_template: '{{(states("sensor.lastfm_playcount") | int) - (states("input_number.lastfm_midnight_total") | int)}}'
-      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      value_template: "{{state_attr('sensor.lastfm_me', 'play_count') - (states('input_number.lastfm_midnight_total') | int)}}"
+      availability_template: "{{ state_attr('sensor.lastfm_me', 'play_count') > 0 }}"
       unique_id: 'lastfm_played_today'
     lastfm_daymodavg:
       friendly_name: "Daily Modulo Avarage"
       unit_of_measurement: "times"
-      value_template: '{{ ((states("sensor.lastfm_played_today")|int) / (states("sensor.lastfm_yearlydayavg")|float))| round(0,"floor") }}'
-      availability_template: "{{ states('sensor.lastfm_playcount')|int > 0 }}"
+      value_template: '{{ ((states("sensor.lastfm_played_today")|int) / (states("sensor.lastfm_yearlydayavg")|float(default=9999)))| round(0,"floor") }}'
+      availability_template: "{{ state_attr('sensor.lastfm_me', 'play_count') > 0 }}"
       unique_id: 'lastfm_daymodavg'
     spotify_device:
       friendly_name: Spotify Playing on Device

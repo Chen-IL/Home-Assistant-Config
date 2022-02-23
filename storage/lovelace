@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace",
     "data": {
         "config": {
@@ -328,10 +329,10 @@
                                 {
                                     "type": "custom:fold-entity-row",
                                     "head": {
-                                        "entity": "switch.bedroom_tv",
-                                        "icon": "mdi:television-guide",
-                                        "secondary_info": "last-changed",
-                                        "state_color": true
+                                        "entity": "media_player.google_android_tv_bedroom",
+                                        "group": true,
+                                        "source": "full",
+                                        "type": "custom:mini-media-player"
                                     },
                                     "entities": [
                                         {
@@ -360,129 +361,6 @@
                                             "source": "icon",
                                             "type": "custom:mini-media-player",
                                             "volume_stateless": true
-                                        },
-                                        {
-                                            "entity": "media_player.bedroom_mi_box",
-                                            "group": true,
-                                            "hide": {
-                                                "icon_state": false,
-                                                "power_state": false
-                                            },
-                                            "icon": "mdi:android",
-                                            "name": "Mi Box",
-                                            "type": "custom:mini-media-player",
-                                            "volume_stateless": true
-                                        },
-                                        {
-                                            "entity": "media_player.chen_mi_box",
-                                            "group": true,
-                                            "type": "custom:mini-media-player"
-                                        },
-                                        {
-                                            "type": "custom:fold-entity-row",
-                                            "head": {
-                                                "entity": "sensor.chen_mi_box_app",
-                                                "secondary_info": "last-changed"
-                                            },
-                                            "entities": [
-                                                {
-                                                    "type": "custom:tv-card",
-                                                    "back": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACMRFSQWERUbFiQWERURFhoWLhUkFhoWAAGPIhEWJBYRFRsWIxYRFhEWGhYtFiQWGhYADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "channeldown": {
-                                                        "service": "media_player.volume_down",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_receiver"
-                                                        }
-                                                    },
-                                                    "channelup": {
-                                                        "service": "media_player.volume_up",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_receiver"
-                                                        }
-                                                    },
-                                                    "down": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACMRFiQVEhUbFiMWERYRFhoWJBUkFhEWAAGgIxEWJBURFhsVJBYRFhEWGhYkFSQWERYADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "entity": "media_player.bedroom_mi_box",
-                                                    "forward": {
-                                                        "service": "media_player.media_next_track",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_mi_box"
-                                                        }
-                                                    },
-                                                    "home": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACYSFSQWERUbFiQWERURFiQWERUbFiMWAAGhIhEWJBYRFRsWJBURFhEWJBYQFhsVJBYADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "left": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA2ABQmExQTHRMmFBMUExMnEzATHRMdFAABkCETEycTExQdEyYUExMUEyYULxQdEx0TAAioDQANBQAA"
-                                                        }
-                                                    },
-                                                    "name": "Mi Box",
-                                                    "power": {
-                                                        "service": "media_player.turn_on",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_mi_box"
-                                                        }
-                                                    },
-                                                    "reverse": {
-                                                        "service": "media_player.media_previous_track",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_mi_box"
-                                                        }
-                                                    },
-                                                    "right": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACQRFSQWERYaFiQWERYQFi4VERYRFiQVAAGhIxEVJBYRFhoWJBYRFREWLRYRFhEWJBUADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "select": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACMRFiQVERYbFSQWERYRFS4WGhYRFi0WAAGOIxEVJBYRFhoWJBYRFhAWLhUbFREWLhUADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "tv": true,
-                                                    "up": {
-                                                        "service": "remote.send_command",
-                                                        "service_data": {
-                                                            "entity_id": "remote.bedroom_remote",
-                                                            "command": "b64:JgA0ACISFSQWERUbFiQWERURFhoWGxUkFi0WAAGMJREWJBYRFRsWIxYRFhEWGhYaFiQWLRYADQUAAAAA"
-                                                        }
-                                                    },
-                                                    "volume_down": {
-                                                        "service": "media_player.volume_down",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_mi_box"
-                                                        }
-                                                    },
-                                                    "volume_up": {
-                                                        "service": "media_player.volume_up",
-                                                        "service_data": {
-                                                            "entity_id": "media_player.bedroom_mi_box"
-                                                        }
-                                                    }
-                                                }
-                                            ]
                                         }
                                     ]
                                 },
@@ -523,12 +401,12 @@
                                     "entities": [
                                         {
                                             "entity": "sensor.lastfm_yearlyplaycount",
-                                            "name": "Played '21",
+                                            "name": "Played '22",
                                             "unit": false
                                         },
                                         {
                                             "entity": "sensor.lastfm_yearlydayavg",
-                                            "name": "Avarage '21",
+                                            "name": "Avarage '22",
                                             "unit": false
                                         },
                                         {
@@ -576,12 +454,12 @@
                                                 "entities": [
                                                     {
                                                         "entity": "sensor.lastfm_yearlyplaycount",
-                                                        "name": "Played '21",
+                                                        "name": "Played '22",
                                                         "unit": false
                                                     },
                                                     {
                                                         "entity": "sensor.lastfm_yearlydayavg",
-                                                        "name": "Avarage '21",
+                                                        "name": "Avarage '22",
                                                         "unit": false
                                                     },
                                                     {
@@ -637,12 +515,12 @@
                                                 "entities": [
                                                     {
                                                         "entity": "sensor.lastfm_yearlyplaycount",
-                                                        "name": "Played '21",
+                                                        "name": "Played '22",
                                                         "unit": false
                                                     },
                                                     {
                                                         "entity": "sensor.lastfm_yearlydayavg",
-                                                        "name": "Avarage '21",
+                                                        "name": "Avarage '22",
                                                         "unit": false
                                                     },
                                                     {
@@ -944,16 +822,7 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "script.watch_mi_box",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
                                     "entity": "script.watch_minix",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
-                                    "entity": "script.play_spotify_on_mi_box",
-                                    "icon": "mdi:spotify",
                                     "secondary_info": "last-changed"
                                 },
                                 {
@@ -1053,11 +922,6 @@
                                     "secondary_info": "last-changed"
                                 },
                                 {
-                                    "entity": "script.play_spotify_on_mi_box",
-                                    "icon": "mdi:spotify",
-                                    "secondary_info": "last-changed"
-                                },
-                                {
                                     "entity": "automation.music_light_color"
                                 }
                             ],
@@ -1110,23 +974,13 @@
                                     "state_color": true
                                 },
                                 {
-                                    "entity": "media_player.livingroom_tv",
-                                    "group": true,
-                                    "type": "custom:mini-media-player",
-                                    "volume_stateless": true
-                                },
-                                {
-                                    "entity": "media_player.livingroom",
+                                    "entity": "media_player.google_android_tv_livingroom",
                                     "group": true,
                                     "hide": {
                                         "runtime": false
                                     },
                                     "info": "scroll",
                                     "type": "custom:mini-media-player"
-                                },
-                                {
-                                    "entity": "sensor.livingroom_app",
-                                    "secondary_info": "last-changed"
                                 }
                             ],
                             "state_color": true,
@@ -1450,7 +1304,7 @@
                         },
                         {
                             "entity": "camera.weather_graph",
-                            "image": "https://www.yr.no/place/Israel/Tel_Aviv/Tel_Aviv_Yaffo/meteogram.svg",
+                            "image": "https://www.yr.no/en/content/2-293397/meteogram.svg",
                             "type": "picture-entity",
                             "show_name": false,
                             "show_state": false

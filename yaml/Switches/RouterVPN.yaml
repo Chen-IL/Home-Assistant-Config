@@ -1,9 +1,26 @@
 - platform: command_line
   scan_interval: 300
   switches:
-   asuswrt_vpn_server1:
-        command_on: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service start_vpnserver1"
-        command_off: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service stop_vpnserver1"
-        command_state: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com pidof vpnserver1 >/dev/null && echo 'enabled' || echo 'disabled'"
-        value_template: '{{ value == "enabled" }}'
-        friendly_name: Asuswrt VPN Server 1
+    asuswrt_vpn_server1: 
+      command_on: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service start_vpnserver1"
+      command_off: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service stop_vpnserver1"
+      command_state: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com pidof vpnserver1 >/dev/null && echo 'enabled' || echo 'disabled'"
+      value_template: '{{ value == "enabled" }}'
+      friendly_name: Asuswrt VPN Server 1
+      unique_id: 10b9b6cd-5fda-47e3-a216-2b3539bf9918
+    
+    asuswrt_vpn_client1: 
+      command_on: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service start_vpnclient1"
+      command_off: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service stop_vpnclient1"
+      command_state: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com pidof vpnclient1 >/dev/null && echo 'enabled' || echo 'disabled'"
+      value_template: '{{ value == "enabled" }}'
+      friendly_name: Asuswrt VPN Client 1
+      unique_id: 7c6ae293-abd7-46e5-9d1e-311928700d57
+    
+    asuswrt_vpn_client2: 
+      command_on: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service start_vpnclient2"
+      command_off: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com service stop_vpnclient2"
+      command_state: "ssh -p 22 -o StrictHostKeyChecking=no -i /config/.asus_ssh.key user@router.asus.com pidof vpnclient2 >/dev/null && echo 'enabled' || echo 'disabled'"
+      value_template: '{{ value == "enabled" }}'
+      friendly_name: Asuswrt VPN Client 2
+      unique_id: ebfbc433-2c80-484e-ba2d-428fee9a7385

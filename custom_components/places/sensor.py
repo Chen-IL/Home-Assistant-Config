@@ -392,7 +392,7 @@ class Places(Entity):
         return self._entity_picture
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         return{
             ATTR_STREET_NUMBER: self._street_number,
@@ -453,6 +453,7 @@ class Places(Entity):
         c = 2 * asin(sqrt(a)) 
         r = 6371 # Radius of earth in kilometers. Use 3956 for miles
         return c * r
+
     def do_update(self, reason):
         """Get the latest data and updates the states."""
 
@@ -464,7 +465,7 @@ class Places(Entity):
         _LOGGER.info( "(" + self._name + ") Check if update req'd : " + self._devicetracker_id )
         _LOGGER.debug( "(" + self._name + ") Previous State        : " + previous_state )
 
-        if hasattr(self, '_devicetracker_id'):
+        if hasattr(self, '_devicetracker_id') and self.hass.states.get(self._devicetracker_id) is not None:
             now = datetime.now()
             old_latitude    = str(self._latitude)
             old_longitude   = str(self._longitude)
@@ -479,7 +480,7 @@ class Places(Entity):
             home_location     = home_latitude + "," + home_longitude
             
             #maplink_google ='https://www.google.com/maps/@' + current_location+',' + self._map_zoom + 'z'
-            maplink_apple  = 'https://maps.apple.com/maps/?ll=' + current_location + '&z=' + self._map_zoom
+            maplink_apple  = 'https://maps.apple.com/maps/?q=' + current_location + '&z=' + self._map_zoom
             #maplink_google = 'https://www.google.com/maps/dir/?api=1&origin=' + current_location + '&destination=' + home_location + '&travelmode=driving&layer=traffic'
             maplink_google = 'https://www.google.com/maps/search/?api=1&basemap=roadmap&layer=traffic&query=' + current_location
             if (new_latitude != 'None' and new_longitude != 'None' and
@@ -679,13 +680,13 @@ class Places(Entity):
                     if place_type.lower() != "yes":
                         user_display.append(place_type)
                     user_display.append(place_neighbourhood)
-                    user_display.append(street)
                     user_display.append(street_number)
+                    user_display.append(street)
                 else:
-                    if "street" in display_options and street not in user_display:
-                        user_display.append(street)
                     if "street_number" in display_options:
                         user_display.append(street_number)
+                    if "street" in display_options:
+                        user_display.append(street)
                 if "city" in display_options:
                     user_display.append(city)
                 if "county" in display_options:

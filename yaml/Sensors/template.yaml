@@ -18,14 +18,6 @@
       unit_of_measurement: '%'
       device_class: 'illuminance'
       unique_id: 'sunlight_calculation'
-    mibox_livingroom_app:
-      friendly_name: MiBox LivingRoom App
-      value_template: "{{ state_attr('media_player.mibox3_2', 'app_name') }}"
-      unique_id: 'mibox_livingroom_app'
-    mibox_bedroom_app:
-      friendly_name: MiBox Bedroom App
-      value_template: "{{ state_attr('media_player.mibox3', 'app_name') }}"
-      unique_id: 'mibox_bedroom_app'
     bedroom_window_position:
       friendly_name: Bedroom Window Position
       value_template: "{{ state_attr('cover.bedroom_window1', 'current_position') }}"

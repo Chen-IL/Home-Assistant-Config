@@ -71,7 +71,9 @@
       conditions:
       - condition: state
         entity_id: media_player.googlehome1164
-        state: "playing"
+        state:
+          - "playing"
+          - "idle"
       - condition: state
         entity_id: media_player.googlehome1164
         attribute: "app_name"
@@ -250,28 +252,3 @@
       entity_id: climate.bedroom_aircondition
     data:
       temperature: 23
-
-
-
-
-- alias: AC ON_OFF again
-  id: ac_on_off_again
-  mode: single
-  trigger:
-  - platform: state
-    entity_id: switch.bedroom_ac_switch
-    from: 'on'
-    to: 'off'
-  - platform: state
-    entity_id: switch.bedroom_ac_switch
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - delay:
-      seconds: 1
-  - service: 'climate.turn_{{trigger.to_state.state}}'
-    target:
-      entity_id: climate.bedroom_aircondition
-  - delay:
-      seconds: 15

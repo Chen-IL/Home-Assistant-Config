@@ -24,7 +24,7 @@
             },
             {
                 "min": 0.0,
-                "max": 100.0,
+                "max": 101.0,
                 "name": "Bedroom Window Position",
                 "mode": "box",
                 "unit_of_measurement": "%",

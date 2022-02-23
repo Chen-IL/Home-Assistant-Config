@@ -3,9 +3,3 @@
   unique_id: bedroom_receiver
   device_code: 9521
   controller_data: remote.bedroom_remote
-
-- platform: smartir
-  name: Bedroom Mi Box
-  unique_id: bedroom_mi_box
-  device_code: 9520
-  controller_data: remote.bedroom_remote

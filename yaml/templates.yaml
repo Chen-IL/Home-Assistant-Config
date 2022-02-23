@@ -18,3 +18,46 @@
       unique_id: lastfm_midnight_total
       unit_of_measurement: Songs
       state: "{{ states('sensor.lastfm_playcount') | int }}"
+
+- trigger:
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.batteryStatGot"
+  sensor:
+    - name: MiBand Battery
+      unique_id: 1c5c9eaa-6b45-404d-b6c9-fd4a772f9cf4
+      unit_of_measurement: '%'
+      device_class: battery
+      state: "{{ trigger.event.data.value | int }}"
+
+- trigger:
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.connected"
+    id: "Connected"
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.disconnected"
+    id: "Disconnected"
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.tasker.fellAsleep"
+    id: "Asleep"
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.tasker.wokeUp"
+    id: "Awake"
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: "com.mc.miband.tasker.notWearing"
+    id: "Not Wearing"
+  sensor:
+    name: MiBand Status
+    unique_id: 1d1f2eff-c246-4847-ad40-ace1abb75574
+    state: "{{ trigger.id }}"

@@ -20,7 +20,7 @@
       target:
         entity_id: input_number.lastfm_midnight_total
       data:
-        value: "{{ states('sensor.lastfm_playcount') | int }}"
+        value: "{{ state_attr('sensor.lastfm_me', 'play_count') }}"
 
 # Not in WARNINGS channel
 - alias: Top Played Song Changed
@@ -49,9 +49,9 @@
   mode: parallel
   trigger:
     - platform: template
-      value_template: "{{ states('sensor.lastfm_playcount')|int % 1000 == 0 }}"
+      value_template: "{{ state_attr('sensor.lastfm_me', 'play_count') % 1000 == 0 }}"
     - platform: template
-      value_template: "{{ states('sensor.lastfm_yearlyplaycount')|int % 1000 == 0 }}"
+      value_template: "{{ states('sensor.lastfm_yearlyplaycount')|int(default=5) % 1000 == 0 }}"
   condition:
     - condition: numeric_state
       entity_id: sensor.lastfm_yearlyplaycount
@@ -60,11 +60,11 @@
   - delay:
       seconds: 70
   - condition: template
-    value_template: "{{ states('sensor.lastfm_playcount')|int % 1000 < 2 or states('sensor.lastfm_yearlyplaycount')|int % 1000 < 2 }}"
+    value_template: "{{ state_attr('sensor.lastfm_me', 'play_count') % 1000 < 2 or states('sensor.lastfm_yearlyplaycount')|int(default=5) % 1000 < 2 }}"
   - service: notify.telegram_main
     data:
       message: >
-          🎵 {{trigger.to_state.name}} is now {{(trigger.to_state.state | int / 1000) | int}}k
+          🎵 {{trigger.to_state.name}} is now {{(trigger.to_state.state | int(default=0) / 1000) | int}}k
 
 - id: modavg_songs_notify
   alias: Crossed Daily Modulo Avg
@@ -76,6 +76,7 @@
       entity_id: sensor.lastfm_daymodavg
       above: 0
     - "{{ trigger.to_state.state != 'unknown' }}"
+    - "{{ trigger.to_state.state | int(default=0) - trigger.from_state.state | int(default=0) == 1 }}"
   action:
   - service: notify.telegram_main
     data:
